@@ -27,6 +27,8 @@ listed in `README.md` and exposed through `barcode.CapabilityFor`.
 
 ## Unreleased
 
+## 1.0.0 - 2026-08-25
+
 ### Changed
 
 - Refresh the reviewed zero-mutant identity for the extracted specification
@@ -46,8 +48,6 @@ listed in `README.md` and exposed through `barcode.CapabilityFor`.
 - Harden standalone documentation validation with deterministic spelling and
   link checks, package-specific documentation gates, and repository-local
   contributor guidance.
-
-## 1.0.0 - 2026-08-25
 
 ### Changed
 
