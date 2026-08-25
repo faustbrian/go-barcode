@@ -5,12 +5,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/faustbrian/golib/pkg/barcode/barcode"
-	"github.com/faustbrian/golib/pkg/barcode/code128"
-	"github.com/faustbrian/golib/pkg/barcode/gs1"
-	"github.com/faustbrian/golib/pkg/barcode/imagedecode"
-	"github.com/faustbrian/golib/pkg/barcode/qr"
-	"github.com/faustbrian/golib/pkg/barcode/render"
+	"github.com/faustbrian/go-barcode/barcode"
+	"github.com/faustbrian/go-barcode/code128"
+	"github.com/faustbrian/go-barcode/gs1"
+	"github.com/faustbrian/go-barcode/imagedecode"
+	"github.com/faustbrian/go-barcode/qr"
+	"github.com/faustbrian/go-barcode/render"
 )
 
 func Example_qrCode() {

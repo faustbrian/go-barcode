@@ -6,7 +6,7 @@ import (
 	"image"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/barcode/imagedecode"
+	"github.com/faustbrian/go-barcode/imagedecode"
 )
 
 func FuzzDecodeBoundedImages(f *testing.F) {

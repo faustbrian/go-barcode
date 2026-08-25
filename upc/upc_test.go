@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/barcode/barcode"
-	"github.com/faustbrian/golib/pkg/barcode/upc"
+	"github.com/faustbrian/go-barcode/barcode"
+	"github.com/faustbrian/go-barcode/upc"
 )
 
 func TestEncodeACalculatesAndValidatesCheckDigit(t *testing.T) {

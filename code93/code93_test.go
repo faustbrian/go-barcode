@@ -5,8 +5,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/barcode/barcode"
-	"github.com/faustbrian/golib/pkg/barcode/code93"
+	"github.com/faustbrian/go-barcode/barcode"
+	"github.com/faustbrian/go-barcode/code93"
 )
 
 func TestEncodeAddsMandatoryChecksumsAndSupportsFullASCII(t *testing.T) {

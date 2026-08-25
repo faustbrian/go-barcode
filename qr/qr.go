@@ -9,8 +9,8 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/faustbrian/golib/pkg/barcode/barcode"
-	"github.com/faustbrian/golib/pkg/barcode/gs1"
+	"github.com/faustbrian/go-barcode/barcode"
+	"github.com/faustbrian/go-barcode/gs1"
 	unixcoding "github.com/unixdj/qr/coding"
 	unixsplit "github.com/unixdj/qr/split"
 )

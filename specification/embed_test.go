@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/barcode/specification"
+	"github.com/faustbrian/go-barcode/specification"
 )
 
 func TestGS1SyntaxDictionaryIsEmbedded(t *testing.T) {

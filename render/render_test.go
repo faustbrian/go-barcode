@@ -11,10 +11,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/barcode/barcode"
-	"github.com/faustbrian/golib/pkg/barcode/code128"
-	"github.com/faustbrian/golib/pkg/barcode/qr"
-	"github.com/faustbrian/golib/pkg/barcode/render"
+	"github.com/faustbrian/go-barcode/barcode"
+	"github.com/faustbrian/go-barcode/code128"
+	"github.com/faustbrian/go-barcode/qr"
+	"github.com/faustbrian/go-barcode/render"
 )
 
 func TestImageUsesIntegerModuleScalingAndExactColors(t *testing.T) {

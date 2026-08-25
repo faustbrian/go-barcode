@@ -7,11 +7,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/barcode/barcode"
-	"github.com/faustbrian/golib/pkg/barcode/datamatrix"
-	"github.com/faustbrian/golib/pkg/barcode/gs1"
-	"github.com/faustbrian/golib/pkg/barcode/imagedecode"
-	"github.com/faustbrian/golib/pkg/barcode/render"
+	"github.com/faustbrian/go-barcode/barcode"
+	"github.com/faustbrian/go-barcode/datamatrix"
+	"github.com/faustbrian/go-barcode/gs1"
+	"github.com/faustbrian/go-barcode/imagedecode"
+	"github.com/faustbrian/go-barcode/render"
 )
 
 func TestEncodeCreatesECC200Shapes(t *testing.T) {

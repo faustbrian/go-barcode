@@ -1,5 +1,15 @@
 # barcode
 
+[![CI](https://github.com/faustbrian/go-barcode/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/faustbrian/go-barcode/actions/workflows/ci.yml)
+[![CodeQL](https://img.shields.io/badge/CodeQL-required-blue)](https://github.com/faustbrian/go-barcode/actions/workflows/ci.yml)
+[![Coverage](https://img.shields.io/badge/coverage-100%25_required-blue)](CONTRIBUTING.md#verification)
+[![Mutation](https://img.shields.io/badge/mutation-100%25_required-blue)](CONTRIBUTING.md#verification)
+[![Documentation](https://img.shields.io/badge/docs-checked_in_CI-blue)](docs/)
+[![Go Reference](https://pkg.go.dev/badge/github.com/faustbrian/go-barcode.svg)](https://pkg.go.dev/github.com/faustbrian/go-barcode)
+[![Release](https://img.shields.io/github/v/release/faustbrian/go-barcode?sort=semver)](https://github.com/faustbrian/go-barcode/releases)
+[![Go](https://img.shields.io/badge/go-1.26.6-00ADD8?logo=go)](https://go.dev/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 `barcode` is a standards-driven Go library for validating, encoding,
 rendering, and decoding common one-dimensional and two-dimensional barcodes.
 Its core values are immutable logical modules; PNG, SVG, and `image.Image`
@@ -15,7 +25,7 @@ if err != nil {
 return render.PNG(output, symbol.Logical(), render.Options{Scale: 4})
 ```
 
-Import paths use `github.com/faustbrian/golib/pkg/barcode`. The image decoder is an
+Import paths use `github.com/faustbrian/go-barcode`. The image decoder is an
 additive package; encoders and logical rendering do not require callers to use
 image detection.
 

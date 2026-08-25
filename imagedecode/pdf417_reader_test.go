@@ -3,8 +3,8 @@ package imagedecode
 import (
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/barcode/pdf417"
-	"github.com/faustbrian/golib/pkg/barcode/render"
+	"github.com/faustbrian/go-barcode/pdf417"
+	"github.com/faustbrian/go-barcode/render"
 	"github.com/makiuchi-d/gozxing"
 )
 

@@ -6,7 +6,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/faustbrian/golib/pkg/barcode/specification"
+	"github.com/faustbrian/go-barcode/specification"
 )
 
 const (

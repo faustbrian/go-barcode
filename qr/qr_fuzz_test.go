@@ -3,7 +3,7 @@ package qr_test
 import (
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/barcode/qr"
+	"github.com/faustbrian/go-barcode/qr"
 )
 
 func FuzzEncodeOptions(f *testing.F) {

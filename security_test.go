@@ -5,17 +5,17 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/barcode/aztec"
-	"github.com/faustbrian/golib/pkg/barcode/codabar"
-	"github.com/faustbrian/golib/pkg/barcode/code128"
-	"github.com/faustbrian/golib/pkg/barcode/code39"
-	"github.com/faustbrian/golib/pkg/barcode/code93"
-	"github.com/faustbrian/golib/pkg/barcode/datamatrix"
-	"github.com/faustbrian/golib/pkg/barcode/ean"
-	"github.com/faustbrian/golib/pkg/barcode/itf"
-	"github.com/faustbrian/golib/pkg/barcode/pdf417"
-	"github.com/faustbrian/golib/pkg/barcode/qr"
-	"github.com/faustbrian/golib/pkg/barcode/upc"
+	"github.com/faustbrian/go-barcode/aztec"
+	"github.com/faustbrian/go-barcode/codabar"
+	"github.com/faustbrian/go-barcode/code128"
+	"github.com/faustbrian/go-barcode/code39"
+	"github.com/faustbrian/go-barcode/code93"
+	"github.com/faustbrian/go-barcode/datamatrix"
+	"github.com/faustbrian/go-barcode/ean"
+	"github.com/faustbrian/go-barcode/itf"
+	"github.com/faustbrian/go-barcode/pdf417"
+	"github.com/faustbrian/go-barcode/qr"
+	"github.com/faustbrian/go-barcode/upc"
 )
 
 func TestInvalidInputErrorsAreClassifiedAndPayloadRedacted(t *testing.T) {

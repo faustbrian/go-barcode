@@ -3,7 +3,7 @@ package gs1_test
 import (
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/barcode/gs1"
+	"github.com/faustbrian/go-barcode/gs1"
 )
 
 func FuzzParseElementStrings(f *testing.F) {

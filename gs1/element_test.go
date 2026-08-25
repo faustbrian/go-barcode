@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/barcode/gs1"
+	"github.com/faustbrian/go-barcode/gs1"
 )
 
 func TestParseBracketedElementString(t *testing.T) {

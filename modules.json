@@ -1,0 +1,380 @@
+{
+  "schema_version": 1,
+  "repository": "github.com/faustbrian/go-barcode",
+  "go_version": "1.26.6",
+  "modules": [
+    {
+      "directory": ".",
+      "module_path": "github.com/faustbrian/go-barcode",
+      "go_version": "1.26.6",
+      "packages": [
+        {
+          "module_directory": ".",
+          "directory": "aztec",
+          "name": "aztec",
+          "import_path": "github.com/faustbrian/go-barcode/aztec",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "barcode",
+          "name": "barcode",
+          "import_path": "github.com/faustbrian/go-barcode/barcode",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "codabar",
+          "name": "codabar",
+          "import_path": "github.com/faustbrian/go-barcode/codabar",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "code128",
+          "name": "code128",
+          "import_path": "github.com/faustbrian/go-barcode/code128",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "code39",
+          "name": "code39",
+          "import_path": "github.com/faustbrian/go-barcode/code39",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "code93",
+          "name": "code93",
+          "import_path": "github.com/faustbrian/go-barcode/code93",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "datamatrix",
+          "name": "datamatrix",
+          "import_path": "github.com/faustbrian/go-barcode/datamatrix",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "ean",
+          "name": "ean",
+          "import_path": "github.com/faustbrian/go-barcode/ean",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "gs1",
+          "name": "gs1",
+          "import_path": "github.com/faustbrian/go-barcode/gs1",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "imagedecode",
+          "name": "imagedecode",
+          "import_path": "github.com/faustbrian/go-barcode/imagedecode",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/aztecencoder",
+          "name": "encoder",
+          "import_path": "github.com/faustbrian/go-barcode/internal/aztecencoder",
+          "kind": "internal",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/linear",
+          "name": "linear",
+          "import_path": "github.com/faustbrian/go-barcode/internal/linear",
+          "kind": "internal",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/pdf417encoder",
+          "name": "pdf417encoder",
+          "import_path": "github.com/faustbrian/go-barcode/internal/pdf417encoder",
+          "kind": "internal",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "itf",
+          "name": "itf",
+          "import_path": "github.com/faustbrian/go-barcode/itf",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "pdf417",
+          "name": "pdf417",
+          "import_path": "github.com/faustbrian/go-barcode/pdf417",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "qr",
+          "name": "qr",
+          "import_path": "github.com/faustbrian/go-barcode/qr",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "render",
+          "name": "render",
+          "import_path": "github.com/faustbrian/go-barcode/render",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "specification",
+          "name": "specification",
+          "import_path": "github.com/faustbrian/go-barcode/specification",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "upc",
+          "name": "upc",
+          "import_path": "github.com/faustbrian/go-barcode/upc",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        }
+      ],
+      "purpose": "`barcode` is a standards-driven Go library for validating, encoding, rendering, and decoding common one-dimensional and two-dimensional barcodes. Its core values are immutable logical modules; PNG, SVG, and `image.Image` output are derived views rather than the source of truth.",
+      "lifecycle": "stable",
+      "kind": "public library",
+      "releasable": true,
+      "family": "domain-utilities",
+      "family_label": "Domain Utilities",
+      "family_description": "Domain-specific immutable values, algorithms, parsers, proofs, and calculations.",
+      "family_order": 8,
+      "version": "v1.0.0",
+      "tag_prefix": "v",
+      "owned_dependencies": [],
+      "reverse_owned_dependencies": [],
+      "external_runtime_dependencies": [
+        "github.com/ericlevine/zxinggo",
+        "github.com/makiuchi-d/gozxing",
+        "github.com/ruudk/golang-pdf417",
+        "github.com/speedata/barcode",
+        "github.com/unixdj/qr",
+        "golang.org/x/text"
+      ],
+      "required_services": [],
+      "build_tags": [],
+      "test_tags": [],
+      "interoperability_tools": [
+        "speedata/barcode v1.1.1 independent writer",
+        "ericlevine/zxinggo v0.1.0 independent reader",
+        "ruudk/golang-pdf417 at a7e3863a1245 independent writer"
+      ],
+      "specifications": [
+        "ISO/IEC 18004:2024 QR Code",
+        "ISO/IEC 15417:2007 with Amendment 1:2026 Code 128",
+        "ISO/IEC 16388:2023 Code 39",
+        "ANSI/AIM BC5-1995 Code 93",
+        "ISO/IEC 15420:2009 EAN/UPC",
+        "ISO/IEC 16390:2007 Interleaved 2 of 5",
+        "AIM Europe 1995 Codabar",
+        "ISO/IEC 16022:2024 Data Matrix",
+        "ISO/IEC 15438:2015 PDF417",
+        "ISO/IEC 24778:2008 Aztec Code",
+        "GS1 General Specifications 26.0.0"
+      ],
+      "conformance_corpora": [
+        "Normative requirement and executable evidence matrix",
+        "Pinned GS1 syntax dictionary 2026-01-27",
+        "Independent writer and reciprocal reader interoperability corpus",
+        "Deterministic logical, PNG, and SVG fixture corpus"
+      ],
+      "provenance": [
+        "specification/manifest.json"
+      ],
+      "goal_files": [
+        ".ai/GOAL.md",
+        ".ai/GOAL_HARDEN.md"
+      ],
+      "goal_status": "implementation-evidence-inventoried",
+      "goal_evidence": [
+        {
+          "file": ".ai/GOAL.md",
+          "requirements_sha256": "c0d893369fe9f492de571b3ff4e1e5398821fe8c3ccc6ccb22356f8f0c9abb59",
+          "implementation_evidence": [
+            "CHANGELOG.md",
+            "README.md",
+            "docs/api.md",
+            "docs/security.md"
+          ],
+          "verification_gates": [
+            "format-check",
+            "tidy-check",
+            "safety",
+            "vet",
+            "test",
+            "race",
+            "coverage",
+            "lint",
+            "staticcheck",
+            "vulnerability",
+            "secrets",
+            "licenses",
+            "sbom",
+            "fuzz",
+            "mutation",
+            "nilaway",
+            "docs",
+            "api",
+            "conformance",
+            "interoperability",
+            "benchmark"
+          ],
+          "implementation_status": "implemented-requires-fresh-verification"
+        },
+        {
+          "file": ".ai/GOAL_HARDEN.md",
+          "requirements_sha256": "5bae615c536c20a7b7d8260baa621c9b2fc0e83296dfefb270b73b27f15cdaba",
+          "implementation_evidence": [
+            "CHANGELOG.md",
+            "README.md",
+            "docs/api.md",
+            "docs/security.md"
+          ],
+          "verification_gates": [
+            "format-check",
+            "tidy-check",
+            "safety",
+            "vet",
+            "test",
+            "race",
+            "coverage",
+            "lint",
+            "staticcheck",
+            "vulnerability",
+            "secrets",
+            "licenses",
+            "sbom",
+            "fuzz",
+            "mutation",
+            "nilaway",
+            "docs",
+            "api",
+            "conformance",
+            "interoperability",
+            "benchmark"
+          ],
+          "implementation_status": "implemented-requires-fresh-verification"
+        }
+      ],
+      "gates": {
+        "api_compatibility": true,
+        "benchmarks": true,
+        "conformance": true,
+        "coverage": true,
+        "documentation": true,
+        "fuzz": true,
+        "lint": true,
+        "mutation": true,
+        "race": true,
+        "security": true,
+        "tests": true
+      }
+    }
+  ]
+}
