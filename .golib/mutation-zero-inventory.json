@@ -7,7 +7,7 @@
       "module_directory": ".",
       "package_directory": "specification",
       "reason": "The package embeds a pinned standards artifact and returns it directly; the complete enabled Gremlins operator set discovers no viable transformations.",
-      "source_digest": "0f4adad7c6a3c7868ba6d8c952bc840ba576d2249a4de2c8bded08ef2173d5ae"
+      "source_digest": "ffb566e2d7131df9544d1ae3f20db2da72d7a001da95499199d5b608c4419c0a"
     }
   ]
 }
