@@ -1,36 +1,28 @@
 # Changelog
 
-- Upgrade `golang.org/x/text` to v0.41.0 so the dependency graph no longer
-  contains GO-2026-5970.
-- Delegate local mutation checks to the canonical exact-100 repository runner
-  instead of configurable package-local thresholds.
-- Activate the complete barcode gate at the monorepo workflow root, with
-  path filtering, scheduled fuzzing, benchmark artifacts, and manual dispatch.
-- Shard hosted mutation testing by package directory while retaining the full
-  local mutation command and thresholds.
-- Scope capability advertising and interoperability evidence to independently
-  tested software behavior, excluding hardware integration and certification.
-
-- Add deterministic logical, PNG, and SVG rendering fixtures for every
-  implemented format, with reproducible checksum validation.
-- Preserve the GS1-128 AIM symbology identifier as a decode diagnostic instead
-  of including it in the decoded GS1 payload.
-- Contain panics from additive two-dimensional decoder dependencies at the
-  candidate boundary.
-
-- Document classified failures for unsupported ECI, invalid GS1, and
-  checksum-failing image candidates.
-
-All notable changes will be documented here. The project has not published a
-stable release; current capability limitations and verification blockers are
-listed in `README.md` and exposed through `barcode.CapabilityFor`.
+All notable changes are documented here. The project follows semantic
+versioning.
 
 ## Unreleased
+
+### Documentation
+
+- Replace the archived monorepo link with package-owned documentation.
 
 ## 1.0.0 - 2026-08-25
 
 ### Changed
 
+- Upgrade `golang.org/x/text` to v0.41.0 so the dependency graph no longer
+  contains GO-2026-5970.
+- Delegate local mutation checks to the canonical exact-100 repository runner
+  instead of configurable package-local thresholds.
+- Activate the complete barcode gate in hosted CI with path filtering,
+  scheduled fuzzing, benchmark artifacts, and manual dispatch.
+- Shard hosted mutation testing by package directory while retaining the full
+  local mutation command and thresholds.
+- Scope capability advertising and interoperability evidence to independently
+  tested software behavior, excluding hardware integration and certification.
 - Refresh the reviewed zero-mutant identity for the extracted specification
   package without weakening the exact mutation contract.
 
@@ -56,9 +48,13 @@ listed in `README.md` and exposed through `barcode.CapabilityFor`.
 ### Documentation
 
 - Link the package README to the repository-wide Golib documentation portal.
+- Document classified failures for unsupported ECI, invalid GS1, and
+  checksum-failing image candidates.
 
 ### Added
 
+- Add deterministic logical, PNG, and SVG rendering fixtures for every
+  implemented format, with reproducible checksum validation.
 - Link contribution guidance directly to the specification decision register
   and its provenance and evidence requirements.
 - Add an auditable specification-decision register, exact standards
@@ -67,6 +63,10 @@ listed in `README.md` and exposed through `barcode.CapabilityFor`.
 
 ### Fixed
 
+- Preserve the GS1-128 AIM symbology identifier as a decode diagnostic instead
+  of including it in the decoded GS1 payload.
+- Contain panics from additive two-dimensional decoder dependencies at the
+  candidate boundary.
 - Correct the public ISO edition metadata for Code 39 and Data Matrix and the
   authoritative ISO catalogue URLs for ITF and PDF417.
 - Reject invalid PDF417 text controls and over-capacity symbols with classified
