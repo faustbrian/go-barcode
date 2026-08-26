@@ -47,7 +47,7 @@ versioning.
 
 ### Documentation
 
-- Link the package README to the repository-wide Golib documentation portal.
+- Link the package README to package-owned documentation.
 - Document classified failures for unsupported ECI, invalid GS1, and
   checksum-failing image candidates.
 
