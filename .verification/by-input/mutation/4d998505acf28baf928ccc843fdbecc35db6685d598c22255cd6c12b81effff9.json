@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "repository": "github.com/faustbrian/go-barcode",
+  "module": ".",
+  "package": "internal/aztecencoder",
+  "gate": "mutation",
+  "input_digest": "sha256:4d998505acf28baf928ccc843fdbecc35db6685d598c22255cd6c12b81effff9",
+  "verifier_digest": "sha256:9a9499ff68a8dfd49a0be7995590297a8ee563a1aa226bfd8b9361dc53058108",
+  "result": "passed",
+  "report_digest": "sha256:68185d0699d5c9bcdd50e6728efe584e80d15051a308b4740a04c31f2201269e",
+  "environment": {
+    "CGO_ENABLED": "1",
+    "GOARCH": "arm64",
+    "GOOS": "darwin",
+    "GOVERSION": "go1.26.6",
+    "evidence_origin": "approved_legacy_checkpoint"
+  },
+  "completed_at": "2026-08-29T02:38:37.445667Z"
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "repository": "github.com/faustbrian/go-barcode",
+  "module": ".",
+  "package": "datamatrix",
+  "gate": "mutation",
+  "input_digest": "sha256:111a54f4fe3579c413bacc5d781d68ec55bb4662e7dfd1d982dfc2affc3d7a43",
+  "verifier_digest": "sha256:9a9499ff68a8dfd49a0be7995590297a8ee563a1aa226bfd8b9361dc53058108",
+  "result": "passed",
+  "report_digest": "sha256:39c13df4e4d18270bcc8ff3b35c4ae24dcdb2fcbfda8bd186afb927911c27f8e",
+  "environment": {
+    "CGO_ENABLED": "1",
+    "GOARCH": "arm64",
+    "GOOS": "darwin",
+    "GOVERSION": "go1.26.6",
+    "evidence_origin": "approved_legacy_checkpoint"
+  },
+  "completed_at": "2026-08-29T02:38:35.986213Z"
+}

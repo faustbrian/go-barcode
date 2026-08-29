@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "repository": "github.com/faustbrian/go-barcode",
+  "module": ".",
+  "package": "qr",
+  "gate": "mutation",
+  "input_digest": "sha256:655239bf82efe8af53b4e408ce867e90a7745aa3686db95d43ca3ea72706aa08",
+  "verifier_digest": "sha256:9a9499ff68a8dfd49a0be7995590297a8ee563a1aa226bfd8b9361dc53058108",
+  "result": "passed",
+  "report_digest": "sha256:4e25b3dc3e63fc08c31eca7015c088e77819a555e3b709826deaf4b3aa03f01d",
+  "environment": {
+    "CGO_ENABLED": "1",
+    "GOARCH": "arm64",
+    "GOOS": "darwin",
+    "GOVERSION": "go1.26.6",
+    "evidence_origin": "approved_legacy_checkpoint"
+  },
+  "completed_at": "2026-08-29T02:38:38.273866Z"
+}
