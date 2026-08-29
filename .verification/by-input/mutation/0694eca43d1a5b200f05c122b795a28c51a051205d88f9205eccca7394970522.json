@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "repository": "github.com/faustbrian/go-barcode",
+  "module": ".",
+  "package": "gs1",
+  "gate": "mutation",
+  "input_digest": "sha256:0694eca43d1a5b200f05c122b795a28c51a051205d88f9205eccca7394970522",
+  "verifier_digest": "sha256:9a9499ff68a8dfd49a0be7995590297a8ee563a1aa226bfd8b9361dc53058108",
+  "result": "passed",
+  "report_digest": "sha256:2ac49e5a38007aa050bb22acaea203be56d531c3509cbf684dd335f7add33020",
+  "environment": {
+    "CGO_ENABLED": "1",
+    "GOARCH": "arm64",
+    "GOOS": "darwin",
+    "GOVERSION": "go1.26.6",
+    "evidence_origin": "approved_legacy_checkpoint"
+  },
+  "completed_at": "2026-08-29T02:38:36.296897Z"
+}
