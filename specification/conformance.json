@@ -1,0 +1,486 @@
+{
+  "schema_version": 1,
+  "decisions": [
+    {
+      "id": "BARCODE-DEC-001",
+      "authoritative_sources": [
+        "iso-iec-18004-source"
+      ],
+      "executable_evidence": [
+        "TestCapabilityMetadataIdentifiesExactGoverningEditions",
+        "TestGS1SyntaxDictionaryIsEmbedded",
+        "TestRenderFixtureGoldensCoverEveryFormat"
+      ],
+      "fixtures": [
+        "specification/manifest.json"
+      ],
+      "fuzz": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+
+      ],
+      "differential_classification": "not assessed",
+      "public_behavior": [
+        "barcode.Specification",
+        "barcode.Capability",
+        "barcode.CapabilityFor"
+      ]
+    },
+    {
+      "id": "BARCODE-DEC-002",
+      "authoritative_sources": [
+        "iso-iec-15420-source"
+      ],
+      "executable_evidence": [
+        "TestCapabilitiesAreExplicitForEveryKnownFormat",
+        "TestCapabilityMetadataIdentifiesExactGoverningEditions",
+        "TestSymbolsDecodeWithIndependentReaders"
+      ],
+      "fixtures": [
+        "specification/manifest.json"
+      ],
+      "fuzz": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+
+      ],
+      "differential_classification": "not assessed",
+      "public_behavior": [
+        "barcode.CapabilityFor"
+      ]
+    },
+    {
+      "id": "BARCODE-DEC-003",
+      "authoritative_sources": [
+        "iso-iec-18004-source"
+      ],
+      "executable_evidence": [
+        "TestCapabilitiesAreExplicitForEveryKnownFormat",
+        "TestCapabilitiesReflectSoftwareScope",
+        "TestDecodeEverySupportedFormat"
+      ],
+      "fixtures": [
+
+      ],
+      "fuzz": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+
+      ],
+      "differential_classification": "not assessed",
+      "public_behavior": [
+        "barcode.Formats",
+        "barcode.CapabilityFor",
+        "barcode.Capability.Advertised",
+        "barcode.Capability.Limitations"
+      ]
+    },
+    {
+      "id": "BARCODE-DEC-004",
+      "authoritative_sources": [
+        "iso-iec-18004-source"
+      ],
+      "executable_evidence": [
+        "TestMatrixAndSymbolDoNotAliasCallerData",
+        "TestBarsAndDecodeResultDoNotAliasCallerData",
+        "TestSymbolAcceptsExactlyOneLogicalRepresentation"
+      ],
+      "fixtures": [
+
+      ],
+      "fuzz": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+
+      ],
+      "differential_classification": "not assessed",
+      "public_behavior": [
+        "barcode.Matrix",
+        "barcode.Bars",
+        "barcode.Symbol",
+        "barcode.DecodeResult"
+      ]
+    },
+    {
+      "id": "BARCODE-DEC-005",
+      "authoritative_sources": [
+        "iso-iec-18004-source"
+      ],
+      "executable_evidence": [
+        "TestImageUsesIntegerModuleScalingAndExactColors",
+        "TestRenderedOutputsMatchGoldenChecksums",
+        "TestRenderRejectsOverflowAndExplicitLimitViolations",
+        "FuzzRenderLogicalMatrices"
+      ],
+      "fixtures": [
+        "specification/render-fixtures.tsv"
+      ],
+      "fuzz": [
+        "FuzzRenderLogicalMatrices"
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+
+      ],
+      "differential_classification": "not assessed",
+      "public_behavior": [
+        "render.Image",
+        "render.PNG",
+        "render.SVG",
+        "render.Options"
+      ]
+    },
+    {
+      "id": "BARCODE-DEC-006",
+      "authoritative_sources": [
+        "iso-iec-18004-source"
+      ],
+      "executable_evidence": [
+        "TestEncodeHonorsMaskECIAndGS1Controls",
+        "TestEncodeStructuredValidatesSequenceOptions",
+        "TestEncodeRejectsModeCharsetAndCapacityMismatches",
+        "FuzzEncodeOptions"
+      ],
+      "fixtures": [
+
+      ],
+      "fuzz": [
+        "FuzzEncodeOptions"
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+
+      ],
+      "differential_classification": "not assessed",
+      "public_behavior": [
+        "qr.Options",
+        "qr.Encode",
+        "qr.EncodeStructured"
+      ]
+    },
+    {
+      "id": "BARCODE-DEC-007",
+      "authoritative_sources": [
+        "iso-iec-15417-source"
+      ],
+      "executable_evidence": [
+        "TestEncodeACalculatesAndValidatesCheckDigit",
+        "TestEncode14CalculatesCheckDigitAndAddsBearerBars",
+        "TestChecksumMatchesModulo43Vector",
+        "TestEncodeAddsMandatoryChecksumsAndSupportsFullASCII"
+      ],
+      "fixtures": [
+
+      ],
+      "fuzz": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+
+      ],
+      "differential_classification": "not assessed",
+      "public_behavior": [
+        "gs1.CalculateCheckDigit",
+        "gs1.ValidateCheckDigit"
+      ]
+    },
+    {
+      "id": "BARCODE-DEC-008",
+      "authoritative_sources": [
+        "gs1-general-specifications-source"
+      ],
+      "executable_evidence": [
+        "TestParseRawElementStringUsesPredefinedLengthsAndFNC1",
+        "TestParserEnforcesRequiredAndExcludedAssociations",
+        "TestEncodeGS1AcceptsValidatedStructuredElements",
+        "TestEncodeRawFNC1SupportsLegacyPayloadsWithoutGS1Validation",
+        "FuzzParseElementStrings"
+      ],
+      "fixtures": [
+        "specification/gs1/gs1-syntax-dictionary.txt"
+      ],
+      "fuzz": [
+        "FuzzParseElementStrings"
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+
+      ],
+      "differential_classification": "not assessed",
+      "public_behavior": [
+        "gs1.ParseBracketed",
+        "gs1.ParseRaw",
+        "gs1.ElementString"
+      ]
+    },
+    {
+      "id": "BARCODE-DEC-009",
+      "authoritative_sources": [
+        "iso-iec-16022-source"
+      ],
+      "executable_evidence": [
+        "TestEncodeSupportsStructuredAppendBoundaries",
+        "TestEncodeSupportsECIAssignmentWidths",
+        "TestEncodeSupportsMacro05And06",
+        "TestDecodeDataMatrixControls"
+      ],
+      "fixtures": [
+
+      ],
+      "fuzz": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+
+      ],
+      "differential_classification": "not assessed",
+      "public_behavior": [
+        "datamatrix.Options",
+        "datamatrix.Encode"
+      ]
+    },
+    {
+      "id": "BARCODE-DEC-010",
+      "authoritative_sources": [
+        "iso-iec-15438-source"
+      ],
+      "executable_evidence": [
+        "TestEncodeSupportsECIAndMacroControlBlocks",
+        "TestEncodeSupportsAllCorrectionLevelsAndQuietZones",
+        "TestEncodeDistinguishesPayloadSafetyFromSymbolCapacity",
+        "TestPDF417ReaderImplementsReaderLifecycle"
+      ],
+      "fixtures": [
+
+      ],
+      "fuzz": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+
+      ],
+      "differential_classification": "not assessed",
+      "public_behavior": [
+        "pdf417.Options",
+        "pdf417.Encode"
+      ]
+    },
+    {
+      "id": "BARCODE-DEC-011",
+      "authoritative_sources": [
+        "iso-iec-24778-source"
+      ],
+      "executable_evidence": [
+        "TestEncodeSupportsAutomaticAndForcedLayers",
+        "TestEncodeSelectsSmallestAutomaticCompactLayer",
+        "TestEncodeSupportsGS1FNC1",
+        "TestEncodeSupportsECI"
+      ],
+      "fixtures": [
+
+      ],
+      "fuzz": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+
+      ],
+      "differential_classification": "not assessed",
+      "public_behavior": [
+        "aztec.Options",
+        "aztec.Encode",
+        "barcode.CapabilityFor(barcode.Aztec)"
+      ]
+    },
+    {
+      "id": "BARCODE-DEC-012",
+      "authoritative_sources": [
+        "iso-iec-18004-source"
+      ],
+      "executable_evidence": [
+        "TestDecodeEnforcesBoundsBeforeImageAllocation",
+        "TestDecodeEnforcesCallerTimeBudget",
+        "TestTwoDReaderContainsDependencyPanics",
+        "FuzzDecodeBoundedImages"
+      ],
+      "fixtures": [
+
+      ],
+      "fuzz": [
+        "FuzzDecodeBoundedImages"
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+
+      ],
+      "differential_classification": "not assessed",
+      "public_behavior": [
+        "imagedecode.Limits"
+      ]
+    },
+    {
+      "id": "BARCODE-DEC-013",
+      "authoritative_sources": [
+        "iso-iec-18004-source"
+      ],
+      "executable_evidence": [
+        "TestDecodeQRDocumentedImageDegradationThresholds",
+        "TestDecodeSupportsInvertedImages",
+        "TestDecodeMultipleSymbolsReturnsOneDecodableCandidate",
+        "TestDecodeEnforcesCorrectionBudget"
+      ],
+      "fixtures": [
+
+      ],
+      "fuzz": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+
+      ],
+      "differential_classification": "not assessed",
+      "public_behavior": [
+        "Image decode options, limits, orientation metadata, candidate handling, and documented robustness thresholds"
+      ]
+    },
+    {
+      "id": "BARCODE-DEC-014",
+      "authoritative_sources": [
+        "iso-iec-15417-source"
+      ],
+      "executable_evidence": [
+        "TestDecodeReportsRotationAndPayloadLimits",
+        "TestOrientationChecksumAndFormatMappings",
+        "TestInvalidInputErrorsAreClassifiedAndPayloadRedacted",
+        "TestDecodeRejectsUnsupportedFormatsAndCandidateLimits"
+      ],
+      "fixtures": [
+
+      ],
+      "fuzz": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+
+      ],
+      "differential_classification": "not assessed",
+      "public_behavior": [
+        "barcode.DecodeResult"
+      ]
+    },
+    {
+      "id": "BARCODE-DEC-015",
+      "authoritative_sources": [
+        "iso-iec-18004-source"
+      ],
+      "executable_evidence": [
+        "TestDecodeIndependentWriters",
+        "TestSymbolsDecodeWithIndependentReaders",
+        "TestEncodeMatchesPinnedZXingImplementation",
+        "TestEncoderMatchesPinnedZXingImplementation"
+      ],
+      "fixtures": [
+
+      ],
+      "fuzz": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+        "imagedecode/independent_reader_test.go",
+        "imagedecode/independent_writer_test.go"
+      ],
+      "differential_classification": "peer defect",
+      "public_behavior": [
+        "Advertised capability claims, interoperability documentation, pinned test dependencies, and conformance fixtures"
+      ]
+    },
+    {
+      "id": "BARCODE-DEC-016",
+      "authoritative_sources": [
+        "iso-iec-18004-source"
+      ],
+      "executable_evidence": [
+        "TestCapabilitiesReflectSoftwareScope",
+        "TestDecodeResultValidatesMetadataAndReturnsDefensiveValues",
+        "TestInvalidInputErrorsAreClassifiedAndPayloadRedacted"
+      ],
+      "fixtures": [
+
+      ],
+      "fuzz": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [
+
+      ],
+      "differential_classification": "not assessed",
+      "public_behavior": [
+        "barcode.DecodeResult"
+      ]
+    }
+  ]
+}
