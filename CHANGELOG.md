@@ -7,13 +7,49 @@ versioning.
 
 ### Changed
 
-- Replace the repository-local verification implementation with the pinned
-  `go-library-tools` v1.0.13 CLI and reusable workflow while preserving package
-  policy and content-addressed verification evidence.
+- Adopt the pinned `go-library-tools` v1.2.0 CLI and reusable workflow so CI
+  enforces specification decisions, conformance bindings, source monitoring,
+  and change control while retaining package-owned policy and verification
+  evidence.
 
 ### Documentation
 
 - Replace the archived monorepo link with package-owned documentation.
+
+### Specification Decisions
+
+- BARCODE-DEC-001 sha256:f11a763d3fbf349801f7dd939c319bc48cda1371855404983a5b963e849150a0:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-002 sha256:4dd3716c04a9146f2892f0f151f829de5a30ca5e74c2b55a2efb9f314a8acce5:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-003 sha256:0ca6140d4b9e09de91ca55713a10899ac7766b03fcdb62fe86f6b7e94c25e8e5:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-004 sha256:e85527ffd2fbee6c5f48a296efd98c1dd5fe5b62e80297da28370725e0e806a2:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-005 sha256:5509d9b90142b2fca8cb8320822095112f57baedb3c11fceb1a35d41f28d5798:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-006 sha256:c572c740bf280c45bdd512820f8ce6917332b76c817f07bdd425316a08076e32:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-007 sha256:ab3e1ddc7e019756dd86648f115241fc7d8287800e7be885a438711471173602:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-008 sha256:4f87656d572006036d118439f8fe950aba97ed0fdea0befefb98615b816408f2:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-009 sha256:11169c5c9775e7e2870637141166796cbd7ac83948ce88b3e7fcf28c5a5eb283:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-010 sha256:c2e0275df87a31c7c810729a79ed7e11439a34a465a348989946105f0c42416e:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-011 sha256:2d9880efc00d803422a80d562d29860c7d3ba5f67513c6051a6f4e028ce08537:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-012 sha256:7981dd70757727139bdabab90bb8609d8e89ec3acf0504719d046799b77f9226:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-013 sha256:d238d62376d4fbc5714414bf3628b6949f3d93ffb2e3979b457cef0b47d2747a:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-014 sha256:2d5a3129516cab975b90111f12f8cfff19e22222f41af8e67dd348d4738f4fc8:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-015 sha256:aa729a65e1365d254737da972cd96195e8aee4ff5ceb7cb32376ba827c45bb56:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-016 sha256:ff06cc03def08bf7bb539b6a6aca6b9abc635e143319d92f8e335895b6b7b431:
+  [Decision register](docs/specification-decisions.md).
 
 ## 1.0.0 - 2026-08-25
 

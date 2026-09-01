@@ -52,3 +52,35 @@ in `manifest.json` and its module checksum is enforced by `go.sum`.
 No ISO or AIM example is represented as an official conformance fixture unless
 its redistribution terms independently permit that use. Independently derived
 logical vectors identify their derivation in the corresponding test.
+
+`monitoring.json` records ISO publication identities as restricted sources and
+checks the catalogue's exact `403` denial without hashing its body. The public
+AIM source pins identify AIM's standards program, not the licensed Code 93 or
+Codabar publication bytes. AIM public-review notices and GS1 change notices are
+separate content-pinned change surfaces. None of those public hashes is a hash
+of restricted normative text, and no exact restricted clause is claimed where
+the publication was unavailable for review.
+
+## Decision bindings
+
+[Specification decisions](../docs/specification-decisions.md) are bound to
+executable evidence below.
+
+| Decision | Executable evidence |
+| --- | --- |
+| BARCODE-DEC-001 | `TestCapabilityMetadataIdentifiesExactGoverningEditions`, `TestGS1SyntaxDictionaryIsEmbedded`, `TestRenderFixtureGoldensCoverEveryFormat` |
+| BARCODE-DEC-002 | `TestCapabilitiesAreExplicitForEveryKnownFormat`, `TestCapabilityMetadataIdentifiesExactGoverningEditions`, `TestSymbolsDecodeWithIndependentReaders` |
+| BARCODE-DEC-003 | `TestCapabilitiesAreExplicitForEveryKnownFormat`, `TestCapabilitiesReflectSoftwareScope`, `TestDecodeEverySupportedFormat` |
+| BARCODE-DEC-004 | `TestMatrixAndSymbolDoNotAliasCallerData`, `TestBarsAndDecodeResultDoNotAliasCallerData`, `TestSymbolAcceptsExactlyOneLogicalRepresentation` |
+| BARCODE-DEC-005 | `TestImageUsesIntegerModuleScalingAndExactColors`, `TestRenderedOutputsMatchGoldenChecksums`, `TestRenderRejectsOverflowAndExplicitLimitViolations`, `FuzzRenderLogicalMatrices` |
+| BARCODE-DEC-006 | `TestEncodeHonorsMaskECIAndGS1Controls`, `TestEncodeStructuredValidatesSequenceOptions`, `TestEncodeRejectsModeCharsetAndCapacityMismatches`, `FuzzEncodeOptions` |
+| BARCODE-DEC-007 | `TestEncodeACalculatesAndValidatesCheckDigit`, `TestEncode14CalculatesCheckDigitAndAddsBearerBars`, `TestChecksumMatchesModulo43Vector`, `TestEncodeAddsMandatoryChecksumsAndSupportsFullASCII` |
+| BARCODE-DEC-008 | `TestParseRawElementStringUsesPredefinedLengthsAndFNC1`, `TestParserEnforcesRequiredAndExcludedAssociations`, `TestEncodeGS1AcceptsValidatedStructuredElements`, `TestEncodeRawFNC1SupportsLegacyPayloadsWithoutGS1Validation`, `FuzzParseElementStrings` |
+| BARCODE-DEC-009 | `TestEncodeSupportsStructuredAppendBoundaries`, `TestEncodeSupportsECIAssignmentWidths`, `TestEncodeSupportsMacro05And06`, `TestDecodeDataMatrixControls` |
+| BARCODE-DEC-010 | `TestEncodeSupportsECIAndMacroControlBlocks`, `TestEncodeSupportsAllCorrectionLevelsAndQuietZones`, `TestEncodeDistinguishesPayloadSafetyFromSymbolCapacity`, `TestPDF417ReaderImplementsReaderLifecycle` |
+| BARCODE-DEC-011 | `TestEncodeSupportsAutomaticAndForcedLayers`, `TestEncodeSelectsSmallestAutomaticCompactLayer`, `TestEncodeSupportsGS1FNC1`, `TestEncodeSupportsECI` |
+| BARCODE-DEC-012 | `TestDecodeEnforcesBoundsBeforeImageAllocation`, `TestDecodeEnforcesCallerTimeBudget`, `TestTwoDReaderContainsDependencyPanics`, `FuzzDecodeBoundedImages` |
+| BARCODE-DEC-013 | `TestDecodeQRDocumentedImageDegradationThresholds`, `TestDecodeSupportsInvertedImages`, `TestDecodeMultipleSymbolsReturnsOneDecodableCandidate`, `TestDecodeEnforcesCorrectionBudget` |
+| BARCODE-DEC-014 | `TestDecodeReportsRotationAndPayloadLimits`, `TestOrientationChecksumAndFormatMappings`, `TestInvalidInputErrorsAreClassifiedAndPayloadRedacted`, `TestDecodeRejectsUnsupportedFormatsAndCandidateLimits` |
+| BARCODE-DEC-015 | `TestDecodeIndependentWriters`, `TestSymbolsDecodeWithIndependentReaders`, `TestEncodeMatchesPinnedZXingImplementation`, `TestEncoderMatchesPinnedZXingImplementation` |
+| BARCODE-DEC-016 | `TestCapabilitiesReflectSoftwareScope`, `TestDecodeResultValidatesMetadataAndReturnsDefensiveValues`, `TestInvalidInputErrorsAreClassifiedAndPayloadRedacted` |

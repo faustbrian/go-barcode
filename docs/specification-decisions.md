@@ -30,6 +30,18 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | `barcode.Specification`, `barcode.Capability`, `barcode.CapabilityFor`, the normative and evidence matrices, and all format documentation |
 | Upstream record | ISO and AIM catalogue metadata identify restricted publications; GS1 26.0.0 and its change notices are public and separately versioned. |
 | Reconsider when | A source publisher changes licensing, publishes corrigenda, or releases a replacement edition affecting a supported behavior. |
+Structured contract:
+
+- `omission`
+- `application-policy`
+- `ISO/IEC 18004:2024 QR Code`
+- `ISO/IEC 18004:2024 edition 4`
+- `iso-iec-18004-source`
+- `https://www.iso.org/standard/83389.html`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `specification/manifest.json`
+- `docs/specification-decisions.md`
 
 ## BARCODE-DEC-002: Replacement editions do not silently change claims
 
@@ -48,6 +60,18 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | `barcode.CapabilityFor`, format documentation, the source manifest, and release compatibility claims |
 | Upstream record | ISO marks the 2009 EAN/UPC and 2008 Aztec editions as withdrawn and links their published replacements. |
 | Reconsider when | Maintainers obtain the replacement publications and complete a requirement-by-requirement difference and conformance review. |
+Structured contract:
+
+- `omission`
+- `defensive`
+- `ISO/IEC 15420:2009 EAN/UPC`
+- `ISO/IEC 15420:2009 edition 2`
+- `iso-iec-15420-source`
+- `https://www.iso.org/standard/46143.html`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `specification/manifest.json`
+- `docs/specification-decisions.md`
 
 ## BARCODE-DEC-003: Capability advertising requires complete software evidence
 
@@ -66,6 +90,17 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | `barcode.Formats`, `barcode.CapabilityFor`, `barcode.Capability.Advertised`, and `barcode.Capability.Limitations` |
 | Upstream record | No governing symbology standard defines this library-level advertisement policy. |
 | Reconsider when | Missing sequence assembly and reciprocal evidence are implemented for an unadvertised format. |
+Structured contract:
+
+- `interoperability policy`
+- `application-policy`
+- `ISO/IEC 18004:2024 QR Code`
+- `ISO/IEC 18004:2024 edition 4`
+- `iso-iec-18004-source`
+- `https://www.iso.org/standard/83389.html`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `docs/specification-decisions.md`
 
 ## BARCODE-DEC-004: Logical symbols are immutable source-of-truth values
 
@@ -84,6 +119,17 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | `barcode.Matrix`, `barcode.Bars`, `barcode.Symbol`, `barcode.DecodeResult`, and their constructors and accessors |
 | Upstream record | This ownership model is package-defined; standards constrain symbol geometry rather than Go aliasing. |
 | Reconsider when | A zero-copy API can expose explicit lifetime and immutability guarantees without weakening the current contract. |
+Structured contract:
+
+- `implementation-defined behavior`
+- `defensive`
+- `ISO/IEC 18004:2024 QR Code`
+- `ISO/IEC 18004:2024 edition 4`
+- `iso-iec-18004-source`
+- `https://www.iso.org/standard/83389.html`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `docs/specification-decisions.md`
 
 ## BARCODE-DEC-005: Rendering preserves modules and safe geometry
 
@@ -102,6 +148,18 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | `render.Image`, `render.PNG`, `render.SVG`, `render.Options`, and logical render fixtures |
 | Upstream record | Physical print quality remains outside software rendering conformance. |
 | Reconsider when | A new vector or document renderer preserves exact modules and supplies equivalent deterministic and overflow evidence. |
+Structured contract:
+
+- `omission`
+- `defensive`
+- `ISO/IEC 18004:2024 QR Code`
+- `ISO/IEC 18004:2024 edition 4`
+- `iso-iec-18004-source`
+- `https://www.iso.org/standard/83389.html`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `specification/render-fixtures.tsv`
+- `docs/specification-decisions.md`
 
 ## BARCODE-DEC-006: QR controls remain explicit and non-normalizing
 
@@ -120,6 +178,17 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | `qr.Options`, `qr.Encode`, `qr.EncodeStructured`, QR control metadata, and decoded diagnostics |
 | Upstream record | The ISO edition is exact; implementation defaults and Go error classification are package policy. |
 | Reconsider when | A replacement QR edition or independently verified control mode changes observable segmentation or metadata. |
+Structured contract:
+
+- `ambiguity`
+- `defensive`
+- `ISO/IEC 18004:2024 QR Code`
+- `ISO/IEC 18004:2024 edition 4`
+- `iso-iec-18004-source`
+- `https://www.iso.org/standard/83389.html`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `docs/specification-decisions.md`
 
 ## BARCODE-DEC-007: Linear checksums are strict and format-specific
 
@@ -138,6 +207,17 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | Linear format encoders, checksum options, `gs1.CalculateCheckDigit`, `gs1.ValidateCheckDigit`, and decode checksum metadata |
 | Upstream record | Optional Codabar application checksum profiles remain explicitly unsupported. |
 | Reconsider when | A concrete named application profile requires an additive, independently tested checksum mode. |
+Structured contract:
+
+- `ambiguity`
+- `defensive`
+- `ISO/IEC 15417:2007 with Amendment 1:2026 Code 128`
+- `ISO/IEC 15417:2007 edition 2 with Amendment 1:2026`
+- `iso-iec-15417-source`
+- `https://www.iso.org/standard/43896.html`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `docs/specification-decisions.md`
 
 ## BARCODE-DEC-008: GS1 parsing owns syntax while carriers own control encoding
 
@@ -156,6 +236,18 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | `gs1.ParseBracketed`, `gs1.ParseRaw`, `gs1.ElementString`, GS1 carrier options, and Code 128 raw-FNC1 compatibility mode |
 | Upstream record | GS1 change notices are tracked separately from the annual General Specifications release. |
 | Reconsider when | A GS1 release or change notice modifies supported AI syntax, association, or carrier rules. |
+Structured contract:
+
+- `interoperability policy`
+- `application-policy`
+- `GS1 General Specifications 26.0.0`
+- `GS1 General Specifications 26.0.0`
+- `gs1-general-specifications-source`
+- `https://ref.gs1.org/standards/genspecs/26.0.0/`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `specification/gs1/gs1-syntax-dictionary.txt`
+- `docs/specification-decisions.md`
 
 ## BARCODE-DEC-009: Data Matrix controls are encoded but sequence assembly is not advertised
 
@@ -174,6 +266,17 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | `datamatrix.Options`, `datamatrix.Encode`, Data Matrix decode diagnostics, and capability limitations |
 | Upstream record | The package edition metadata follows ISO's edition 3 catalogue record. |
 | Reconsider when | A bounded sequence assembler defines identity, ordering, duplicates, expiry, and incomplete-sequence behavior. |
+Structured contract:
+
+- `optional behavior`
+- `defensive`
+- `ISO/IEC 16022:2024 Data Matrix`
+- `ISO/IEC 16022:2024 edition 3`
+- `iso-iec-16022-source`
+- `https://www.iso.org/standard/80926.html`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `docs/specification-decisions.md`
 
 ## BARCODE-DEC-010: PDF417 controls are encoded but macro assembly is caller-owned
 
@@ -192,6 +295,17 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | `pdf417.Options`, macro controls, `pdf417.Encode`, PDF417 reader metadata, and capability limitations |
 | Upstream record | The independent speedata writer divergence is excluded from PDF417 evidence; the pinned golang-pdf417 writer supplies that fixture instead. |
 | Reconsider when | A macro assembler defines bounded lifecycle and passes independent multi-symbol evidence. |
+Structured contract:
+
+- `optional behavior`
+- `defensive`
+- `ISO/IEC 15438:2015 PDF417`
+- `ISO/IEC 15438:2015 edition 3`
+- `iso-iec-15438-source`
+- `https://www.iso.org/standard/65502.html`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `docs/specification-decisions.md`
 
 ## BARCODE-DEC-011: Aztec behavior remains pinned to the reviewed edition
 
@@ -210,6 +324,17 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | `aztec.Options`, `aztec.Encode`, Aztec decode metadata, and `barcode.CapabilityFor(barcode.Aztec)` |
 | Upstream record | ISO withdrew the 2008 publication and published edition 2 in 2024. |
 | Reconsider when | A licensed edition-2 difference review and equivalent logical and reciprocal vectors are complete. |
+Structured contract:
+
+- `omission`
+- `defensive`
+- `ISO/IEC 24778:2008 Aztec Code`
+- `ISO/IEC 24778:2008 edition 1`
+- `iso-iec-24778-source`
+- `https://www.iso.org/standard/41548.html`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `docs/specification-decisions.md`
 
 ## BARCODE-DEC-012: Image decoding is bounded before expensive work
 
@@ -228,6 +353,17 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | `imagedecode.Limits`, encoded and decoded image entry points, reader adapters, and classified decode errors |
 | Upstream record | Dependency behavior is isolated and does not redefine the package's resource contract. |
 | Reconsider when | A new decoder exposes an independently bounded lifecycle with equivalent panic, cancellation, and allocation evidence. |
+Structured contract:
+
+- `implementation-defined behavior`
+- `defensive`
+- `ISO/IEC 18004:2024 QR Code`
+- `ISO/IEC 18004:2024 edition 4`
+- `iso-iec-18004-source`
+- `https://www.iso.org/standard/83389.html`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `docs/specification-decisions.md`
 
 ## BARCODE-DEC-013: Damage tolerance is empirical and format-specific
 
@@ -246,6 +382,17 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | Image decode options, limits, orientation metadata, candidate handling, and documented robustness thresholds |
 | Upstream record | Hardware certification and scanner performance are explicitly outside this software evidence. |
 | Reconsider when | New deterministic corpora establish wider thresholds without violating resource budgets. |
+Structured contract:
+
+- `implementation-defined behavior`
+- `defensive`
+- `ISO/IEC 18004:2024 QR Code`
+- `ISO/IEC 18004:2024 edition 4`
+- `iso-iec-18004-source`
+- `https://www.iso.org/standard/83389.html`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `docs/specification-decisions.md`
 
 ## BARCODE-DEC-014: Decode failures and metadata remain explicit
 
@@ -264,6 +411,17 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | `barcode.DecodeResult`, checksum and orientation enums, diagnostics, image decode errors, and decoder result constructors |
 | Upstream record | Go error categories and redaction policy are package-defined around standard format outcomes. |
 | Reconsider when | An additive diagnostic can be exposed without leaking payloads or weakening stable error classification. |
+Structured contract:
+
+- `interoperability policy`
+- `defensive`
+- `ISO/IEC 15417:2007 with Amendment 1:2026 Code 128`
+- `ISO/IEC 15417:2007 edition 2 with Amendment 1:2026`
+- `iso-iec-15417-source`
+- `https://www.iso.org/standard/43896.html`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `docs/specification-decisions.md`
 
 ## BARCODE-DEC-015: Reciprocal software interoperability is required
 
@@ -282,6 +440,19 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | Advertised capability claims, interoperability documentation, pinned test dependencies, and conformance fixtures |
 | Upstream record | Peer versions and the PDF417 divergence are documented in the standards inventory and interoperability guide. |
 | Reconsider when | A maintained peer release changes overlapping behavior or an official redistributable corpus becomes available. |
+Structured contract:
+
+- `interoperability policy`
+- `application-policy`
+- `ISO/IEC 18004:2024 QR Code`
+- `ISO/IEC 18004:2024 edition 4`
+- `iso-iec-18004-source`
+- `https://www.iso.org/standard/83389.html`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `imagedecode/independent_reader_test.go`
+- `imagedecode/independent_writer_test.go`
+- `docs/specification-decisions.md`
 
 ## BARCODE-DEC-016: Software output never implies content execution or physical certification
 
@@ -300,6 +471,17 @@ certification, or conformance to an unreviewed replacement edition.
 | Public surface | Entire module contract, especially `barcode.DecodeResult`, rendering APIs, capability descriptions, and security guidance |
 | Upstream record | Governing standards include physical and production requirements that this package deliberately does not claim to certify. |
 | Reconsider when | A separately scoped adapter defines hardware ownership and evidence without expanding the core package's trust boundary. |
+Structured contract:
+
+- `omission`
+- `application-policy`
+- `ISO/IEC 18004:2024 QR Code`
+- `ISO/IEC 18004:2024 edition 4`
+- `iso-iec-18004-source`
+- `https://www.iso.org/standard/83389.html`
+- `Exact clause not independently verified from available source material`
+- `not specified`
+- `docs/specification-decisions.md`
 
 ## Unresolved decisions
 

@@ -1,0 +1,830 @@
+{
+  "schema_version": 1,
+  "change_control": {
+    "readme": "README.md",
+    "conformance": "specification/README.md",
+    "compatibility": "COMPATIBILITY.md",
+    "contribution": "CONTRIBUTING.md",
+    "changelog": "CHANGELOG.md",
+    "pull_request_template": ".github/pull_request_template.md"
+  },
+  "decisions": [
+    {
+      "id": "BARCODE-DEC-001",
+      "title": "Exact standards identity and restricted-source boundary",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "omission",
+      "decision_scope": "application-policy",
+      "specification": "ISO/IEC 18004:2024 QR Code",
+      "version": "ISO/IEC 18004:2024 edition 4",
+      "source_authority": "iso-iec-18004-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "ISO and AIM publications are licensed and cannot be copied into an open repository. A product page hash would identify mutable catalogue HTML rather than the normative publication, while omitting edition identity would make a compliance claim irreproducible.",
+      "interpretations": [
+        "Vendor restricted texts; hash product pages as if they were standards; cite only names; infer behavior from peer libraries; or pin exact document identities while separately hashing every redistributable fixture and peer archive."
+      ],
+      "peer_behavior": "Barcode libraries commonly cite a symbology name without an edition or derive behavior from ZXing. Those practices do not establish source identity or permission to redistribute standards text.",
+      "selected_behavior": "The module records exact publication identities and authoritative catalogue URLs but does not redistribute restricted text. Every redistributed fixture, GS1 dictionary, and peer archive has independent provenance and a SHA-256 digest. No fixture is called official unless its license and origin support that claim.",
+      "rationale": "The module records exact publication identities and authoritative catalogue URLs but does not redistribute restricted text. Every redistributed fixture, GS1 dictionary, and peer archive has independent provenance and a SHA-256 digest. No fixture is called official unless its license and origin support that claim.",
+      "security_consequences": "Avoiding unlicensed copies has no runtime cost. Explicit provenance prevents hostile or accidental fixture replacement from silently redefining accepted wire patterns.",
+      "resource_consequences": "Avoiding unlicensed copies has no runtime cost. Explicit provenance prevents hostile or accidental fixture replacement from silently redefining accepted wire patterns.",
+      "compatibility_consequences": "A standards edition change is a compatibility review, not a documentation refresh. Existing encoded and decoded behavior remains tied to the edition named by `CapabilityFor`.",
+      "wire_consequences": "A standards edition change is a compatibility review, not a documentation refresh. Existing encoded and decoded behavior remains tied to the edition named by `CapabilityFor`.",
+      "executable_evidence": [
+        "TestCapabilityMetadataIdentifiesExactGoverningEditions",
+        "TestGS1SyntaxDictionaryIsEmbedded",
+        "TestRenderFixtureGoldensCoverEveryFormat"
+      ],
+      "fixture_evidence": [
+        "specification/manifest.json"
+      ],
+      "fuzz_evidence": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+
+      ],
+      "public_apis": [
+        "barcode.Specification",
+        "barcode.Capability",
+        "barcode.CapabilityFor"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "ISO and AIM catalogue metadata identify restricted publications; GS1 26.0.0 and its change notices are public and separately versioned.",
+      "reconsider_when": "A source publisher changes licensing, publishes corrigenda, or releases a replacement edition affecting a supported behavior."
+    },
+    {
+      "id": "BARCODE-DEC-002",
+      "title": "Replacement editions do not silently change claims",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "omission",
+      "decision_scope": "defensive",
+      "specification": "ISO/IEC 15420:2009 EAN/UPC",
+      "version": "ISO/IEC 15420:2009 edition 2",
+      "source_authority": "iso-iec-15420-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "The implementation and evidence were built against EAN/UPC 2009 and Aztec 2008. New editions exist, but their publication does not prove unchanged requirements or authorize claiming compatibility without a licensed difference review.",
+      "interpretations": [
+        "Automatically relabel the implementation as current; stop all support immediately; continue citing withdrawn editions without visibility; or retain exact tested claims while recording replacements as mandatory review inputs."
+      ],
+      "peer_behavior": "Many libraries describe formats without editions and therefore appear current regardless of the behavior they implement. That ambiguity is rejected here.",
+      "selected_behavior": "EAN/UPC remains explicitly pinned to ISO/IEC 15420:2009 edition 2 and Aztec to ISO/IEC 24778:2008 edition 1. The manifest records the replacement editions and the package makes no 2025 or 2024 conformance claim until requirements, vectors, and interoperability are reviewed.",
+      "rationale": "EAN/UPC remains explicitly pinned to ISO/IEC 15420:2009 edition 2 and Aztec to ISO/IEC 24778:2008 edition 1. The manifest records the replacement editions and the package makes no 2025 or 2024 conformance claim until requirements, vectors, and interoperability are reviewed.",
+      "security_consequences": "No new parser behavior is accepted without limits and hostile-input review. The cost is delayed marketing of newer-edition compatibility rather than silent semantic drift.",
+      "resource_consequences": "No new parser behavior is accepted without limits and hostile-input review. The cost is delayed marketing of newer-edition compatibility rather than silent semantic drift.",
+      "compatibility_consequences": "Existing symbols retain their tested behavior. A later edition adoption must classify every changed encoding, decoding, metadata, and validation rule and may require a compatibility mode or major release.",
+      "wire_consequences": "Existing symbols retain their tested behavior. A later edition adoption must classify every changed encoding, decoding, metadata, and validation rule and may require a compatibility mode or major release.",
+      "executable_evidence": [
+        "TestCapabilitiesAreExplicitForEveryKnownFormat",
+        "TestCapabilityMetadataIdentifiesExactGoverningEditions",
+        "TestSymbolsDecodeWithIndependentReaders"
+      ],
+      "fixture_evidence": [
+        "specification/manifest.json"
+      ],
+      "fuzz_evidence": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+
+      ],
+      "public_apis": [
+        "barcode.CapabilityFor"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "ISO marks the 2009 EAN/UPC and 2008 Aztec editions as withdrawn and links their published replacements.",
+      "reconsider_when": "Maintainers obtain the replacement publications and complete a requirement-by-requirement difference and conformance review."
+    },
+    {
+      "id": "BARCODE-DEC-003",
+      "title": "Capability advertising requires complete software evidence",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "interoperability policy",
+      "decision_scope": "application-policy",
+      "specification": "ISO/IEC 18004:2024 QR Code",
+      "version": "ISO/IEC 18004:2024 edition 4",
+      "source_authority": "iso-iec-18004-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "Encoding one sample or completing self-round trips can make an incomplete format appear supported. Sequence assembly, metadata, validation, and independent decoding are separate observable capabilities.",
+      "interpretations": [
+        "Advertise every encoder; expose only a binary supported flag; treat self-round trips as complete; or require all promised software surfaces and publish limitations."
+      ],
+      "peer_behavior": "Barcode packages frequently expose whatever their dependency can encode and leave partial controls undocumented.",
+      "selected_behavior": "A format is advertised only when encoding, image decoding, validation, metadata, and independent software interoperability for the promised profile are complete. Data Matrix and PDF417 remain implemented but unadvertised because structured-append and macro sequence assembly are incomplete.",
+      "rationale": "A format is advertised only when encoding, image decoding, validation, metadata, and independent software interoperability for the promised profile are complete. Data Matrix and PDF417 remain implemented but unadvertised because structured-append and macro sequence assembly are incomplete.",
+      "security_consequences": "Explicit limitations prevent callers from relying on absent assembly or validation. Capability records are immutable defensive copies with bounded static content.",
+      "resource_consequences": "Explicit limitations prevent callers from relying on absent assembly or validation. Capability records are immutable defensive copies with bounded static content.",
+      "compatibility_consequences": "Adding an advertised format is additive only after its complete evidence gate passes. Removing or narrowing an advertised profile requires compatibility review.",
+      "wire_consequences": "Adding an advertised format is additive only after its complete evidence gate passes. Removing or narrowing an advertised profile requires compatibility review.",
+      "executable_evidence": [
+        "TestCapabilitiesAreExplicitForEveryKnownFormat",
+        "TestCapabilitiesReflectSoftwareScope",
+        "TestDecodeEverySupportedFormat"
+      ],
+      "fixture_evidence": [
+
+      ],
+      "fuzz_evidence": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+
+      ],
+      "public_apis": [
+        "barcode.Formats",
+        "barcode.CapabilityFor",
+        "barcode.Capability.Advertised",
+        "barcode.Capability.Limitations"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "No governing symbology standard defines this library-level advertisement policy.",
+      "reconsider_when": "Missing sequence assembly and reciprocal evidence are implemented for an unadvertised format."
+    },
+    {
+      "id": "BARCODE-DEC-004",
+      "title": "Logical symbols are immutable source-of-truth values",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "implementation-defined behavior",
+      "decision_scope": "defensive",
+      "specification": "ISO/IEC 18004:2024 QR Code",
+      "version": "ISO/IEC 18004:2024 edition 4",
+      "source_authority": "iso-iec-18004-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "Treating a PNG or mutable caller buffer as the symbol can hide module defects, alias authority-bearing payloads, and make output scaling part of encoding semantics.",
+      "interpretations": [
+        "Return dependency images directly; retain caller slices; permit symbols with both bars and matrices; or copy one validated logical representation and derive all views."
+      ],
+      "peer_behavior": "Image-first libraries often expose pixels as the primary result and couple encoding to one renderer.",
+      "selected_behavior": "A symbol owns a defensive payload copy and exactly one validated matrix or alternating bar-run representation. Matrices, bars, decode results, diagnostics, and capability limitations never alias caller-owned data.",
+      "rationale": "A symbol owns a defensive payload copy and exactly one validated matrix or alternating bar-run representation. Matrices, bars, decode results, diagnostics, and capability limitations never alias caller-owned data.",
+      "security_consequences": "Defensive copies consume bounded memory but prevent post-validation mutation and races. Dimensions and products are checked before allocation or indexing.",
+      "resource_consequences": "Defensive copies consume bounded memory but prevent post-validation mutation and races. Dimensions and products are checked before allocation or indexing.",
+      "compatibility_consequences": "Logical module output is the stable contract. Raster and SVG outputs may add adapters but cannot reinterpret modules or mutate symbol metadata.",
+      "wire_consequences": "Logical module output is the stable contract. Raster and SVG outputs may add adapters but cannot reinterpret modules or mutate symbol metadata.",
+      "executable_evidence": [
+        "TestMatrixAndSymbolDoNotAliasCallerData",
+        "TestBarsAndDecodeResultDoNotAliasCallerData",
+        "TestSymbolAcceptsExactlyOneLogicalRepresentation"
+      ],
+      "fixture_evidence": [
+
+      ],
+      "fuzz_evidence": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+
+      ],
+      "public_apis": [
+        "barcode.Matrix",
+        "barcode.Bars",
+        "barcode.Symbol",
+        "barcode.DecodeResult"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "This ownership model is package-defined; standards constrain symbol geometry rather than Go aliasing.",
+      "reconsider_when": "A zero-copy API can expose explicit lifetime and immutability guarantees without weakening the current contract."
+    },
+    {
+      "id": "BARCODE-DEC-005",
+      "title": "Rendering preserves modules and safe geometry",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "omission",
+      "decision_scope": "defensive",
+      "specification": "ISO/IEC 18004:2024 QR Code",
+      "version": "ISO/IEC 18004:2024 edition 4",
+      "source_authority": "iso-iec-18004-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "Arbitrary resizing can distort modules, shrink quiet zones, overflow image dimensions, or make a symbol visually plausible but unreadable. PNG and SVG metadata can also introduce nondeterminism.",
+      "interpretations": [
+        "Fit any requested dimensions; interpolate pixels; silently lower quiet zones; use renderer defaults; or require integer module scaling and reject unsafe geometry."
+      ],
+      "peer_behavior": "General image resizing libraries permit non-integer scaling and interpolation that barcode renderers must not inherit.",
+      "selected_behavior": "Image, PNG, and SVG rendering uses exact logical modules, integer scale, explicit quiet zones, bounded dimensions, and deterministic colors and bytes. Impossible or overflowing requests fail instead of shrinking or distorting.",
+      "rationale": "Image, PNG, and SVG rendering uses exact logical modules, integer scale, explicit quiet zones, bounded dimensions, and deterministic colors and bytes. Impossible or overflowing requests fail instead of shrinking or distorting.",
+      "security_consequences": "Product checks precede allocations and writer failures propagate. Deterministic output avoids unbounded metadata and fixture drift.",
+      "resource_consequences": "Product checks precede allocations and writer failures propagate. Deterministic output avoids unbounded metadata and fixture drift.",
+      "compatibility_consequences": "Requested dimensions that cannot preserve the logical grid are rejected. Existing golden logical, PNG, and SVG bytes are compatibility evidence, not permission to bypass module checks.",
+      "wire_consequences": "Requested dimensions that cannot preserve the logical grid are rejected. Existing golden logical, PNG, and SVG bytes are compatibility evidence, not permission to bypass module checks.",
+      "executable_evidence": [
+        "TestImageUsesIntegerModuleScalingAndExactColors",
+        "TestRenderedOutputsMatchGoldenChecksums",
+        "TestRenderRejectsOverflowAndExplicitLimitViolations",
+        "FuzzRenderLogicalMatrices"
+      ],
+      "fixture_evidence": [
+        "specification/render-fixtures.tsv"
+      ],
+      "fuzz_evidence": [
+        "FuzzRenderLogicalMatrices"
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+
+      ],
+      "public_apis": [
+        "render.Image",
+        "render.PNG",
+        "render.SVG",
+        "render.Options"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "Physical print quality remains outside software rendering conformance.",
+      "reconsider_when": "A new vector or document renderer preserves exact modules and supplies equivalent deterministic and overflow evidence."
+    },
+    {
+      "id": "BARCODE-DEC-006",
+      "title": "QR controls remain explicit and non-normalizing",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "ambiguity",
+      "decision_scope": "defensive",
+      "specification": "ISO/IEC 18004:2024 QR Code",
+      "version": "ISO/IEC 18004:2024 edition 4",
+      "source_authority": "iso-iec-18004-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "Automatic mode selection, forced modes, ECI widths, Kanji, FNC1 positions, structured append, versions, masks, and correction levels can conflict. Silently changing one option can produce a different payload or symbol profile.",
+      "interpretations": [
+        "Let the underlying writer normalize conflicts; force byte mode; ignore unsupported controls; or expose validated options and reject incompatible combinations."
+      ],
+      "peer_behavior": "QR writers differ in mode optimization and whether ECI, FNC1, structured append, and mask controls are exposed.",
+      "selected_behavior": "Automatic encoding chooses deterministic valid segments, while forced modes and every control are validated explicitly. Unsupported ECI values, impossible capacities, conflicting FNC1 or structured options, and invalid masks or versions fail without fallback.",
+      "rationale": "Automatic encoding chooses deterministic valid segments, while forced modes and every control are validated explicitly. Unsupported ECI values, impossible capacities, conflicting FNC1 or structured options, and invalid masks or versions fail without fallback.",
+      "security_consequences": "Payload, segment count, version, and control bounds apply before expensive matrix construction. No option can trigger remote access or unbounded retries.",
+      "resource_consequences": "Payload, segment count, version, and control bounds apply before expensive matrix construction. No option can trigger remote access or unbounded retries.",
+      "compatibility_consequences": "Selected mode, ECI, FNC1, sequence, version, mask, and correction level are observable symbol semantics. A rejected combination is not silently encoded under another profile.",
+      "wire_consequences": "Selected mode, ECI, FNC1, sequence, version, mask, and correction level are observable symbol semantics. A rejected combination is not silently encoded under another profile.",
+      "executable_evidence": [
+        "TestEncodeHonorsMaskECIAndGS1Controls",
+        "TestEncodeStructuredValidatesSequenceOptions",
+        "TestEncodeRejectsModeCharsetAndCapacityMismatches",
+        "FuzzEncodeOptions"
+      ],
+      "fixture_evidence": [
+
+      ],
+      "fuzz_evidence": [
+        "FuzzEncodeOptions"
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+
+      ],
+      "public_apis": [
+        "qr.Options",
+        "qr.Encode",
+        "qr.EncodeStructured"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "The ISO edition is exact; implementation defaults and Go error classification are package policy.",
+      "reconsider_when": "A replacement QR edition or independently verified control mode changes observable segmentation or metadata."
+    },
+    {
+      "id": "BARCODE-DEC-007",
+      "title": "Linear checksums are strict and format-specific",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "ambiguity",
+      "decision_scope": "defensive",
+      "specification": "ISO/IEC 15417:2007 with Amendment 1:2026 Code 128",
+      "version": "ISO/IEC 15417:2007 edition 2 with Amendment 1:2026",
+      "source_authority": "iso-iec-15417-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "Formats disagree on mandatory, optional, supplied, and calculated checksums. Treating them uniformly can duplicate a digit, accept a mismatch, or invent an application-defined Codabar profile.",
+      "interpretations": [
+        "Always append a checksum; trust supplied digits; drop invalid digits; infer optional profiles; or expose exact per-format behavior."
+      ],
+      "peer_behavior": "Libraries differ on whether EAN/UPC and ITF-14 inputs include a check digit and whether Code 39 modulo 43 is implicit.",
+      "selected_behavior": "Code 128 and Code 93 apply mandatory checks; Code 39 checksum is explicit; EAN/UPC and ITF-14 calculate a missing check digit and validate a supplied complete value; Codabar does not invent optional application checksum profiles. Invalid values fail.",
+      "rationale": "Code 128 and Code 93 apply mandatory checks; Code 39 checksum is explicit; EAN/UPC and ITF-14 calculate a missing check digit and validate a supplied complete value; Codabar does not invent optional application checksum profiles. Invalid values fail.",
+      "security_consequences": "Strict validation prevents ambiguous identifiers and keeps work linear in bounded payload size. Errors do not echo full sensitive payloads.",
+      "resource_consequences": "Strict validation prevents ambiguous identifiers and keeps work linear in bounded payload size. Errors do not echo full sensitive payloads.",
+      "compatibility_consequences": "Input length determines calculate-versus-validate only where documented. A mismatched supplied digit is never normalized into a different identifier.",
+      "wire_consequences": "Input length determines calculate-versus-validate only where documented. A mismatched supplied digit is never normalized into a different identifier.",
+      "executable_evidence": [
+        "TestEncodeACalculatesAndValidatesCheckDigit",
+        "TestEncode14CalculatesCheckDigitAndAddsBearerBars",
+        "TestChecksumMatchesModulo43Vector",
+        "TestEncodeAddsMandatoryChecksumsAndSupportsFullASCII"
+      ],
+      "fixture_evidence": [
+
+      ],
+      "fuzz_evidence": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+
+      ],
+      "public_apis": [
+        "gs1.CalculateCheckDigit",
+        "gs1.ValidateCheckDigit"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "Optional Codabar application checksum profiles remain explicitly unsupported.",
+      "reconsider_when": "A concrete named application profile requires an additive, independently tested checksum mode."
+    },
+    {
+      "id": "BARCODE-DEC-008",
+      "title": "GS1 parsing owns syntax while carriers own control encoding",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "interoperability policy",
+      "decision_scope": "application-policy",
+      "specification": "GS1 General Specifications 26.0.0",
+      "version": "GS1 General Specifications 26.0.0",
+      "source_authority": "gs1-general-specifications-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "Human bracketed data, raw element strings, FNC1 separators, AI length rules, associations, exclusions, and carrier-specific control bytes must not be conflated. Legacy raw-FNC1 Code 128 payloads are not necessarily valid GS1.",
+      "interpretations": [
+        "Parse every payload as raw text; let encoders infer AI boundaries; silently accept unknown AIs; treat a leading FNC1 as validated GS1; or separate validated elements from explicit legacy raw mode."
+      ],
+      "peer_behavior": "GS1 writers often accept preformatted strings without validating AI syntax or association rules.",
+      "selected_behavior": "`gs1` parses bracketed and raw element strings through the pinned dictionary, validates lengths, character classes, check pairs, associations, exclusions, and bounds, then emits exact separators. Carrier encoders consume validated elements. Code 128 raw FNC1 is an explicit incompatible legacy mode and cannot be combined with GS1 validation.",
+      "rationale": "`gs1` parses bracketed and raw element strings through the pinned dictionary, validates lengths, character classes, check pairs, associations, exclusions, and bounds, then emits exact separators. Carrier encoders consume validated elements. Code 128 raw FNC1 is an explicit incompatible legacy mode and cannot be combined with GS1 validation.",
+      "security_consequences": "Input bytes, elements, dictionary matches, and grammar work are bounded. Unknown or malformed data fails before symbol allocation.",
+      "resource_consequences": "Input bytes, elements, dictionary matches, and grammar work are bounded. Unknown or malformed data fails before symbol allocation.",
+      "compatibility_consequences": "Bracketed text is human input, not scanner wire data. Raw output inserts group separators only where variable-length elements require them. Legacy raw mode preserves bytes without claiming GS1 validity.",
+      "wire_consequences": "Bracketed text is human input, not scanner wire data. Raw output inserts group separators only where variable-length elements require them. Legacy raw mode preserves bytes without claiming GS1 validity.",
+      "executable_evidence": [
+        "TestParseRawElementStringUsesPredefinedLengthsAndFNC1",
+        "TestParserEnforcesRequiredAndExcludedAssociations",
+        "TestEncodeGS1AcceptsValidatedStructuredElements",
+        "TestEncodeRawFNC1SupportsLegacyPayloadsWithoutGS1Validation",
+        "FuzzParseElementStrings"
+      ],
+      "fixture_evidence": [
+        "specification/gs1/gs1-syntax-dictionary.txt"
+      ],
+      "fuzz_evidence": [
+        "FuzzParseElementStrings"
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+
+      ],
+      "public_apis": [
+        "gs1.ParseBracketed",
+        "gs1.ParseRaw",
+        "gs1.ElementString"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "GS1 change notices are tracked separately from the annual General Specifications release.",
+      "reconsider_when": "A GS1 release or change notice modifies supported AI syntax, association, or carrier rules."
+    },
+    {
+      "id": "BARCODE-DEC-009",
+      "title": "Data Matrix controls are encoded but sequence assembly is not advertised",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "optional behavior",
+      "decision_scope": "defensive",
+      "specification": "ISO/IEC 16022:2024 Data Matrix",
+      "version": "ISO/IEC 16022:2024 edition 3",
+      "source_authority": "iso-iec-16022-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "ECC 200 shape, capacity, ECI, GS1, Macro 05/06, Base 256, and structured-append headers are individually observable, while assembling a complete structured sequence is a higher-level lifecycle.",
+      "interpretations": [
+        "Advertise full support after encoding headers; hide controls; assemble opportunistically without identity checks; or expose validated controls while keeping the format unadvertised until assembly is complete."
+      ],
+      "peer_behavior": "Data Matrix libraries often support encoding structured-append fields but do not provide sequence collection and conflict handling.",
+      "selected_behavior": "The encoder validates ECC 200 shapes, capacity, ECI widths, GS1, macros, Base 256, and structured-append fields. Decoding preserves control metadata. The package does not claim complete advertised support until bounded sequence assembly exists.",
+      "rationale": "The encoder validates ECC 200 shapes, capacity, ECI widths, GS1, macros, Base 256, and structured-append fields. Decoding preserves control metadata. The package does not claim complete advertised support until bounded sequence assembly exists.",
+      "security_consequences": "Dimensions, payload, ECI, and sequence fields are bounded before placement and correction allocation. No hidden sequence cache exists.",
+      "resource_consequences": "Dimensions, payload, ECI, and sequence fields are bounded before placement and correction allocation. No hidden sequence cache exists.",
+      "compatibility_consequences": "Encoded control codewords and decoded metadata are stable. Callers must not assume the package will combine multiple symbols or resolve duplicate sequence members.",
+      "wire_consequences": "Encoded control codewords and decoded metadata are stable. Callers must not assume the package will combine multiple symbols or resolve duplicate sequence members.",
+      "executable_evidence": [
+        "TestEncodeSupportsStructuredAppendBoundaries",
+        "TestEncodeSupportsECIAssignmentWidths",
+        "TestEncodeSupportsMacro05And06",
+        "TestDecodeDataMatrixControls"
+      ],
+      "fixture_evidence": [
+
+      ],
+      "fuzz_evidence": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+
+      ],
+      "public_apis": [
+        "datamatrix.Options",
+        "datamatrix.Encode"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "The package edition metadata follows ISO's edition 3 catalogue record.",
+      "reconsider_when": "A bounded sequence assembler defines identity, ordering, duplicates, expiry, and incomplete-sequence behavior."
+    },
+    {
+      "id": "BARCODE-DEC-010",
+      "title": "PDF417 controls are encoded but macro assembly is caller-owned",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "optional behavior",
+      "decision_scope": "defensive",
+      "specification": "ISO/IEC 15438:2015 PDF417",
+      "version": "ISO/IEC 15438:2015 edition 3",
+      "source_authority": "iso-iec-15438-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "Compaction, ECI, rows, columns, correction levels, compact layout, and Macro PDF417 control blocks can be encoded independently of collecting a complete macro file.",
+      "interpretations": [
+        "Advertise full support after writing one macro block; hide macro controls; retain process-global sequence state; or expose exact blocks and leave durable assembly explicit."
+      ],
+      "peer_behavior": "Independent PDF417 writers disagree on correction checksums and many omit macro sequence lifecycle.",
+      "selected_behavior": "The encoder validates compaction, layout, correction levels 0 through 8, ECI, and complete macro control fields. The decoder preserves metadata. Macro file assembly is not implemented, so PDF417 remains unadvertised.",
+      "rationale": "The encoder validates compaction, layout, correction levels 0 through 8, ECI, and complete macro control fields. The decoder preserves metadata. Macro file assembly is not implemented, so PDF417 remains unadvertised.",
+      "security_consequences": "Codewords, dimensions, correction allocation, macro fields, and payload are bounded. No hidden unbounded file assembly state is retained.",
+      "resource_consequences": "Codewords, dimensions, correction allocation, macro fields, and payload are bounded. No hidden unbounded file assembly state is retained.",
+      "compatibility_consequences": "Individual PDF417 symbols and macro fields remain interoperable within the tested profile. Callers own cross-symbol identity, ordering, deduplication, and persistence.",
+      "wire_consequences": "Individual PDF417 symbols and macro fields remain interoperable within the tested profile. Callers own cross-symbol identity, ordering, deduplication, and persistence.",
+      "executable_evidence": [
+        "TestEncodeSupportsECIAndMacroControlBlocks",
+        "TestEncodeSupportsAllCorrectionLevelsAndQuietZones",
+        "TestEncodeDistinguishesPayloadSafetyFromSymbolCapacity",
+        "TestPDF417ReaderImplementsReaderLifecycle"
+      ],
+      "fixture_evidence": [
+
+      ],
+      "fuzz_evidence": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+
+      ],
+      "public_apis": [
+        "pdf417.Options",
+        "pdf417.Encode"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "The independent speedata writer divergence is excluded from PDF417 evidence; the pinned golang-pdf417 writer supplies that fixture instead.",
+      "reconsider_when": "A macro assembler defines bounded lifecycle and passes independent multi-symbol evidence."
+    },
+    {
+      "id": "BARCODE-DEC-011",
+      "title": "Aztec behavior remains pinned to the reviewed edition",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "omission",
+      "decision_scope": "defensive",
+      "specification": "ISO/IEC 24778:2008 Aztec Code",
+      "version": "ISO/IEC 24778:2008 edition 1",
+      "source_authority": "iso-iec-24778-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "Automatic compact/full layer choice, forced layers, bit stuffing, error-correction percentage, ECI, and GS1 are tested against the older edition; changing the label alone would hide possible edition differences.",
+      "interpretations": [
+        "Claim the latest edition automatically; remove Aztec; freeze all behavior without noting the replacement; or retain exact reviewed behavior and schedule a new-edition audit."
+      ],
+      "peer_behavior": "ZXing-derived encoders generally expose Aztec without edition-specific claims.",
+      "selected_behavior": "Automatic encoding selects the smallest valid compact or full layer, forced controls are strict, and GS1/ECI remain explicit. The compatibility claim stays at 2008 edition 1 until the 2024 edition is reviewed and independently proven.",
+      "rationale": "Automatic encoding selects the smallest valid compact or full layer, forced controls are strict, and GS1/ECI remain explicit. The compatibility claim stays at 2008 edition 1 until the 2024 edition is reviewed and independently proven.",
+      "security_consequences": "Layer, correction, payload, and matrix dimensions are bounded before allocation. Unreviewed controls are not accepted.",
+      "resource_consequences": "Layer, correction, payload, and matrix dimensions are bounded before allocation. Unreviewed controls are not accepted.",
+      "compatibility_consequences": "Existing Aztec symbols retain tested modules and metadata. Adopting edition 2 may require a new compatibility decision if any output differs.",
+      "wire_consequences": "Existing Aztec symbols retain tested modules and metadata. Adopting edition 2 may require a new compatibility decision if any output differs.",
+      "executable_evidence": [
+        "TestEncodeSupportsAutomaticAndForcedLayers",
+        "TestEncodeSelectsSmallestAutomaticCompactLayer",
+        "TestEncodeSupportsGS1FNC1",
+        "TestEncodeSupportsECI"
+      ],
+      "fixture_evidence": [
+
+      ],
+      "fuzz_evidence": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+
+      ],
+      "public_apis": [
+        "aztec.Options",
+        "aztec.Encode",
+        "barcode.CapabilityFor(barcode.Aztec)"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "ISO withdrew the 2008 publication and published edition 2 in 2024.",
+      "reconsider_when": "A licensed edition-2 difference review and equivalent logical and reciprocal vectors are complete."
+    },
+    {
+      "id": "BARCODE-DEC-012",
+      "title": "Image decoding is bounded before expensive work",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "implementation-defined behavior",
+      "decision_scope": "defensive",
+      "specification": "ISO/IEC 18004:2024 QR Code",
+      "version": "ISO/IEC 18004:2024 edition 4",
+      "source_authority": "iso-iec-18004-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "Encoded image headers, decoded dimensions, rotations, inversions, candidate enumeration, correction attempts, and dependency panics can consume resources before a valid symbol exists.",
+      "interpretations": [
+        "Trust decoder defaults; recover only at the API boundary; decode then inspect limits; use unbounded candidate retries; or enforce caller limits at every expensive boundary."
+      ],
+      "peer_behavior": "General image and barcode decoders often optimize successful scans rather than hostile encoded inputs or cancellation.",
+      "selected_behavior": "Callers provide encoded-byte, dimension, pixel, candidate, correction, payload, and time bounds. Header dimensions are checked before image allocation, deadlines between attempts are observed, and additive decoder panics are contained at each candidate boundary.",
+      "rationale": "Callers provide encoded-byte, dimension, pixel, candidate, correction, payload, and time bounds. Header dimensions are checked before image allocation, deadlines between attempts are observed, and additive decoder panics are contained at each candidate boundary.",
+      "security_consequences": "Hostile images fail with classified bounded work and cannot trigger remote access, unbounded retries, or leaked goroutines. Candidate containment may reject an image rather than trust partial dependency state.",
+      "resource_consequences": "Hostile images fail with classified bounded work and cannot trigger remote access, unbounded retries, or leaked goroutines. Candidate containment may reject an image rather than trust partial dependency state.",
+      "compatibility_consequences": "Inputs exceeding configured limits are rejected even if a third-party decoder could eventually scan them. Limits are part of the API contract, not hidden global tuning.",
+      "wire_consequences": "Inputs exceeding configured limits are rejected even if a third-party decoder could eventually scan them. Limits are part of the API contract, not hidden global tuning.",
+      "executable_evidence": [
+        "TestDecodeEnforcesBoundsBeforeImageAllocation",
+        "TestDecodeEnforcesCallerTimeBudget",
+        "TestTwoDReaderContainsDependencyPanics",
+        "FuzzDecodeBoundedImages"
+      ],
+      "fixture_evidence": [
+
+      ],
+      "fuzz_evidence": [
+        "FuzzDecodeBoundedImages"
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+
+      ],
+      "public_apis": [
+        "imagedecode.Limits"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "Dependency behavior is isolated and does not redefine the package's resource contract.",
+      "reconsider_when": "A new decoder exposes an independently bounded lifecycle with equivalent panic, cancellation, and allocation evidence."
+    },
+    {
+      "id": "BARCODE-DEC-013",
+      "title": "Damage tolerance is empirical and format-specific",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "implementation-defined behavior",
+      "decision_scope": "defensive",
+      "specification": "ISO/IEC 18004:2024 QR Code",
+      "version": "ISO/IEC 18004:2024 edition 4",
+      "source_authority": "iso-iec-18004-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "Rotation, inversion, blur, noise, cropping, contrast, and damaged modules do not have one universal software threshold. Promising arbitrary damaged-image recovery would exceed deterministic evidence.",
+      "interpretations": [
+        "Claim any readable sample as robust; retry transformations without bounds; reject all degraded inputs; or document exact tested transformations and correction budgets."
+      ],
+      "peer_behavior": "Scanner products tune proprietary heuristics against hardware and camera pipelines that this software library does not control.",
+      "selected_behavior": "The package supports bounded rotation and inversion and records deterministic degradation thresholds for representative QR images. Multiple candidates and correction work obey explicit budgets. No claim extends to glare, optics, print quality, or arbitrary damage beyond tested fixtures.",
+      "rationale": "The package supports bounded rotation and inversion and records deterministic degradation thresholds for representative QR images. Multiple candidates and correction work obey explicit budgets. No claim extends to glare, optics, print quality, or arbitrary damage beyond tested fixtures.",
+      "security_consequences": "Transformation and correction counts are finite. Failure to decode within the declared profile is terminal rather than an invitation to unbounded search.",
+      "resource_consequences": "Transformation and correction counts are finite. Failure to decode within the declared profile is terminal rather than an invitation to unbounded search.",
+      "compatibility_consequences": "Improving bounded detection is additive when existing successful metadata remains stable; broadening default work budgets requires resource review.",
+      "wire_consequences": "Improving bounded detection is additive when existing successful metadata remains stable; broadening default work budgets requires resource review.",
+      "executable_evidence": [
+        "TestDecodeQRDocumentedImageDegradationThresholds",
+        "TestDecodeSupportsInvertedImages",
+        "TestDecodeMultipleSymbolsReturnsOneDecodableCandidate",
+        "TestDecodeEnforcesCorrectionBudget"
+      ],
+      "fixture_evidence": [
+
+      ],
+      "fuzz_evidence": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+
+      ],
+      "public_apis": [
+        "Image decode options, limits, orientation metadata, candidate handling, and documented robustness thresholds"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "Hardware certification and scanner performance are explicitly outside this software evidence.",
+      "reconsider_when": "New deterministic corpora establish wider thresholds without violating resource budgets."
+    },
+    {
+      "id": "BARCODE-DEC-014",
+      "title": "Decode failures and metadata remain explicit",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "interoperability policy",
+      "decision_scope": "defensive",
+      "specification": "ISO/IEC 15417:2007 with Amendment 1:2026 Code 128",
+      "version": "ISO/IEC 15417:2007 edition 2 with Amendment 1:2026",
+      "source_authority": "iso-iec-15417-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "A decoder can collapse unsupported ECI, checksum mismatch, no symbol, malformed image, payload limit, and cancellation into one error or return partially trusted content. Dependency diagnostics may include payload data.",
+      "interpretations": [
+        "Return best-effort payloads; expose raw dependency errors; map every failure to not found; or preserve bounded machine-readable categories and trusted metadata only after validation."
+      ],
+      "peer_behavior": "Reader libraries vary in checksum status, orientation, confidence, byte segments, sequence metadata, and error text.",
+      "selected_behavior": "Decode results validate format, orientation, checksum, confidence, payload, raw bytes, and bounded diagnostics before construction. Unsupported controls, invalid images, exceeded limits, and cancellation remain classifiable; public errors redact complete payloads.",
+      "rationale": "Decode results validate format, orientation, checksum, confidence, payload, raw bytes, and bounded diagnostics before construction. Unsupported controls, invalid images, exceeded limits, and cancellation remain classifiable; public errors redact complete payloads.",
+      "security_consequences": "Callers can fail closed without parsing secret-bearing error text. Defensive copies prevent dependency or caller mutation after validation.",
+      "resource_consequences": "Callers can fail closed without parsing secret-bearing error text. Defensive copies prevent dependency or caller mutation after validation.",
+      "compatibility_consequences": "Metadata fields are explicit and absent data is not invented. A checksum failure cannot be returned as a successful identifier.",
+      "wire_consequences": "Metadata fields are explicit and absent data is not invented. A checksum failure cannot be returned as a successful identifier.",
+      "executable_evidence": [
+        "TestDecodeReportsRotationAndPayloadLimits",
+        "TestOrientationChecksumAndFormatMappings",
+        "TestInvalidInputErrorsAreClassifiedAndPayloadRedacted",
+        "TestDecodeRejectsUnsupportedFormatsAndCandidateLimits"
+      ],
+      "fixture_evidence": [
+
+      ],
+      "fuzz_evidence": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+
+      ],
+      "public_apis": [
+        "barcode.DecodeResult"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "Go error categories and redaction policy are package-defined around standard format outcomes.",
+      "reconsider_when": "An additive diagnostic can be exposed without leaking payloads or weakening stable error classification."
+    },
+    {
+      "id": "BARCODE-DEC-015",
+      "title": "Reciprocal software interoperability is required",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "interoperability policy",
+      "decision_scope": "application-policy",
+      "specification": "ISO/IEC 18004:2024 QR Code",
+      "version": "ISO/IEC 18004:2024 edition 4",
+      "source_authority": "iso-iec-18004-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "Self-round trips can preserve matching defects in writer and reader. A single peer can also contain a known format-specific defect, making blind differential agreement misleading.",
+      "interpretations": [
+        "Trust self-round trips; require one peer for everything; treat majority behavior as normative; or use reciprocal pinned peers and classify divergences against standards evidence."
+      ],
+      "peer_behavior": "speedata/barcode v1.1.1 emits an invalid PDF417 correction checksum for the selected fixture, while the separately pinned golang-pdf417 implementation produces the expected interoperable symbol.",
+      "selected_behavior": "Every advertised format has independent-writer input decoded locally and locally written output decoded independently. Peer disagreement is classified rather than voted on; the known PDF417 writer defect is isolated to a different pinned peer. Production code does not import conformance peers.",
+      "rationale": "Every advertised format has independent-writer input decoded locally and locally written output decoded independently. Peer disagreement is classified rather than voted on; the known PDF417 writer defect is isolated to a different pinned peer. Production code does not import conformance peers.",
+      "security_consequences": "Test-only peers expand supply-chain review but not runtime dependencies. Archive hashes and module sums prevent silent fixture implementation replacement.",
+      "resource_consequences": "Test-only peers expand supply-chain review but not runtime dependencies. Archive hashes and module sums prevent silent fixture implementation replacement.",
+      "compatibility_consequences": "A peer update cannot silently change expected output. New results require minimized differences, normative classification, and deliberate provenance updates.",
+      "wire_consequences": "A peer update cannot silently change expected output. New results require minimized differences, normative classification, and deliberate provenance updates.",
+      "executable_evidence": [
+        "TestDecodeIndependentWriters",
+        "TestSymbolsDecodeWithIndependentReaders",
+        "TestEncodeMatchesPinnedZXingImplementation",
+        "TestEncoderMatchesPinnedZXingImplementation"
+      ],
+      "fixture_evidence": [
+
+      ],
+      "fuzz_evidence": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+        "imagedecode/independent_reader_test.go",
+        "imagedecode/independent_writer_test.go"
+      ],
+      "public_apis": [
+        "Advertised capability claims, interoperability documentation, pinned test dependencies, and conformance fixtures"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "Peer versions and the PDF417 divergence are documented in the standards inventory and interoperability guide.",
+      "reconsider_when": "A maintained peer release changes overlapping behavior or an official redistributable corpus becomes available."
+    },
+    {
+      "id": "BARCODE-DEC-016",
+      "title": "Software output never implies content execution or physical certification",
+      "status": "resolved",
+      "owner": "`barcode` maintainers",
+      "classification": "omission",
+      "decision_scope": "application-policy",
+      "specification": "ISO/IEC 18004:2024 QR Code",
+      "version": "ISO/IEC 18004:2024 edition 4",
+      "source_authority": "iso-iec-18004-source",
+      "section": "Exact clause not independently verified from available source material",
+      "requirement_strength": "not specified",
+      "issue": "Decoded bytes may contain URLs, commands, credentials, or identifiers, and a correctly rendered image is not proof of printer, scanner, substrate, optics, or regulatory quality.",
+      "interpretations": [
+        "Automatically follow decoded URLs; expose scanner or printer control; claim standards certification from software tests; or return inert data and bound claims to repeatable software behavior."
+      ],
+      "peer_behavior": "Consumer scanner applications often act on decoded URLs, while hardware vendors provide physical verification and grading outside general-purpose libraries.",
+      "selected_behavior": "The module only validates, encodes, renders, and decodes inert values. It never executes, fetches, opens, or follows content. Hardware APIs, camera capture, printer or scanner control, print grading, and physical certification remain outside capability claims.",
+      "rationale": "The module only validates, encodes, renders, and decodes inert values. It never executes, fetches, opens, or follows content. Hardware APIs, camera capture, printer or scanner control, print grading, and physical certification remain outside capability claims.",
+      "security_consequences": "Treating output as untrusted prevents barcode content from becoming an implicit network or execution primitive. Software-only scope avoids false safety claims about physical labels.",
+      "resource_consequences": "Treating output as untrusted prevents barcode content from becoming an implicit network or execution primitive. Software-only scope avoids false safety claims about physical labels.",
+      "compatibility_consequences": "Applications must explicitly interpret decoded content and own authorization and side effects. A hardware adapter would be a separate integration with its own lifecycle and certification claims.",
+      "wire_consequences": "Applications must explicitly interpret decoded content and own authorization and side effects. A hardware adapter would be a separate integration with its own lifecycle and certification claims.",
+      "executable_evidence": [
+        "TestCapabilitiesReflectSoftwareScope",
+        "TestDecodeResultValidatesMetadataAndReturnsDefensiveValues",
+        "TestInvalidInputErrorsAreClassifiedAndPayloadRedacted"
+      ],
+      "fixture_evidence": [
+
+      ],
+      "fuzz_evidence": [
+
+      ],
+      "interoperability_evidence": [
+
+      ],
+      "differential_evidence": [
+
+      ],
+      "public_apis": [
+        "barcode.DecodeResult"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md"
+      ],
+      "upstream_status": "Governing standards include physical and production requirements that this package deliberately does not claim to certify.",
+      "reconsider_when": "A separately scoped adapter defines hardware ownership and evidence without expanding the core package's trust boundary."
+    }
+  ]
+}
