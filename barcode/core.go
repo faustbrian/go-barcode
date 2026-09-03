@@ -74,7 +74,7 @@ var capabilities = []Capability{
 	knownCapability(UPCE, "EAN/UPC bar code symbology specification", "ISO/IEC 15420:2009, edition 2", "https://www.iso.org/standard/46143.html", true, true, true, true),
 	knownCapability(ITF, "Interleaved 2 of 5 bar code symbology specification", "ISO/IEC 16390:2007, edition 2", "https://www.iso.org/standard/43898.html", true, true, false, true),
 	knownCapability(ITF14, "GS1 General Specifications", "release 26.0, January 2026", "https://ref.gs1.org/standards/genspecs/", true, true, true, true),
-	knownCapability(Codabar, "Uniform Symbology Specification Codabar", "AIM Europe, 1995", "https://www.aimglobal.org/", true, true, false, true,
+	knownCapability(Codabar, "Uniform Symbology Specification Codabar", "ANSI/AIM BC3-1995", "https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf", true, true, false, true,
 		"optional application-defined checksum profiles are not implemented"),
 	knownCapability(DataMatrix, "Data Matrix bar code symbology specification", "ISO/IEC 16022:2024, edition 3", "https://www.iso.org/standard/80926.html", true, true, true, false,
 		"structured-append sequence assembly is incomplete"),

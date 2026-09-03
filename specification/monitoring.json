@@ -114,11 +114,26 @@
     {
       "id": "aim-codabar-source",
       "kind": "specification",
-      "version": "AIM Europe Codabar 1995",
-      "url": "https://www.aimglobal.org/aim-standards/",
-      "sha256": "317449fe70f0967ed32bfea359004b5bb18e45ad0a30193fd86a4a54ecd07b44",
+      "version": "ANSI/AIM BC3-1995",
+      "url": "https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf",
+      "access": "restricted",
+      "expected_status": 403,
+      "unavailable_reason": "ANSI's catalogue identifies the exact withdrawn historical publication, but the licensed normative publication is not publicly retrievable.",
       "specifications": [
-        "AIM Europe 1995 Codabar"
+        "ANSI/AIM BC3-1995 Codabar"
+      ]
+    },
+    {
+      "id": "ansi-aim-withdrawal-notice",
+      "kind": "recommendation",
+      "version": "ANSI Standards Action, October 20, 2006 withdrawal notice",
+      "url": "https://share.ansi.org/Shared%20Documents/Standards%20Action/2006%20PDFs/SAV3742.pdf",
+      "access": "restricted",
+      "expected_status": 403,
+      "unavailable_reason": "ANSI's public notice records withdrawal status for the named historical publications; it is status evidence, not redistributed normative text.",
+      "specifications": [
+        "ANSI/AIM BC5-1995 Code 93",
+        "ANSI/AIM BC3-1995 Codabar"
       ]
     },
     {
@@ -147,7 +162,7 @@
         "ISO/IEC 15438:2015 PDF417",
         "ISO/IEC 24778:2008 Aztec Code",
         "ANSI/AIM BC5-1995 Code 93",
-        "AIM Europe 1995 Codabar"
+        "ANSI/AIM BC3-1995 Codabar"
       ]
     },
     {

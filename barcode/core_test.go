@@ -171,6 +171,7 @@ func TestCapabilityMetadataIdentifiesExactGoverningEditions(t *testing.T) {
 		url     string
 	}{
 		{barcode.Code39, "ISO/IEC 16388:2023, edition 3", "https://www.iso.org/standard/77799.html"},
+		{barcode.Codabar, "ANSI/AIM BC3-1995", "https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf"},
 		{barcode.ITF, "ISO/IEC 16390:2007, edition 2", "https://www.iso.org/standard/43898.html"},
 		{barcode.DataMatrix, "ISO/IEC 16022:2024, edition 3", "https://www.iso.org/standard/80926.html"},
 		{barcode.PDF417, "ISO/IEC 15438:2015, edition 3", "https://www.iso.org/standard/65502.html"},

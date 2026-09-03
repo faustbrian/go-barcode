@@ -45,9 +45,11 @@
     },
     {
       "id": "aim-codabar",
-      "release": "AIM Europe Codabar 1995",
-      "source": "https://web.aimglobal.org/External/WCPages/WCEcommerce/eComListPage.aspx?Category=4",
-      "status": "implementation target; licensed publication not redistributed"
+      "release": "ANSI/AIM BC3-1995",
+      "source": "https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf",
+      "current_release": "AIM Codabar, publication date not identified",
+      "current_source": "https://web.aimglobal.org/external/wcpages/wcecommerce/eComItemDetailsPage.aspx?Category=4&ItemID=42",
+      "status": "withdrawn historical compatibility target; the separately catalogued current AIM publication is not claimed without licensed review"
     },
     {
       "id": "iso-iec-16022",

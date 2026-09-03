@@ -11,7 +11,7 @@ UPCA	upc-a	ISO/IEC 15420	2009 edition 2	guards modulo 10 and supplements	metadat
 UPCE	upc-e	ISO/IEC 15420	2009 edition 2	zero suppression parity expansion checksum and supplements	metadata only
 ITF	interleaved-2-of-5	ISO/IEC 16390	2007 edition 2	paired digit interleaving start stop and quiet zones	metadata only
 ITF14	itf-14	GS1 General Specifications	release 26.0	GTIN check digit bearer controls and dimensions	metadata only
-CODABAR	codabar	AIM Uniform Symbology Specification	1995	validated guards character patterns and quiet zones	metadata only
+CODABAR	codabar	ANSI/AIM BC3	1995	validated guards character patterns and quiet zones	metadata only
 DM-DATA	data-matrix	ISO/IEC 16022	2024 edition 3	ECC 200 sizes shapes placement and Reed Solomon correction	metadata only
 DM-CONTROLS	data-matrix	ISO/IEC 16022	2024 edition 3	GS1 ECI Macro 05 06 structured append and Base 256	metadata only
 PDF-DATA	pdf417	ISO/IEC 15438	2015 edition 3	text byte numeric compaction rows columns and correction 0 through 8	metadata only

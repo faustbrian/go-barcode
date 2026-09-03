@@ -1,0 +1,6 @@
+exclude = [
+  # These exact ANSI records intentionally return 403 to automated clients;
+  # specification/monitoring.json independently verifies those boundaries.
+  '^https://share\.ansi\.org/Shared%20Documents/Standards%20Action/2006%20PDFs/SAV3742\.pdf$',
+  '^https://webstore\.ansi\.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006\.pdf$',
+]
