@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "repository": "github.com/faustbrian/go-barcode",
   "go_version": "1.26.6",
   "modules": [
@@ -245,6 +245,118 @@
       "family_label": "Domain Utilities",
       "family_description": "Domain-specific immutable values, algorithms, parsers, proofs, and calculations.",
       "family_order": 8,
+      "cohesion": {
+        "family": "domain-utilities",
+        "secondary_capabilities": [
+          "data-encoding",
+          "protocols-and-schemas",
+          "testing-and-conformance"
+        ],
+        "responsibility": "Provide immutable logical barcode symbols, strict validation, encoding, decoding, rendering, and standards-conformance evidence.",
+        "non_goals": [
+          "Own barcode hardware or scanner lifecycles, certify physical devices or print quality, or assemble multi-symbol Data Matrix and PDF417 sequences."
+        ],
+        "public_package_identifier": "none",
+        "primary_entry_packages": [
+          "github.com/faustbrian/go-barcode/aztec",
+          "github.com/faustbrian/go-barcode/barcode",
+          "github.com/faustbrian/go-barcode/codabar",
+          "github.com/faustbrian/go-barcode/code128",
+          "github.com/faustbrian/go-barcode/code39",
+          "github.com/faustbrian/go-barcode/code93",
+          "github.com/faustbrian/go-barcode/datamatrix",
+          "github.com/faustbrian/go-barcode/ean",
+          "github.com/faustbrian/go-barcode/gs1",
+          "github.com/faustbrian/go-barcode/imagedecode",
+          "github.com/faustbrian/go-barcode/itf",
+          "github.com/faustbrian/go-barcode/pdf417",
+          "github.com/faustbrian/go-barcode/qr",
+          "github.com/faustbrian/go-barcode/render",
+          "github.com/faustbrian/go-barcode/specification",
+          "github.com/faustbrian/go-barcode/upc"
+        ],
+        "package_selection": {
+          "github.com/faustbrian/go-barcode/aztec": "Use for strict Aztec Code encoding and decoding.",
+          "github.com/faustbrian/go-barcode/barcode": "Use for shared immutable symbol, matrix, format, capability, and error primitives.",
+          "github.com/faustbrian/go-barcode/codabar": "Use for strict Codabar encoding and decoding without an invented optional checksum profile.",
+          "github.com/faustbrian/go-barcode/code128": "Use for Code 128, GS1-128, FNC1, ECI, and structured-append encoding and decoding.",
+          "github.com/faustbrian/go-barcode/code39": "Use for Code 39 encoding and decoding with explicit checksum policy.",
+          "github.com/faustbrian/go-barcode/code93": "Use for Code 93 encoding and decoding with mandatory checksums.",
+          "github.com/faustbrian/go-barcode/datamatrix": "Use for bounded Data Matrix ECC 200 symbol encoding and decoding.",
+          "github.com/faustbrian/go-barcode/ean": "Use for validated EAN-8 and EAN-13 encoding and decoding.",
+          "github.com/faustbrian/go-barcode/gs1": "Use for bounded GS1 element-string parsing, validation, and carrier data.",
+          "github.com/faustbrian/go-barcode/imagedecode": "Use for bounded image detection and decoding of supported barcode formats.",
+          "github.com/faustbrian/go-barcode/itf": "Use for Interleaved 2 of 5 and ITF-14 encoding and decoding.",
+          "github.com/faustbrian/go-barcode/pdf417": "Use for bounded PDF417 symbol encoding and decoding.",
+          "github.com/faustbrian/go-barcode/qr": "Use for strict QR Code encoding and decoding with explicit controls.",
+          "github.com/faustbrian/go-barcode/render": "Use to derive PNG, SVG, or image output from immutable logical symbols.",
+          "github.com/faustbrian/go-barcode/specification": "Use to inspect the package's pinned standards catalogue and capability evidence.",
+          "github.com/faustbrian/go-barcode/upc": "Use for validated UPC-A and UPC-E encoding and decoding."
+        },
+        "lifecycle_status": "active",
+        "maturity": "stable",
+        "construction_styles": [
+          "plain-function",
+          "validated-value"
+        ],
+        "lifecycle_styles": [
+          "stateless"
+        ],
+        "ownership": {
+          "configuration": "caller",
+          "mutable_inputs": [
+            "copy"
+          ],
+          "runtime_resources": "none",
+          "background_work": "none"
+        },
+        "optional_owned_dependencies": [],
+        "adapters": [],
+        "companions": [],
+        "supported_go": {
+          "minimum": "1.26.6",
+          "tested": [
+            "1.26.6"
+          ]
+        },
+        "supported_platforms": [
+          "portable-go"
+        ],
+        "supported_backends": [],
+        "supported_protocols": [
+          "aztec-code",
+          "codabar",
+          "code-128",
+          "code-39",
+          "code-93",
+          "data-matrix",
+          "ean",
+          "gs1",
+          "itf",
+          "pdf417",
+          "qr-code",
+          "upc"
+        ],
+        "documentation": {
+          "readme": "README.md",
+          "api": "docs/api.md",
+          "adoption": "docs/adoption.md",
+          "security": "docs/security.md",
+          "compatibility": "COMPATIBILITY.md",
+          "performance": "docs/interoperability.md",
+          "examples": "README.md",
+          "faq": "docs/faq.md",
+          "changelog": "CHANGELOG.md",
+          "pkg_go_dev": "https://pkg.go.dev/github.com/faustbrian/go-barcode",
+          "ecosystem_index": "https://github.com/faustbrian/go-library-tools/blob/v1.3.0/docs/ecosystem/README.md"
+        },
+        "known_good_compatibility_sets": [],
+        "delivery": {
+          "implementation": "not-started",
+          "hardening": "not-started",
+          "release": "not-started"
+        }
+      },
       "version": "1.0.0",
       "tag_prefix": "v",
       "owned_dependencies": [],

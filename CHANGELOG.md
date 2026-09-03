@@ -11,10 +11,15 @@ versioning.
   enforces specification decisions, conformance bindings, source monitoring,
   and change control while retaining package-owned policy and verification
   evidence.
+- Adopt the checksum-verified `go-library-tools` v1.3.0 CLI, schema-v2 cohesion
+  metadata, and repository-local cohesion gate while retaining package-owned
+  source and evidence.
 
 ### Documentation
 
 - Replace the archived monorepo link with package-owned documentation.
+- Link the public package suite to the immutable v1.3.0 Golib ecosystem and
+  package-family selection guidance.
 
 ### Specification Decisions
 
