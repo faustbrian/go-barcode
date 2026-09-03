@@ -4,7 +4,8 @@
     {
       "id": "BARCODE-DEC-001",
       "authoritative_sources": [
-        "iso-iec-18004-source"
+        "iso-iec-18004-source",
+        "aim-code93-source"
       ],
       "executable_evidence": [
         "TestCapabilityMetadataIdentifiesExactGoverningEditions",
@@ -187,7 +188,8 @@
     {
       "id": "BARCODE-DEC-007",
       "authoritative_sources": [
-        "iso-iec-15417-source"
+        "iso-iec-15417-source",
+        "aim-code93-source"
       ],
       "executable_evidence": [
         "TestEncodeACalculatesAndValidatesCheckDigit",

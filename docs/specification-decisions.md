@@ -18,18 +18,18 @@ certification, or conformance to an unreviewed replacement edition.
 | Field | Decision |
 | --- | --- |
 | Status and owner | `resolved`; `barcode` maintainers |
-| Source | ISO catalogue records for [QR Code](https://www.iso.org/standard/83389.html), [Code 128](https://www.iso.org/standard/43896.html), [Code 39](https://www.iso.org/standard/77799.html), [EAN/UPC](https://www.iso.org/standard/46143.html), [ITF](https://www.iso.org/standard/43898.html), [Data Matrix](https://www.iso.org/standard/80926.html), [PDF417](https://www.iso.org/standard/65502.html), and [Aztec](https://www.iso.org/standard/41548.html), plus [GS1 General Specifications 26.0.0](https://ref.gs1.org/standards/genspecs/26.0.0/) |
+| Source | ISO catalogue records for [QR Code](https://www.iso.org/standard/83389.html), [Code 128](https://www.iso.org/standard/43896.html), [Code 39](https://www.iso.org/standard/77799.html), [EAN/UPC](https://www.iso.org/standard/46143.html), [ITF](https://www.iso.org/standard/43898.html), [Data Matrix](https://www.iso.org/standard/80926.html), [PDF417](https://www.iso.org/standard/65502.html), and [Aztec](https://www.iso.org/standard/41548.html); [ANSI's 2006 catalogue](https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf) and [withdrawal notice](https://share.ansi.org/Shared%20Documents/Standards%20Action/2006%20PDFs/SAV3742.pdf) for ANSI/AIM BC5-1995; AIM's current [USS - Code 93 store record](https://web.aimglobal.org/external/wcpages/wcecommerce/eComItemDetailsPage.aspx?ItemID=56&Category=3); and [GS1 General Specifications 26.0.0](https://ref.gs1.org/standards/genspecs/26.0.0/) |
 | Classification | Normative-source and provenance policy |
-| Issue | ISO and AIM publications are licensed and cannot be copied into an open repository. A product page hash would identify mutable catalogue HTML rather than the normative publication, while omitting edition identity would make a compliance claim irreproducible. |
+| Issue | ISO and AIM publications are licensed and cannot be copied into an open repository. A product page hash would identify mutable catalogue HTML rather than the normative publication, while omitting or conflating edition identity would make a compliance claim irreproducible. ANSI withdrew BC5-1995 in 2006, while AIM currently sells a Code 93 publication dated 2000 without a BC5 identifier. |
 | Credible interpretations | Vendor restricted texts; hash product pages as if they were standards; cite only names; infer behavior from peer libraries; or pin exact document identities while separately hashing every redistributable fixture and peer archive. |
 | Known peer behavior | Barcode libraries commonly cite a symbology name without an edition or derive behavior from ZXing. Those practices do not establish source identity or permission to redistribute standards text. |
-| Selected behavior | The module records exact publication identities and authoritative catalogue URLs but does not redistribute restricted text. Every redistributed fixture, GS1 dictionary, and peer archive has independent provenance and a SHA-256 digest. No fixture is called official unless its license and origin support that claim. |
+| Selected behavior | The module records exact publication identities and authoritative catalogue URLs but does not redistribute restricted text. ANSI/AIM BC5-1995 is the withdrawn historical compatibility target. AIM's separately catalogued USS - Code 93 publication dated 2000 is a review input, not an asserted replacement or implemented edition, until its licensed contents or a publisher clarification establish that relationship. Every redistributed fixture, GS1 dictionary, and peer archive has independent provenance and a SHA-256 digest. |
 | Security and resource consequences | Avoiding unlicensed copies has no runtime cost. Explicit provenance prevents hostile or accidental fixture replacement from silently redefining accepted wire patterns. |
-| Compatibility and wire consequences | A standards edition change is a compatibility review, not a documentation refresh. Existing encoded and decoded behavior remains tied to the edition named by `CapabilityFor`. |
+| Compatibility and wire consequences | A standards edition change is a compatibility review, not a documentation refresh. Existing Code 93 behavior remains tied to the withdrawn historical edition named by `CapabilityFor`; the 2000 store identity does not change wire behavior or create a current-conformance claim. |
 | Executable evidence | `TestCapabilityMetadataIdentifiesExactGoverningEditions`, `TestGS1SyntaxDictionaryIsEmbedded`, and `TestRenderFixtureGoldensCoverEveryFormat` |
 | Public surface | `barcode.Specification`, `barcode.Capability`, `barcode.CapabilityFor`, the normative and evidence matrices, and all format documentation |
-| Upstream record | ISO and AIM catalogue metadata identify restricted publications; GS1 26.0.0 and its change notices are public and separately versioned. |
-| Reconsider when | A source publisher changes licensing, publishes corrigenda, or releases a replacement edition affecting a supported behavior. |
+| Upstream record | ANSI's 2006 catalogue identifies ANSI/AIM BC5-1995 and its October 2006 Standards Action lists that edition among withdrawals. AIM's current store identifies USS - Code 93, publication date 2000, without a BC5 designation. The public records do not establish equivalence or succession. |
+| Reconsider when | Licensed review of the 2000 publication or a direct publisher clarification establishes its relationship to BC5-1995 and identifies any behavior-affecting differences. |
 Structured contract:
 
 - `omission`
@@ -42,6 +42,7 @@ Structured contract:
 - `not specified`
 - `specification/manifest.json`
 - `docs/specification-decisions.md`
+- `{"id":"aim-code93-source","version":"ANSI/AIM BC5-1995","url":"https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf","specifications":["ANSI/AIM BC5-1995 Code 93"]}`
 
 ## BARCODE-DEC-002: Replacement editions do not silently change claims
 
@@ -195,7 +196,7 @@ Structured contract:
 | Field | Decision |
 | --- | --- |
 | Status and owner | `resolved`; `barcode` maintainers |
-| Source | [ISO/IEC 15417:2007](https://www.iso.org/standard/43896.html), [ISO/IEC 16388:2023](https://www.iso.org/standard/77799.html), [ISO/IEC 15420:2009](https://www.iso.org/standard/46143.html), [ISO/IEC 16390:2007](https://www.iso.org/standard/43898.html), and the pinned AIM Code 93 and Codabar records |
+| Source | [ISO/IEC 15417:2007](https://www.iso.org/standard/43896.html), [ISO/IEC 16388:2023](https://www.iso.org/standard/77799.html), [ISO/IEC 15420:2009](https://www.iso.org/standard/46143.html), [ISO/IEC 16390:2007](https://www.iso.org/standard/43898.html), ANSI's exact [ANSI/AIM BC5-1995 catalogue record](https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf), AIM's current [USS - Code 93 store record](https://web.aimglobal.org/external/wcpages/wcecommerce/eComItemDetailsPage.aspx?ItemID=56&Category=3), and the pinned AIM Codabar record |
 | Classification | Normative checksum and payload policy |
 | Issue | Formats disagree on mandatory, optional, supplied, and calculated checksums. Treating them uniformly can duplicate a digit, accept a mismatch, or invent an application-defined Codabar profile. |
 | Credible interpretations | Always append a checksum; trust supplied digits; drop invalid digits; infer optional profiles; or expose exact per-format behavior. |
@@ -205,8 +206,8 @@ Structured contract:
 | Compatibility and wire consequences | Input length determines calculate-versus-validate only where documented. A mismatched supplied digit is never normalized into a different identifier. |
 | Executable evidence | `TestEncodeACalculatesAndValidatesCheckDigit`, `TestEncode14CalculatesCheckDigitAndAddsBearerBars`, `TestChecksumMatchesModulo43Vector`, and `TestEncodeAddsMandatoryChecksumsAndSupportsFullASCII` |
 | Public surface | Linear format encoders, checksum options, `gs1.CalculateCheckDigit`, `gs1.ValidateCheckDigit`, and decode checksum metadata |
-| Upstream record | Optional Codabar application checksum profiles remain explicitly unsupported. |
-| Reconsider when | A concrete named application profile requires an additive, independently tested checksum mode. |
+| Upstream record | AIM's current store says the 2000 Code 93 publication includes check-character calculation, but public catalogue metadata does not establish whether its checksum requirements differ from withdrawn BC5-1995. Optional Codabar application checksum profiles remain explicitly unsupported. |
+| Reconsider when | Licensed review or publisher clarification establishes the 2000 Code 93 checksum requirements, or a concrete named Codabar application profile requires an additive, independently tested checksum mode. |
 Structured contract:
 
 - `ambiguity`
@@ -218,6 +219,7 @@ Structured contract:
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `docs/specification-decisions.md`
+- `{"id":"aim-code93-source","version":"ANSI/AIM BC5-1995","url":"https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf","specifications":["ANSI/AIM BC5-1995 Code 93"]}`
 
 ## BARCODE-DEC-008: GS1 parsing owns syntax while carriers own control encoding
 

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-08-30",
+  "reviewed_at": "2026-09-03",
   "review_interval_days": 90,
   "authorities": [
     {
@@ -103,8 +103,10 @@
       "id": "aim-code93-source",
       "kind": "specification",
       "version": "ANSI/AIM BC5-1995",
-      "url": "https://www.aimglobal.org/aim-standards/",
-      "sha256": "55bd03686c2a306423f0088a37b1a7315525c9cc0a45a7a39338627f353915fb",
+      "url": "https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf",
+      "access": "restricted",
+      "expected_status": 403,
+      "unavailable_reason": "ANSI's catalogue identifies the exact withdrawn historical publication, but the licensed normative publication is not publicly retrievable.",
       "specifications": [
         "ANSI/AIM BC5-1995 Code 93"
       ]
@@ -114,7 +116,7 @@
       "kind": "specification",
       "version": "AIM Europe Codabar 1995",
       "url": "https://www.aimglobal.org/aim-standards/",
-      "sha256": "55bd03686c2a306423f0088a37b1a7315525c9cc0a45a7a39338627f353915fb",
+      "sha256": "317449fe70f0967ed32bfea359004b5bb18e45ad0a30193fd86a4a54ecd07b44",
       "specifications": [
         "AIM Europe 1995 Codabar"
       ]
@@ -134,7 +136,7 @@
       "kind": "releases",
       "version": "",
       "url": "https://www.aimglobal.org/public-review/",
-      "sha256": "d28b22a58615d594bd4ea34cf70ff9f329e439b9fc86ee8472d474d04a01440c",
+      "sha256": "be5880e25c852aae0c55a19553747a3eb968e3fe861956b1a22f0b1a7fb51b52",
       "specifications": [
         "ISO/IEC 18004:2024 QR Code",
         "ISO/IEC 15417:2007 with Amendment 1:2026 Code 128",
