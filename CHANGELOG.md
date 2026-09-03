@@ -11,14 +11,31 @@ versioning.
   enforces specification decisions, conformance bindings, source monitoring,
   and change control while retaining package-owned policy and verification
   evidence.
+- Adopt the checksum-verified `go-library-tools` v1.3.0 CLI, schema-v2 cohesion
+  metadata, and repository-local cohesion gate while retaining package-owned
+  source and evidence.
+- Classify ANSI/AIM BC5-1995 as the withdrawn historical Code 93 compatibility
+  target and the separately catalogued 2000 AIM publication as unclaimed until
+  licensed review establishes its normative relationship.
+- Correct Codabar provenance and public capability metadata to the withdrawn
+  ANSI/AIM BC3-1995 compatibility target while leaving wire behavior and the
+  unsupported optional-checksum policy unchanged.
+- Pin AIM public-review monitoring to the publisher's canonical JSON record so
+  generated HTML nonces do not obscure substantive authority changes.
 
 ### Documentation
 
 - Replace the archived monorepo link with package-owned documentation.
+- Link the public package suite to the immutable v1.3.0 Golib ecosystem and
+  package-family selection guidance.
 
 ### Specification Decisions
 
 - BARCODE-DEC-001 sha256:f11a763d3fbf349801f7dd939c319bc48cda1371855404983a5b963e849150a0:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-001 sha256:82a8bec27704f43f2af57f159a8706789f46c8f21375196512bfd731bc647176:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-001 sha256:b6afd03f1fd8a4229e3ffe66a2f37827f9321829b019577fe95cc2267162500f:
   [Decision register](docs/specification-decisions.md).
 - BARCODE-DEC-002 sha256:4dd3716c04a9146f2892f0f151f829de5a30ca5e74c2b55a2efb9f314a8acce5:
   [Decision register](docs/specification-decisions.md).
@@ -31,6 +48,10 @@ versioning.
 - BARCODE-DEC-006 sha256:c572c740bf280c45bdd512820f8ce6917332b76c817f07bdd425316a08076e32:
   [Decision register](docs/specification-decisions.md).
 - BARCODE-DEC-007 sha256:ab3e1ddc7e019756dd86648f115241fc7d8287800e7be885a438711471173602:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-007 sha256:7b7141a13ebd83094462b95885b81716e5e988163fc002c399ec1915e5649d98:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-007 sha256:a79d5c4b4a910e962766aae4fcfe31ad1190a816624653fbfcbf4a5da3c32d3d:
   [Decision register](docs/specification-decisions.md).
 - BARCODE-DEC-008 sha256:4f87656d572006036d118439f8fe950aba97ed0fdea0befefb98615b816408f2:
   [Decision register](docs/specification-decisions.md).

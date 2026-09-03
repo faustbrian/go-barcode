@@ -33,6 +33,14 @@ Material interpretations and package-owned policy are recorded in
 for every implemented format. The checked-in files in `render-fixtures/` are
 canonical software rendering fixtures. `make docs` verifies their hashes.
 
+For Code 93, ANSI's 2006 catalogue and withdrawal notice identify
+`ANSI/AIM BC5-1995` as a withdrawn historical publication. AIM's current
+publisher catalogue separately identifies `USS - Code 93` with publication
+date 2000 and no BC5 designation. Public metadata does not establish that the
+2000 product replaces, revises, or is normatively equivalent to BC5-1995, so
+the capability remains explicitly pinned to the withdrawn 1995 compatibility
+target. The 2000 identity is recorded for review, not claimed as implemented.
+
 The independent writer tests use `github.com/speedata/barcode` v1.1.1 under
 the MIT license. Its module archive hash is recorded in `manifest.json` and its
 module checksum is enforced by `go.sum`. The tests generate QR, Code 128,
@@ -53,13 +61,15 @@ No ISO or AIM example is represented as an official conformance fixture unless
 its redistribution terms independently permit that use. Independently derived
 logical vectors identify their derivation in the corresponding test.
 
-`monitoring.json` records ISO publication identities as restricted sources and
-checks the catalogue's exact `403` denial without hashing its body. The public
-AIM source pins identify AIM's standards program, not the licensed Code 93 or
-Codabar publication bytes. AIM public-review notices and GS1 change notices are
-separate content-pinned change surfaces. None of those public hashes is a hash
-of restricted normative text, and no exact restricted clause is claimed where
-the publication was unavailable for review.
+`monitoring.json` records ISO and ANSI publication identities as restricted sources and
+checks each catalogue's exact `403` denial without hashing its body. The
+withdrawn ANSI/AIM BC3-1995 record is the historical Codabar compatibility
+target. AIM's current unversioned Codabar store record is a separate review
+input, not an asserted replacement, equivalent CEN publication, or implemented
+edition. AIM public-review notices and GS1 change notices are separate
+content-pinned change surfaces. None of those public hashes is a hash of
+restricted normative text, and no exact restricted clause is claimed where the
+publication was unavailable for review.
 
 ## Decision bindings
 
