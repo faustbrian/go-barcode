@@ -25,33 +25,6 @@ jobs:
       tooling_sha: 6c76f5c670d193ce369a7242d4c634f1117286e9
       release_dry_run: ${{ inputs.release_dry_run || false }}
 
-  diagnose-aim-authority:
-    name: Diagnose AIM authority response
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
-      - name: Capture public authority response
-        shell: bash
-        run: |
-          mkdir -p "${RUNNER_TEMP}/aim-authority"
-          curl --compressed --location --fail --silent --show-error \
-            --max-time 30 \
-            --user-agent 'go-library-tools (+https://github.com/faustbrian/go-library-tools)' \
-            --dump-header "${RUNNER_TEMP}/aim-authority/headers.txt" \
-            --output "${RUNNER_TEMP}/aim-authority/body.html" \
-            'https://www.aimglobal.org/public-review/'
-          sha256sum "${RUNNER_TEMP}/aim-authority/body.html"
-          wc -c "${RUNNER_TEMP}/aim-authority/body.html"
-          jq -r '.authorities[] | select(.id == "aim-public-review-releases") | .sha256' \
-            specification/monitoring.json
-      - name: Upload authority response
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
-        with:
-          name: aim-authority-diagnostic
-          path: ${{ runner.temp }}/aim-authority
-          if-no-files-found: error
-
   required:
     name: Required
     if: always()

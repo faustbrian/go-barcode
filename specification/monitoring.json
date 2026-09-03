@@ -150,8 +150,8 @@
       "id": "aim-public-review-releases",
       "kind": "releases",
       "version": "",
-      "url": "https://www.aimglobal.org/public-review/",
-      "sha256": "be5880e25c852aae0c55a19553747a3eb968e3fe861956b1a22f0b1a7fb51b52",
+      "url": "https://www.aimglobal.org/wp-json/wp/v2/pages/301",
+      "sha256": "91f3a78ca15884b40ab2b367be35ae947c802949fe285edb696b3e58e6124180",
       "specifications": [
         "ISO/IEC 18004:2024 QR Code",
         "ISO/IEC 15417:2007 with Amendment 1:2026 Code 128",

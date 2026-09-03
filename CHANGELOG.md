@@ -20,6 +20,8 @@ versioning.
 - Correct Codabar provenance and public capability metadata to the withdrawn
   ANSI/AIM BC3-1995 compatibility target while leaving wire behavior and the
   unsupported optional-checksum policy unchanged.
+- Pin AIM public-review monitoring to the publisher's canonical JSON record so
+  generated HTML nonces do not obscure substantive authority changes.
 
 ### Documentation
 
