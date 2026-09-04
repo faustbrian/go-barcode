@@ -14,6 +14,22 @@ versioning.
 - Adopt the checksum-verified `go-library-tools` v1.3.0 CLI, schema-v2 cohesion
   metadata, and repository-local cohesion gate while retaining package-owned
   source and evidence.
+- Adopt the checksum-verified `go-library-tools` v1.4.0 CLI and immutable
+  workflow. The complete local contract covers configuration, inventory,
+  cohesion, repository, workflow, online specification, and implementation
+  checks; hosted CI enforces the repository, module, and online specification
+  contracts. Published modules now resolve from the public Go proxy before the
+  immutable bootstrap fallback, preventing fallback bytes from shadowing public
+  releases.
+- Adopt the checksum-verified `go-library-tools` v1.5.0 CLI and immutable
+  workflow so conditional source monitoring accepts only an explicitly reviewed
+  publisher-edge denial while hosted repository checks also enforce workflow
+  validation.
+- Pin official ISO per-standard RSS metadata and public ANSI catalogue records
+  by content. Conditional monitoring verifies the ANSI content when available
+  and accepts only its reviewed HTTP 403 edge denial otherwise. The licensed
+  normative publications remain outside the repository and are not claimed as
+  reviewed.
 - Classify ANSI/AIM BC5-1995 as the withdrawn historical Code 93 compatibility
   target and the separately catalogued 2000 AIM publication as unclaimed until
   licensed review establishes its normative relationship.
@@ -28,6 +44,10 @@ versioning.
 - Replace the archived monorepo link with package-owned documentation.
 - Link the public package suite to the immutable v1.3.0 Golib ecosystem and
   package-family selection guidance.
+- Link the public package suite to the immutable v1.4.0 Golib ecosystem and
+  Domain utilities family guidance.
+- Link the public package suite to the immutable v1.5.0 Golib ecosystem and
+  Domain utilities family guidance.
 
 ### Specification Decisions
 
@@ -53,6 +73,8 @@ versioning.
   [Decision register](docs/specification-decisions.md).
 - BARCODE-DEC-007 sha256:a79d5c4b4a910e962766aae4fcfe31ad1190a816624653fbfcbf4a5da3c32d3d:
   [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-007 sha256:bf469f172668ace09189add762f0f6667e367efea13434dcad9fbad58d3c96f9:
+  [Decision register](docs/specification-decisions.md).
 - BARCODE-DEC-008 sha256:4f87656d572006036d118439f8fe950aba97ed0fdea0befefb98615b816408f2:
   [Decision register](docs/specification-decisions.md).
 - BARCODE-DEC-009 sha256:11169c5c9775e7e2870637141166796cbd7ac83948ce88b3e7fcf28c5a5eb283:
@@ -66,6 +88,8 @@ versioning.
 - BARCODE-DEC-013 sha256:d238d62376d4fbc5714414bf3628b6949f3d93ffb2e3979b457cef0b47d2747a:
   [Decision register](docs/specification-decisions.md).
 - BARCODE-DEC-014 sha256:2d5a3129516cab975b90111f12f8cfff19e22222f41af8e67dd348d4738f4fc8:
+  [Decision register](docs/specification-decisions.md).
+- BARCODE-DEC-014 sha256:fb3ef64be8a6f098cb66185c13e94cc24d94a4840e4046c2bae028bb3b4175a8:
   [Decision register](docs/specification-decisions.md).
 - BARCODE-DEC-015 sha256:aa729a65e1365d254737da972cd96195e8aee4ff5ceb7cb32376ba827c45bb56:
   [Decision register](docs/specification-decisions.md).

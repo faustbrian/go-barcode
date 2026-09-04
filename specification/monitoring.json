@@ -1,28 +1,34 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-09-03",
+  "reviewed_at": "2026-09-04",
   "review_interval_days": 90,
   "authorities": [
     {
       "id": "iso-iec-18004-source",
       "kind": "specification",
       "version": "ISO/IEC 18004:2024 edition 4",
-      "url": "https://www.iso.org/standard/83389.html",
-      "access": "restricted",
-      "expected_status": 403,
-      "unavailable_reason": "The licensed normative publication is not publicly retrievable; the publisher catalogue identifies the exact edition.",
+      "url": "https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/33/83389.detail.rss",
+      "sha256": "3bdb36afda714e2359f2c4518836482901d7ee53ac006ace2aba78ef07fbcd35",
       "specifications": [
         "ISO/IEC 18004:2024 QR Code"
       ]
     },
     {
-      "id": "iso-iec-15417-source",
+      "id": "iso-iec-15417-base-source",
+      "kind": "specification",
+      "version": "ISO/IEC 15417:2007 edition 2",
+      "url": "https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/04/38/43896.detail.rss",
+      "sha256": "6136219c4bdbe5040d8542b39628d3e1afe86eff5a797b17c07136f8c3b402c5",
+      "specifications": [
+        "ISO/IEC 15417:2007 with Amendment 1:2026 Code 128"
+      ]
+    },
+    {
+      "id": "iso-iec-15417-amd1-source",
       "kind": "specification",
       "version": "ISO/IEC 15417:2007 edition 2 with Amendment 1:2026",
-      "url": "https://www.iso.org/standard/43896.html",
-      "access": "restricted",
-      "expected_status": 403,
-      "unavailable_reason": "The licensed normative publication is not publicly retrievable; the publisher catalogue identifies the exact edition.",
+      "url": "https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/71/87124.detail.rss",
+      "sha256": "20eb2ad12501e9a9ee5abb42b7dd4cc5f8e47ce312fff452d7267de24626788f",
       "specifications": [
         "ISO/IEC 15417:2007 with Amendment 1:2026 Code 128"
       ]
@@ -31,10 +37,8 @@
       "id": "iso-iec-16388-source",
       "kind": "specification",
       "version": "ISO/IEC 16388:2023 edition 3",
-      "url": "https://www.iso.org/standard/77799.html",
-      "access": "restricted",
-      "expected_status": 403,
-      "unavailable_reason": "The licensed normative publication is not publicly retrievable; the publisher catalogue identifies the exact edition.",
+      "url": "https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/07/77/77799.detail.rss",
+      "sha256": "7c81dd3d97f7e94359e5c3c534bb98cbe59ca395d3c41bf4b6fad0d20caf7c01",
       "specifications": [
         "ISO/IEC 16388:2023 Code 39"
       ]
@@ -43,10 +47,8 @@
       "id": "iso-iec-15420-source",
       "kind": "specification",
       "version": "ISO/IEC 15420:2009 edition 2",
-      "url": "https://www.iso.org/standard/46143.html",
-      "access": "restricted",
-      "expected_status": 403,
-      "unavailable_reason": "The licensed normative publication is not publicly retrievable; the publisher catalogue identifies the exact edition.",
+      "url": "https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/04/61/46143.detail.rss",
+      "sha256": "a3cce1d2364e8f795249c845d92b73c7f85eeb96fd8331efacfdb471d18ac0cb",
       "specifications": [
         "ISO/IEC 15420:2009 EAN/UPC"
       ]
@@ -55,10 +57,8 @@
       "id": "iso-iec-16390-source",
       "kind": "specification",
       "version": "ISO/IEC 16390:2007 edition 2",
-      "url": "https://www.iso.org/standard/43898.html",
-      "access": "restricted",
-      "expected_status": 403,
-      "unavailable_reason": "The licensed normative publication is not publicly retrievable; the publisher catalogue identifies the exact edition.",
+      "url": "https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/04/38/43898.detail.rss",
+      "sha256": "5f15c9838ae6a18a6872b69536014b619110094296f3786a0f1d6cadf051fb0c",
       "specifications": [
         "ISO/IEC 16390:2007 Interleaved 2 of 5"
       ]
@@ -67,10 +67,8 @@
       "id": "iso-iec-16022-source",
       "kind": "specification",
       "version": "ISO/IEC 16022:2024 edition 3",
-      "url": "https://www.iso.org/standard/80926.html",
-      "access": "restricted",
-      "expected_status": 403,
-      "unavailable_reason": "The licensed normative publication is not publicly retrievable; the publisher catalogue identifies the exact edition.",
+      "url": "https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/09/80926.detail.rss",
+      "sha256": "fd8135af4ecaf0003a96838893d784492573bb5d144cbc67a62212d0d7b6d82e",
       "specifications": [
         "ISO/IEC 16022:2024 Data Matrix"
       ]
@@ -79,10 +77,8 @@
       "id": "iso-iec-15438-source",
       "kind": "specification",
       "version": "ISO/IEC 15438:2015 edition 3",
-      "url": "https://www.iso.org/standard/65502.html",
-      "access": "restricted",
-      "expected_status": 403,
-      "unavailable_reason": "The licensed normative publication is not publicly retrievable; the publisher catalogue identifies the exact edition.",
+      "url": "https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/06/55/65502.detail.rss",
+      "sha256": "26a91351f112242adf8fda5463b8bb2d336eecb151cc51c0e2d00da4f1280acf",
       "specifications": [
         "ISO/IEC 15438:2015 PDF417"
       ]
@@ -91,10 +87,8 @@
       "id": "iso-iec-24778-source",
       "kind": "specification",
       "version": "ISO/IEC 24778:2008 edition 1",
-      "url": "https://www.iso.org/standard/41548.html",
-      "access": "restricted",
-      "expected_status": 403,
-      "unavailable_reason": "The licensed normative publication is not publicly retrievable; the publisher catalogue identifies the exact edition.",
+      "url": "https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/04/15/41548.detail.rss",
+      "sha256": "a23ccddfec5880b6ebdefea5df06f28974070092a1640f19d68e6f29cf73a923",
       "specifications": [
         "ISO/IEC 24778:2008 Aztec Code"
       ]
@@ -104,9 +98,10 @@
       "kind": "specification",
       "version": "ANSI/AIM BC5-1995",
       "url": "https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf",
-      "access": "restricted",
+      "sha256": "349e8e12ab722a72d4e1bf8104ae81d08f902fd64ec3f599c8c6c9b463a4e142",
+      "access": "conditional",
       "expected_status": 403,
-      "unavailable_reason": "ANSI's catalogue identifies the exact withdrawn historical publication, but the licensed normative publication is not publicly retrievable.",
+      "unavailable_reason": "ANSI's public catalogue endpoint intermittently denies automated retrieval at its edge.",
       "specifications": [
         "ANSI/AIM BC5-1995 Code 93"
       ]
@@ -116,9 +111,10 @@
       "kind": "specification",
       "version": "ANSI/AIM BC3-1995",
       "url": "https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf",
-      "access": "restricted",
+      "sha256": "349e8e12ab722a72d4e1bf8104ae81d08f902fd64ec3f599c8c6c9b463a4e142",
+      "access": "conditional",
       "expected_status": 403,
-      "unavailable_reason": "ANSI's catalogue identifies the exact withdrawn historical publication, but the licensed normative publication is not publicly retrievable.",
+      "unavailable_reason": "ANSI's public catalogue endpoint intermittently denies automated retrieval at its edge.",
       "specifications": [
         "ANSI/AIM BC3-1995 Codabar"
       ]
@@ -128,9 +124,10 @@
       "kind": "recommendation",
       "version": "ANSI Standards Action, October 20, 2006 withdrawal notice",
       "url": "https://share.ansi.org/Shared%20Documents/Standards%20Action/2006%20PDFs/SAV3742.pdf",
-      "access": "restricted",
+      "sha256": "05e1c148c6b71893542c2d0db73709553d37d104f575ac5c1352393a6a16caa0",
+      "access": "conditional",
       "expected_status": 403,
-      "unavailable_reason": "ANSI's public notice records withdrawal status for the named historical publications; it is status evidence, not redistributed normative text.",
+      "unavailable_reason": "ANSI's public Standards Action endpoint intermittently denies automated retrieval at its edge.",
       "specifications": [
         "ANSI/AIM BC5-1995 Code 93",
         "ANSI/AIM BC3-1995 Codabar"

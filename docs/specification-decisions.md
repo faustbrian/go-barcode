@@ -18,7 +18,7 @@ certification, or conformance to an unreviewed replacement edition.
 | Field | Decision |
 | --- | --- |
 | Status and owner | `resolved`; `barcode` maintainers |
-| Source | ISO catalogue records for [QR Code](https://www.iso.org/standard/83389.html), [Code 128](https://www.iso.org/standard/43896.html), [Code 39](https://www.iso.org/standard/77799.html), [EAN/UPC](https://www.iso.org/standard/46143.html), [ITF](https://www.iso.org/standard/43898.html), [Data Matrix](https://www.iso.org/standard/80926.html), [PDF417](https://www.iso.org/standard/65502.html), and [Aztec](https://www.iso.org/standard/41548.html); [ANSI's 2006 catalogue](https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf) and [withdrawal notice](https://share.ansi.org/Shared%20Documents/Standards%20Action/2006%20PDFs/SAV3742.pdf) for ANSI/AIM BC3-1995 and BC5-1995; AIM's current [Codabar store record](https://web.aimglobal.org/external/wcpages/wcecommerce/eComItemDetailsPage.aspx?Category=4&ItemID=42) and [USS - Code 93 store record](https://web.aimglobal.org/external/wcpages/wcecommerce/eComItemDetailsPage.aspx?ItemID=56&Category=3); and [GS1 General Specifications 26.0.0](https://ref.gs1.org/standards/genspecs/26.0.0/) |
+| Source | ISO catalogue records for [QR Code](https://www.iso.org/standard/83389.html), [Code 128](https://www.iso.org/standard/43896.html) with [Amendment 1:2026](https://www.iso.org/standard/87124.html), [Code 39](https://www.iso.org/standard/77799.html), [EAN/UPC](https://www.iso.org/standard/46143.html), [ITF](https://www.iso.org/standard/43898.html), [Data Matrix](https://www.iso.org/standard/80926.html), [PDF417](https://www.iso.org/standard/65502.html), and [Aztec](https://www.iso.org/standard/41548.html); [ANSI's 2006 catalogue](https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf) and [withdrawal notice](https://share.ansi.org/Shared%20Documents/Standards%20Action/2006%20PDFs/SAV3742.pdf) for ANSI/AIM BC3-1995 and BC5-1995; AIM's current [Codabar store record](https://web.aimglobal.org/external/wcpages/wcecommerce/eComItemDetailsPage.aspx?Category=4&ItemID=42) and [USS - Code 93 store record](https://web.aimglobal.org/external/wcpages/wcecommerce/eComItemDetailsPage.aspx?ItemID=56&Category=3); and [GS1 General Specifications 26.0.0](https://ref.gs1.org/standards/genspecs/26.0.0/) |
 | Classification | Normative-source and provenance policy |
 | Issue | ISO and AIM publications are licensed and cannot be copied into an open repository. A product page hash would identify mutable catalogue HTML rather than the normative publication, while omitting or conflating edition identity would make a compliance claim irreproducible. ANSI withdrew BC3-1995 and BC5-1995 in 2006, while AIM currently sells separately catalogued Codabar and Code 93 publications whose public metadata does not establish their relationship to those withdrawn identities. |
 | Credible interpretations | Vendor restricted texts; hash product pages as if they were standards; cite only names; infer behavior from peer libraries; or pin exact document identities while separately hashing every redistributable fixture and peer archive. |
@@ -37,7 +37,7 @@ Structured contract:
 - `ISO/IEC 18004:2024 QR Code`
 - `ISO/IEC 18004:2024 edition 4`
 - `iso-iec-18004-source`
-- `https://www.iso.org/standard/83389.html`
+- `https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/33/83389.detail.rss`
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `specification/manifest.json`
@@ -70,7 +70,7 @@ Structured contract:
 - `ISO/IEC 15420:2009 EAN/UPC`
 - `ISO/IEC 15420:2009 edition 2`
 - `iso-iec-15420-source`
-- `https://www.iso.org/standard/46143.html`
+- `https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/04/61/46143.detail.rss`
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `specification/manifest.json`
@@ -100,7 +100,7 @@ Structured contract:
 - `ISO/IEC 18004:2024 QR Code`
 - `ISO/IEC 18004:2024 edition 4`
 - `iso-iec-18004-source`
-- `https://www.iso.org/standard/83389.html`
+- `https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/33/83389.detail.rss`
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `docs/specification-decisions.md`
@@ -129,7 +129,7 @@ Structured contract:
 - `ISO/IEC 18004:2024 QR Code`
 - `ISO/IEC 18004:2024 edition 4`
 - `iso-iec-18004-source`
-- `https://www.iso.org/standard/83389.html`
+- `https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/33/83389.detail.rss`
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `docs/specification-decisions.md`
@@ -158,7 +158,7 @@ Structured contract:
 - `ISO/IEC 18004:2024 QR Code`
 - `ISO/IEC 18004:2024 edition 4`
 - `iso-iec-18004-source`
-- `https://www.iso.org/standard/83389.html`
+- `https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/33/83389.detail.rss`
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `specification/render-fixtures.tsv`
@@ -188,7 +188,7 @@ Structured contract:
 - `ISO/IEC 18004:2024 QR Code`
 - `ISO/IEC 18004:2024 edition 4`
 - `iso-iec-18004-source`
-- `https://www.iso.org/standard/83389.html`
+- `https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/33/83389.detail.rss`
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `docs/specification-decisions.md`
@@ -198,7 +198,7 @@ Structured contract:
 | Field | Decision |
 | --- | --- |
 | Status and owner | `resolved`; `barcode` maintainers |
-| Source | [ISO/IEC 15417:2007](https://www.iso.org/standard/43896.html), [ISO/IEC 16388:2023](https://www.iso.org/standard/77799.html), [ISO/IEC 15420:2009](https://www.iso.org/standard/46143.html), [ISO/IEC 16390:2007](https://www.iso.org/standard/43898.html), ANSI's exact [ANSI/AIM BC5-1995 and BC3-1995 catalogue records](https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf), AIM's current [USS - Code 93 store record](https://web.aimglobal.org/external/wcpages/wcecommerce/eComItemDetailsPage.aspx?ItemID=56&Category=3), and AIM's current [Codabar store record](https://web.aimglobal.org/external/wcpages/wcecommerce/eComItemDetailsPage.aspx?Category=4&ItemID=42) |
+| Source | [ISO/IEC 15417:2007](https://www.iso.org/standard/43896.html) and [Amendment 1:2026](https://www.iso.org/standard/87124.html), [ISO/IEC 16388:2023](https://www.iso.org/standard/77799.html), [ISO/IEC 15420:2009](https://www.iso.org/standard/46143.html), [ISO/IEC 16390:2007](https://www.iso.org/standard/43898.html), ANSI's exact [ANSI/AIM BC5-1995 and BC3-1995 catalogue records](https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf), AIM's current [USS - Code 93 store record](https://web.aimglobal.org/external/wcpages/wcecommerce/eComItemDetailsPage.aspx?ItemID=56&Category=3), and AIM's current [Codabar store record](https://web.aimglobal.org/external/wcpages/wcecommerce/eComItemDetailsPage.aspx?Category=4&ItemID=42) |
 | Classification | Normative checksum and payload policy |
 | Issue | Formats disagree on mandatory, optional, supplied, and calculated checksums. Treating them uniformly can duplicate a digit, accept a mismatch, or invent an application-defined Codabar profile. |
 | Credible interpretations | Always append a checksum; trust supplied digits; drop invalid digits; infer optional profiles; or expose exact per-format behavior. |
@@ -216,11 +216,12 @@ Structured contract:
 - `defensive`
 - `ISO/IEC 15417:2007 with Amendment 1:2026 Code 128`
 - `ISO/IEC 15417:2007 edition 2 with Amendment 1:2026`
-- `iso-iec-15417-source`
-- `https://www.iso.org/standard/43896.html`
+- `iso-iec-15417-amd1-source`
+- `https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/71/87124.detail.rss`
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `docs/specification-decisions.md`
+- `{"id":"iso-iec-15417-base-source","version":"ISO/IEC 15417:2007 edition 2","url":"https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/04/38/43896.detail.rss","specifications":["ISO/IEC 15417:2007 with Amendment 1:2026 Code 128"]}`
 - `{"id":"aim-code93-source","version":"ANSI/AIM BC5-1995","url":"https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf","specifications":["ANSI/AIM BC5-1995 Code 93"]}`
 - `{"id":"aim-codabar-source","version":"ANSI/AIM BC3-1995","url":"https://webstore.ansi.org/preview-pages/PCC/preview_ANSI%2BCatalog%2B2006.pdf","specifications":["ANSI/AIM BC3-1995 Codabar"]}`
 
@@ -278,7 +279,7 @@ Structured contract:
 - `ISO/IEC 16022:2024 Data Matrix`
 - `ISO/IEC 16022:2024 edition 3`
 - `iso-iec-16022-source`
-- `https://www.iso.org/standard/80926.html`
+- `https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/09/80926.detail.rss`
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `docs/specification-decisions.md`
@@ -307,7 +308,7 @@ Structured contract:
 - `ISO/IEC 15438:2015 PDF417`
 - `ISO/IEC 15438:2015 edition 3`
 - `iso-iec-15438-source`
-- `https://www.iso.org/standard/65502.html`
+- `https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/06/55/65502.detail.rss`
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `docs/specification-decisions.md`
@@ -336,7 +337,7 @@ Structured contract:
 - `ISO/IEC 24778:2008 Aztec Code`
 - `ISO/IEC 24778:2008 edition 1`
 - `iso-iec-24778-source`
-- `https://www.iso.org/standard/41548.html`
+- `https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/04/15/41548.detail.rss`
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `docs/specification-decisions.md`
@@ -365,7 +366,7 @@ Structured contract:
 - `ISO/IEC 18004:2024 QR Code`
 - `ISO/IEC 18004:2024 edition 4`
 - `iso-iec-18004-source`
-- `https://www.iso.org/standard/83389.html`
+- `https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/33/83389.detail.rss`
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `docs/specification-decisions.md`
@@ -394,7 +395,7 @@ Structured contract:
 - `ISO/IEC 18004:2024 QR Code`
 - `ISO/IEC 18004:2024 edition 4`
 - `iso-iec-18004-source`
-- `https://www.iso.org/standard/83389.html`
+- `https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/33/83389.detail.rss`
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `docs/specification-decisions.md`
@@ -404,7 +405,7 @@ Structured contract:
 | Field | Decision |
 | --- | --- |
 | Status and owner | `resolved`; `barcode` maintainers |
-| Source | Checksum and control requirements from pinned editions such as [ISO/IEC 15417:2007](https://www.iso.org/standard/43896.html), plus Go's [error handling contract](https://go.dev/ref/spec#Errors) around the package's immutable decode result |
+| Source | Checksum and control requirements from [ISO/IEC 15417:2007](https://www.iso.org/standard/43896.html) with [Amendment 1:2026](https://www.iso.org/standard/87124.html), plus Go's [error handling contract](https://go.dev/ref/spec#Errors) around the package's immutable decode result |
 | Classification | Defensive error and metadata policy |
 | Issue | A decoder can collapse unsupported ECI, checksum mismatch, no symbol, malformed image, payload limit, and cancellation into one error or return partially trusted content. Dependency diagnostics may include payload data. |
 | Credible interpretations | Return best-effort payloads; expose raw dependency errors; map every failure to not found; or preserve bounded machine-readable categories and trusted metadata only after validation. |
@@ -422,11 +423,12 @@ Structured contract:
 - `defensive`
 - `ISO/IEC 15417:2007 with Amendment 1:2026 Code 128`
 - `ISO/IEC 15417:2007 edition 2 with Amendment 1:2026`
-- `iso-iec-15417-source`
-- `https://www.iso.org/standard/43896.html`
+- `iso-iec-15417-amd1-source`
+- `https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/71/87124.detail.rss`
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `docs/specification-decisions.md`
+- `{"id":"iso-iec-15417-base-source","version":"ISO/IEC 15417:2007 edition 2","url":"https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/04/38/43896.detail.rss","specifications":["ISO/IEC 15417:2007 with Amendment 1:2026 Code 128"]}`
 
 ## BARCODE-DEC-015: Reciprocal software interoperability is required
 
@@ -452,7 +454,7 @@ Structured contract:
 - `ISO/IEC 18004:2024 QR Code`
 - `ISO/IEC 18004:2024 edition 4`
 - `iso-iec-18004-source`
-- `https://www.iso.org/standard/83389.html`
+- `https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/33/83389.detail.rss`
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `imagedecode/independent_reader_test.go`
@@ -483,7 +485,7 @@ Structured contract:
 - `ISO/IEC 18004:2024 QR Code`
 - `ISO/IEC 18004:2024 edition 4`
 - `iso-iec-18004-source`
-- `https://www.iso.org/standard/83389.html`
+- `https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/33/83389.detail.rss`
 - `Exact clause not independently verified from available source material`
 - `not specified`
 - `docs/specification-decisions.md`
