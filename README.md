@@ -65,13 +65,15 @@ certification are outside this library's scope.
 - [Specification decisions](docs/specification-decisions.md)
 - [Conformance scope](docs/conformance.md)
 
-See the versioned [Golib ecosystem index](https://github.com/faustbrian/go-library-tools/blob/v1.3.0/docs/ecosystem/README.md)
-and [package-family selection guidance](https://github.com/faustbrian/go-library-tools/blob/v1.3.0/docs/ecosystem/design-language.md#package-families-and-selection)
+See the versioned [Golib ecosystem index](https://github.com/faustbrian/go-library-tools/blob/v1.5.0/docs/ecosystem/README.md)
+and [Domain utilities family guidance](https://github.com/faustbrian/go-library-tools/blob/v1.5.0/docs/ecosystem/design-language.md#package-families-and-selection)
 for the shared design language this module follows.
 
-Run `make check` for every blocking local gate. Coverage below meaningful 100%,
-missing conformance evidence, or an unsupported advertised control remains a
-release blocker.
+Run `make ci` for the complete local repository contract, including
+configuration, inventory, cohesion, repository, workflow, and online
+specification validation. Use `make check` for implementation gates alone.
+Coverage below meaningful 100%, missing conformance evidence, or an unsupported
+advertised control remains a release blocker.
 
 Use `make cohesion` to validate the module's ecosystem classification,
 documentation links, and package-selection metadata locally.

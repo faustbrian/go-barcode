@@ -61,15 +61,18 @@ No ISO or AIM example is represented as an official conformance fixture unless
 its redistribution terms independently permit that use. Independently derived
 logical vectors identify their derivation in the corresponding test.
 
-`monitoring.json` records ISO and ANSI publication identities as restricted sources and
-checks each catalogue's exact `403` denial without hashing its body. The
-withdrawn ANSI/AIM BC3-1995 record is the historical Codabar compatibility
-target. AIM's current unversioned Codabar store record is a separate review
-input, not an asserted replacement, equivalent CEN publication, or implemented
-edition. AIM public-review notices and GS1 change notices are separate
-content-pinned change surfaces. None of those public hashes is a hash of
-restricted normative text, and no exact restricted clause is claimed where the
-publication was unavailable for review.
+`monitoring.json` content-pins public ISO per-standard RSS metadata and public
+ANSI catalogue and withdrawal records. ANSI's edge intermittently denies those
+public records, so monitoring verifies their exact content when available and
+accepts only the reviewed HTTP 403 denial otherwise. Those hashes identify
+publisher metadata, not the licensed normative publications, whose contents
+remain unreviewed. The withdrawn ANSI/AIM BC3-1995 record is the historical
+Codabar
+compatibility target. AIM's current unversioned Codabar store record is a
+separate review input, not an asserted replacement, equivalent CEN publication,
+or implemented edition. AIM public-review notices and GS1 change notices are
+separate content-pinned change surfaces. No exact restricted clause is claimed
+where the publication was unavailable for review.
 
 ## Decision bindings
 

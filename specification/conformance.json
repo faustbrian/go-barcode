@@ -190,7 +190,8 @@
     {
       "id": "BARCODE-DEC-007",
       "authoritative_sources": [
-        "iso-iec-15417-source",
+        "iso-iec-15417-amd1-source",
+        "iso-iec-15417-base-source",
         "aim-code93-source",
         "aim-codabar-source"
       ],
@@ -403,7 +404,8 @@
     {
       "id": "BARCODE-DEC-014",
       "authoritative_sources": [
-        "iso-iec-15417-source"
+        "iso-iec-15417-amd1-source",
+        "iso-iec-15417-base-source"
       ],
       "executable_evidence": [
         "TestDecodeReportsRotationAndPayloadLimits",
