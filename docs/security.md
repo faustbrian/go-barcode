@@ -19,12 +19,13 @@ full decompression, rejects truncation, and checks cancellation between stages.
 Callers using `Decode` directly remain responsible for how their `image.Image`
 was allocated.
 
-Additive two-dimensional readers are isolated at the adapter boundary. A panic
-from malformed symbol data in a decoder dependency is converted to a failed
-candidate and cannot escape `Decode`; another bounded candidate may still be
-attempted.
+The additive QR, Data Matrix, and Aztec readers isolate their dependencies at
+the adapter boundary. A panic from malformed symbol data in those decoder
+dependencies is converted to a failed candidate and cannot escape `Decode`;
+another bounded candidate may still be attempted. PDF417 does not make this
+panic-containment guarantee.
 
 Matrix and renderer constructors reject invalid dimensions, multiplication
 overflow, non-positive scales, and allocation budgets. Errors avoid including
-full payloads by default. Security reports should follow `SECURITY.md` once the
-publication contact is configured.
+full payloads by default. Report suspected vulnerabilities through the private
+process in [`SECURITY.md`](../SECURITY.md).
