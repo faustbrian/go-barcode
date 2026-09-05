@@ -41,6 +41,11 @@ versioning.
 
 ### Documentation
 
+- Add the canonical installation command, executable quick start, package map,
+  stable-v1 and platform status, ownership and concurrency contracts, benchmark
+  guidance, troubleshooting, and actionable support and security routes.
+- Correct documentation metadata to target the executable examples and
+  performance guide.
 - Replace the archived monorepo link with package-owned documentation.
 - Link the public package suite to the immutable v1.3.0 Golib ecosystem and
   package-family selection guidance.
@@ -96,7 +101,7 @@ versioning.
 - BARCODE-DEC-016 sha256:ff06cc03def08bf7bb539b6a6aca6b9abc635e143319d92f8e335895b6b7b431:
   [Decision register](docs/specification-decisions.md).
 
-## 1.0.0 - 2026-08-25
+## 1.0.0 - 2026-08-26
 
 ### Changed
 
