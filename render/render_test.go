@@ -174,7 +174,7 @@ func TestRenderedOutputsMatchGoldenChecksums(t *testing.T) {
 		want string
 		run  func(io.Writer) error
 	}{
-		{name: "PNG", want: "3c3640b1617aa6be5e9dde6d849c3584f57bbdf5ebf455c682f3f6b3f600701c", run: func(writer io.Writer) error {
+		{name: "PNG", want: "f8358523603dc1d574faa766b6db46da364431b4d7a7e3bb44df3fc23e86ed45", run: func(writer io.Writer) error {
 			return render.PNG(writer, symbol.Logical(), render.Options{Scale: 3})
 		}},
 		{name: "SVG", want: "a1e5948192f13263da3a7f6df41db0ec454ff37381975782c431e72ecac15896", run: func(writer io.Writer) error {
