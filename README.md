@@ -21,7 +21,7 @@ image detection.
 
 ## Status and platform
 
-The module is stable at v1 and requires Go 1.26.6. Its public packages are
+The module is stable at v1 and requires Go 1.27.0. Its public packages are
 portable Go and require no operating-system service, device driver, camera,
 printer, scanner, or external runtime backend. Physical-device control,
 print-quality certification, and multi-symbol sequence assembly remain outside
