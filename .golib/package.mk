@@ -6,7 +6,10 @@ ACTIONLINT ?= $(GO) run github.com/rhysd/actionlint/cmd/actionlint@v1.7.12
 FUZZ_TIME ?= 2s
 BENCH_TIME ?= 100ms
 
-.PHONY: actionlint benchmark check check-all conformance coverage dependency-review \
+api:
+	./.golib/scripts/check-api-baseline.sh .
+
+.PHONY: api actionlint benchmark check check-all conformance coverage dependency-review \
 	docs format format-check fuzz lint mutation race staticcheck test tidy-check vet vuln
 
 format:
