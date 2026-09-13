@@ -7,7 +7,7 @@
 [![Documentation](https://img.shields.io/badge/docs-checked_in_CI-blue)](docs/)
 [![Go Reference](https://pkg.go.dev/badge/github.com/faustbrian/go-barcode.svg)](https://pkg.go.dev/github.com/faustbrian/go-barcode)
 [![Release](https://img.shields.io/github/v/release/faustbrian/go-barcode?sort=semver)](https://github.com/faustbrian/go-barcode/releases)
-[![Go](https://img.shields.io/badge/go-1.26.6-00ADD8?logo=go)](https://go.dev/)
+[![Go](https://img.shields.io/badge/go-1.27.0-00ADD8?logo=go)](https://go.dev/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 `barcode` is a standards-driven Go library for validating, encoding,
@@ -21,7 +21,7 @@ image detection.
 
 ## Status and platform
 
-The module is stable at v1 and requires Go 1.26.6. Its public packages are
+The module is stable at v1 and requires Go 1.27.0. Its public packages are
 portable Go and require no operating-system service, device driver, camera,
 printer, scanner, or external runtime backend. Physical-device control,
 print-quality certification, and multi-symbol sequence assembly remain outside
