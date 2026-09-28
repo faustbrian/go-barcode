@@ -348,7 +348,7 @@
           "faq": "docs/faq.md",
           "changelog": "CHANGELOG.md",
           "pkg_go_dev": "https://pkg.go.dev/github.com/faustbrian/go-barcode",
-          "ecosystem_index": "https://github.com/faustbrian/go-library-tools/blob/v1.5.0/docs/ecosystem/README.md"
+          "ecosystem_index": "https://github.com/faustbrian/go-library-tools/blob/v1.7.2/docs/ecosystem/README.md"
         },
         "known_good_compatibility_sets": [],
         "delivery": {
@@ -406,7 +406,7 @@
         "api_compatibility": true,
         "benchmarks": true,
         "conformance": true,
-        "coverage": true,
+        "coverage": false,
         "documentation": true,
         "fuzz": true,
         "lint": true,

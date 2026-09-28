@@ -14,6 +14,14 @@ versioning.
 
 ### Changed
 
+- Adopt the checksum-verified `go-library-tools` v1.7.2 CLI and immutable
+  proportional CI workflow. The unconditional exact-100% statement-coverage
+  gate is no longer selected. Ordinary pull requests retain tests, lint,
+  documentation, API, repository checks, and CodeQL; race, fuzz, mutation,
+  security, and conformance remain selected for material-risk and release runs.
+- Refresh the AIM public-review JSON authority pin after verifying that the
+  publisher still lists no open reviews and its editorial modification date
+  remains February 12, 2024; governing editions and fixtures are unchanged.
 - Adopt the pinned `go-library-tools` v1.2.0 CLI and reusable workflow so CI
   enforces specification decisions, conformance bindings, source monitoring,
   and change control while retaining package-owned policy and verification
