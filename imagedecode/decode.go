@@ -77,7 +77,10 @@ func DecodeEncoded(ctx context.Context, input io.Reader, options Options) (barco
 	}
 	encoded, err := io.ReadAll(io.LimitReader(input, int64(limits.MaxEncodedBytes)+1))
 	if err != nil {
-		return barcode.DecodeResult{}, fmt.Errorf("%w: %w", ErrInvalidImage, err)
+		if ctxErr := ctx.Err(); ctxErr != nil {
+			return barcode.DecodeResult{}, ctxErr
+		}
+		return barcode.DecodeResult{}, ErrInvalidImage
 	}
 	if len(encoded) > limits.MaxEncodedBytes {
 		return barcode.DecodeResult{}, ErrLimitExceeded
@@ -87,14 +90,20 @@ func DecodeEncoded(ctx context.Context, input io.Reader, options Options) (barco
 	}
 	configuration, _, err := image.DecodeConfig(bytes.NewReader(encoded))
 	if err != nil {
-		return barcode.DecodeResult{}, fmt.Errorf("%w: %w", ErrInvalidImage, err)
+		if ctxErr := ctx.Err(); ctxErr != nil {
+			return barcode.DecodeResult{}, ctxErr
+		}
+		return barcode.DecodeResult{}, ErrInvalidImage
 	}
 	if err := validateImageSize(configuration.Width, configuration.Height, limits); err != nil {
 		return barcode.DecodeResult{}, err
 	}
 	decoded, _, err := image.Decode(bytes.NewReader(encoded))
 	if err != nil {
-		return barcode.DecodeResult{}, fmt.Errorf("%w: %w", ErrInvalidImage, err)
+		if ctxErr := ctx.Err(); ctxErr != nil {
+			return barcode.DecodeResult{}, ctxErr
+		}
+		return barcode.DecodeResult{}, ErrInvalidImage
 	}
 	if err := ctx.Err(); err != nil {
 		return barcode.DecodeResult{}, err

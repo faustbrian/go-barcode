@@ -82,3 +82,14 @@ func TestInvalidInputErrorsAreClassifiedAndPayloadRedacted(t *testing.T) {
 		})
 	}
 }
+
+func TestPDF417TextErrorDoesNotExposeUnsupportedPayload(t *testing.T) {
+	const secret = "🔑"
+	_, err := pdf417.Encode([]byte(secret), pdf417.Options{Compaction: pdf417.Text})
+	if !errors.Is(err, pdf417.ErrInvalidInput) {
+		t.Fatalf("Encode() error = %v, want invalid input", err)
+	}
+	if strings.Contains(err.Error(), secret) {
+		t.Fatalf("Encode() exposed payload: %v", err)
+	}
+}

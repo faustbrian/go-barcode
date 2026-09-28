@@ -5,6 +5,13 @@ versioning.
 
 ## Unreleased
 
+### Fixed
+
+- Prevent `DecodeEncoded` from exposing sensitive reader or image-decoder error
+  text while retaining classified invalid-image and cancellation errors.
+- Redact unsupported PDF417 text-compaction characters from invalid-input
+  errors while retaining their position for diagnostics.
+
 ### Changed
 
 - Adopt the pinned `go-library-tools` v1.2.0 CLI and reusable workflow so CI

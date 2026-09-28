@@ -103,7 +103,7 @@ func EncodeHighLevel(msg string, compaction Compaction) (string, error) {
 	if compaction == CompactionText {
 		for i, ch := range msg {
 			if !isTextRune(ch) {
-				return "", fmt.Errorf("non-encodable character detected: %c (Unicode: %d) at position #%d", ch, ch, i)
+				return "", fmt.Errorf("non-encodable character at position #%d", i)
 			}
 		}
 	}
