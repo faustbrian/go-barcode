@@ -29,8 +29,11 @@ also bounds compressed PNG, JPEG, or GIF bytes before full decoding. Content is
 returned as untrusted bytes and text; the library never executes or follows
 it.
 
-Errors are package-level sentinels wrapped with diagnostic causes. Use
-`errors.Is`, not string matching.
+Errors expose package-level sentinels; use `errors.Is`, not string matching.
+Some errors wrap diagnostic causes, but `DecodeEncoded` returns bare
+`imagedecode.ErrInvalidImage` for reader and image-decoder failures so
+untrusted error text cannot disclose payloads. Cancellation remains
+distinguishable as `context.Canceled` or `context.DeadlineExceeded`.
 
 Unsupported ECI assignments are rejected by the encoder's classified error
 sentinel. When controlled Data Matrix decoding encounters a syntactically

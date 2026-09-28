@@ -20,9 +20,9 @@ permissions:
 
 jobs:
   ci:
-    uses: faustbrian/go-library-tools/.github/workflows/library-ci.yml@0e94a17d4340321ee848efa1ebe20a51aa8b487e # v1.5.0 conditional authority support
+    uses: faustbrian/go-library-tools/.github/workflows/library-ci.yml@47269f1aa78baa637a8c377b0af24c113b34c1c9 # v1.7.2 proportional CI
     with:
-      tooling_sha: 51cee4d0e77d081ff48baa5614d585ba164e6d89
+      tooling_sha: 47269f1aa78baa637a8c377b0af24c113b34c1c9
       release_dry_run: ${{ inputs.release_dry_run || false }}
 
   required:

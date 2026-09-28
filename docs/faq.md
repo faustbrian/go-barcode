@@ -3,7 +3,7 @@
 ## Why is a format implemented but not advertised?
 
 Implementation is only one gate. Independent fixtures, metadata, hostile-input
-limits, meaningful 100% coverage, and reciprocal software interoperability
+limits, risk-based regression tests, and reciprocal software interoperability
 must also pass.
 
 ## Can I remove or shrink the quiet zone?

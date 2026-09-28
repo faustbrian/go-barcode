@@ -2,7 +2,6 @@
 
 [![CI](https://github.com/faustbrian/go-barcode/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/faustbrian/go-barcode/actions/workflows/ci.yml)
 [![CodeQL](https://img.shields.io/badge/CodeQL-required-blue)](https://github.com/faustbrian/go-barcode/actions/workflows/ci.yml)
-[![Coverage](https://img.shields.io/badge/coverage-100%25_required-blue)](CONTRIBUTING.md#verification)
 [![Mutation](https://img.shields.io/badge/mutation-100%25_required-blue)](CONTRIBUTING.md#verification)
 [![Documentation](https://img.shields.io/badge/docs-checked_in_CI-blue)](docs/)
 [![Go Reference](https://pkg.go.dev/badge/github.com/faustbrian/go-barcode.svg)](https://pkg.go.dev/github.com/faustbrian/go-barcode)
@@ -153,15 +152,19 @@ and physical device certification are outside this library's scope.
 - [Contribution guide](CONTRIBUTING.md)
 - [License](LICENSE)
 
-See the versioned [Golib ecosystem index](https://github.com/faustbrian/go-library-tools/blob/v1.5.0/docs/ecosystem/README.md)
-and [Domain utilities family guidance](https://github.com/faustbrian/go-library-tools/blob/v1.5.0/docs/ecosystem/design-language.md#package-families-and-selection)
+See the versioned [Golib ecosystem index](https://github.com/faustbrian/go-library-tools/blob/v1.7.2/docs/ecosystem/README.md)
+and [Domain utilities family guidance](https://github.com/faustbrian/go-library-tools/blob/v1.7.2/docs/ecosystem/design-language.md#package-families-and-selection)
 for the shared design language this module follows.
 
 Run `make ci` for the complete local repository contract, including
 configuration, inventory, cohesion, repository, workflow, and online
 specification validation. Use `make check` for implementation gates alone.
-Coverage below meaningful 100%, missing conformance evidence, or an unsupported
-advertised control remains a release blocker.
+Ordinary hosted pull requests run the bounded local contract (tests, lint,
+documentation, and API compatibility) plus repository checks and CodeQL.
+The selected race, fuzz, mutation, security, and conformance gates remain
+available for material risks and the full release rehearsal. Missing focused
+regression or conformance evidence, or an unsupported advertised control,
+remains a release blocker.
 
 Use `make cohesion` to validate the module's ecosystem classification,
 documentation links, and package-selection metadata locally.
