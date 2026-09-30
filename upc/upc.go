@@ -7,9 +7,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/faustbrian/go-barcode/barcode"
-	"github.com/faustbrian/go-barcode/ean"
-	"github.com/faustbrian/go-barcode/gs1"
+	"github.com/faustbrian/go-barcode/v2/barcode"
+	"github.com/faustbrian/go-barcode/v2/ean"
+	"github.com/faustbrian/go-barcode/v2/gs1"
 	"github.com/makiuchi-d/gozxing"
 	"github.com/makiuchi-d/gozxing/oned"
 )

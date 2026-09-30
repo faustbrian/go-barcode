@@ -7,11 +7,11 @@ import (
 	"image"
 	"testing"
 
-	"github.com/faustbrian/go-barcode/barcode"
-	"github.com/faustbrian/go-barcode/code128"
-	"github.com/faustbrian/go-barcode/imagedecode"
-	"github.com/faustbrian/go-barcode/qr"
-	"github.com/faustbrian/go-barcode/render"
+	"github.com/faustbrian/go-barcode/v2/barcode"
+	"github.com/faustbrian/go-barcode/v2/code128"
+	"github.com/faustbrian/go-barcode/v2/imagedecode"
+	"github.com/faustbrian/go-barcode/v2/qr"
+	"github.com/faustbrian/go-barcode/v2/render"
 )
 
 func BenchmarkEncodeQR(b *testing.B) {
@@ -95,7 +95,7 @@ func BenchmarkDecodeEncodedQR(b *testing.B) {
 	for b.Loop() {
 		if _, err := imagedecode.DecodeEncoded(
 			context.Background(),
-			bytes.NewReader(input),
+			input,
 			imagedecode.Options{Formats: []barcode.Format{barcode.QRCode}},
 		); err != nil {
 			b.Fatal(err)
@@ -110,7 +110,7 @@ func BenchmarkRejectMalformedImage(b *testing.B) {
 	for b.Loop() {
 		_, _ = imagedecode.DecodeEncoded(
 			context.Background(),
-			bytes.NewReader(input),
+			input,
 			imagedecode.Options{},
 		)
 	}

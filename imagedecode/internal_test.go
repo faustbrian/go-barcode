@@ -9,9 +9,9 @@ import (
 	"time"
 
 	zxinggo "github.com/ericlevine/zxinggo"
-	"github.com/faustbrian/go-barcode/barcode"
-	"github.com/faustbrian/go-barcode/qr"
-	"github.com/faustbrian/go-barcode/render"
+	"github.com/faustbrian/go-barcode/v2/barcode"
+	"github.com/faustbrian/go-barcode/v2/qr"
+	"github.com/faustbrian/go-barcode/v2/render"
 	"github.com/makiuchi-d/gozxing"
 )
 

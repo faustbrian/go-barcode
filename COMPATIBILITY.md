@@ -8,6 +8,11 @@ break MUST be documented with migration guidance. Patch releases MUST remain
 backward compatible. At and after `v1`, incompatible exported API or documented
 behavior changes require a new major version.
 
+The v2 root module retains the same package directories with `/v2` import
+suffixes. The `imagedecode.DecodeEncoded` argument changes from `io.Reader` to
+`[]byte`; callers own bounded stream acquisition before invoking it. The v1
+module remains available at its unchanged import path.
+
 Compatibility includes exported Go APIs, error classification, serialization,
 protocol behavior, persistence schemas, environment variables, command output,
 resource ownership, ordering, retry/idempotency semantics, and documented

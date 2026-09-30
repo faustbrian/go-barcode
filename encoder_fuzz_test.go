@@ -3,17 +3,17 @@ package barcode_test
 import (
 	"testing"
 
-	"github.com/faustbrian/go-barcode/aztec"
-	"github.com/faustbrian/go-barcode/codabar"
-	"github.com/faustbrian/go-barcode/code128"
-	"github.com/faustbrian/go-barcode/code39"
-	"github.com/faustbrian/go-barcode/code93"
-	"github.com/faustbrian/go-barcode/datamatrix"
-	"github.com/faustbrian/go-barcode/ean"
-	"github.com/faustbrian/go-barcode/itf"
-	"github.com/faustbrian/go-barcode/pdf417"
-	"github.com/faustbrian/go-barcode/qr"
-	"github.com/faustbrian/go-barcode/upc"
+	"github.com/faustbrian/go-barcode/v2/aztec"
+	"github.com/faustbrian/go-barcode/v2/codabar"
+	"github.com/faustbrian/go-barcode/v2/code128"
+	"github.com/faustbrian/go-barcode/v2/code39"
+	"github.com/faustbrian/go-barcode/v2/code93"
+	"github.com/faustbrian/go-barcode/v2/datamatrix"
+	"github.com/faustbrian/go-barcode/v2/ean"
+	"github.com/faustbrian/go-barcode/v2/itf"
+	"github.com/faustbrian/go-barcode/v2/pdf417"
+	"github.com/faustbrian/go-barcode/v2/qr"
+	"github.com/faustbrian/go-barcode/v2/upc"
 )
 
 func FuzzPayloadEncoders(f *testing.F) {

@@ -7,9 +7,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/go-barcode/barcode"
-	"github.com/faustbrian/go-barcode/code128"
-	"github.com/faustbrian/go-barcode/gs1"
+	"github.com/faustbrian/go-barcode/v2/barcode"
+	"github.com/faustbrian/go-barcode/v2/code128"
+	"github.com/faustbrian/go-barcode/v2/gs1"
 )
 
 func TestEncodeCodeSetBMatchesIndependentLogicalVector(t *testing.T) {

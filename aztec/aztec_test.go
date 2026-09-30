@@ -6,11 +6,11 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/faustbrian/go-barcode/aztec"
-	"github.com/faustbrian/go-barcode/barcode"
-	"github.com/faustbrian/go-barcode/gs1"
-	"github.com/faustbrian/go-barcode/imagedecode"
-	"github.com/faustbrian/go-barcode/render"
+	"github.com/faustbrian/go-barcode/v2/aztec"
+	"github.com/faustbrian/go-barcode/v2/barcode"
+	"github.com/faustbrian/go-barcode/v2/gs1"
+	"github.com/faustbrian/go-barcode/v2/imagedecode"
+	"github.com/faustbrian/go-barcode/v2/render"
 )
 
 func TestEncodeSupportsAutomaticAndForcedLayers(t *testing.T) {

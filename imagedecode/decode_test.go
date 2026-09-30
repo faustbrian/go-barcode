@@ -13,21 +13,21 @@ import (
 	"testing"
 	"time"
 
-	"github.com/faustbrian/go-barcode/aztec"
-	"github.com/faustbrian/go-barcode/barcode"
-	"github.com/faustbrian/go-barcode/codabar"
-	"github.com/faustbrian/go-barcode/code128"
-	"github.com/faustbrian/go-barcode/code39"
-	"github.com/faustbrian/go-barcode/code93"
-	"github.com/faustbrian/go-barcode/datamatrix"
-	"github.com/faustbrian/go-barcode/ean"
-	"github.com/faustbrian/go-barcode/gs1"
-	"github.com/faustbrian/go-barcode/imagedecode"
-	"github.com/faustbrian/go-barcode/itf"
-	"github.com/faustbrian/go-barcode/pdf417"
-	"github.com/faustbrian/go-barcode/qr"
-	"github.com/faustbrian/go-barcode/render"
-	"github.com/faustbrian/go-barcode/upc"
+	"github.com/faustbrian/go-barcode/v2/aztec"
+	"github.com/faustbrian/go-barcode/v2/barcode"
+	"github.com/faustbrian/go-barcode/v2/codabar"
+	"github.com/faustbrian/go-barcode/v2/code128"
+	"github.com/faustbrian/go-barcode/v2/code39"
+	"github.com/faustbrian/go-barcode/v2/code93"
+	"github.com/faustbrian/go-barcode/v2/datamatrix"
+	"github.com/faustbrian/go-barcode/v2/ean"
+	"github.com/faustbrian/go-barcode/v2/gs1"
+	"github.com/faustbrian/go-barcode/v2/imagedecode"
+	"github.com/faustbrian/go-barcode/v2/itf"
+	"github.com/faustbrian/go-barcode/v2/pdf417"
+	"github.com/faustbrian/go-barcode/v2/qr"
+	"github.com/faustbrian/go-barcode/v2/render"
+	"github.com/faustbrian/go-barcode/v2/upc"
 )
 
 func TestDecodeQRAndCode128Images(t *testing.T) {
@@ -332,7 +332,7 @@ func TestDecodeEncodedBoundsCompressedImages(t *testing.T) {
 	if err := png.Encode(&encoded, input); err != nil {
 		t.Fatalf("png.Encode() error = %v", err)
 	}
-	result, err := imagedecode.DecodeEncoded(context.Background(), bytes.NewReader(encoded.Bytes()), imagedecode.Options{
+	result, err := imagedecode.DecodeEncoded(context.Background(), encoded.Bytes(), imagedecode.Options{
 		Formats: []barcode.Format{barcode.QRCode}, Limits: imagedecode.Limits{
 			MaxDuration: time.Second, MaxEncodedBytes: encoded.Len(),
 		},
@@ -341,56 +341,35 @@ func TestDecodeEncodedBoundsCompressedImages(t *testing.T) {
 		t.Fatalf("DecodeEncoded() = (%q, %v)", result.Payload(), err)
 	}
 	for _, test := range []struct {
-		name   string
-		reader io.Reader
-		limits imagedecode.Limits
-		want   error
+		name    string
+		encoded []byte
+		limits  imagedecode.Limits
+		want    error
 	}{
 		{name: "nil", want: imagedecode.ErrInvalidImage},
-		{name: "read failure", reader: failingReader{}, want: imagedecode.ErrInvalidImage},
-		{name: "encoded bytes", reader: bytes.NewReader(encoded.Bytes()), limits: imagedecode.Limits{MaxEncodedBytes: 8}, want: imagedecode.ErrLimitExceeded},
-		{name: "invalid format", reader: strings.NewReader("not an image"), want: imagedecode.ErrInvalidImage},
-		{name: "truncated", reader: bytes.NewReader(encoded.Bytes()[:len(encoded.Bytes())/2]), want: imagedecode.ErrInvalidImage},
-		{name: "pixel header", reader: bytes.NewReader(encoded.Bytes()), limits: imagedecode.Limits{MaxPixels: 1}, want: imagedecode.ErrLimitExceeded},
-		{name: "invalid limits", reader: bytes.NewReader(encoded.Bytes()), limits: imagedecode.Limits{MaxEncodedBytes: -1}, want: imagedecode.ErrLimitExceeded},
+		{name: "encoded bytes", encoded: encoded.Bytes(), limits: imagedecode.Limits{MaxEncodedBytes: 8}, want: imagedecode.ErrLimitExceeded},
+		{name: "invalid format", encoded: []byte("not an image"), want: imagedecode.ErrInvalidImage},
+		{name: "truncated", encoded: encoded.Bytes()[:encoded.Len()/2], want: imagedecode.ErrInvalidImage},
+		{name: "pixel header", encoded: encoded.Bytes(), limits: imagedecode.Limits{MaxPixels: 1}, want: imagedecode.ErrLimitExceeded},
+		{name: "invalid limits", encoded: encoded.Bytes(), limits: imagedecode.Limits{MaxEncodedBytes: -1}, want: imagedecode.ErrLimitExceeded},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			if _, decodeErr := imagedecode.DecodeEncoded(context.Background(), test.reader, imagedecode.Options{Limits: test.limits}); !errors.Is(decodeErr, test.want) {
+			if _, decodeErr := imagedecode.DecodeEncoded(context.Background(), test.encoded, imagedecode.Options{Limits: test.limits}); !errors.Is(decodeErr, test.want) {
 				t.Fatalf("DecodeEncoded() error = %v, want %v", decodeErr, test.want)
 			}
 		})
 	}
 	canceled, cancel := context.WithCancel(context.Background())
 	cancel()
-	if _, err := imagedecode.DecodeEncoded(canceled, bytes.NewReader(encoded.Bytes()), imagedecode.Options{}); !errors.Is(err, context.Canceled) {
+	if _, err := imagedecode.DecodeEncoded(canceled, encoded.Bytes(), imagedecode.Options{}); !errors.Is(err, context.Canceled) {
 		t.Fatalf("DecodeEncoded(canceled) error = %v", err)
-	}
-	readContext, cancelRead := context.WithCancel(context.Background())
-	if _, err := imagedecode.DecodeEncoded(readContext, cancelingReader{reader: bytes.NewReader(encoded.Bytes()), cancel: cancelRead}, imagedecode.Options{}); !errors.Is(err, context.Canceled) {
-		t.Fatalf("DecodeEncoded(cancel after read) error = %v", err)
 	}
 	decodeContext, cancelDecode := context.WithCancel(context.Background())
 	cancelImageDecode = cancelDecode
 	t.Cleanup(func() { cancelImageDecode = nil })
-	if _, err := imagedecode.DecodeEncoded(decodeContext, strings.NewReader("CXL1"), imagedecode.Options{}); !errors.Is(err, context.Canceled) {
+	if _, err := imagedecode.DecodeEncoded(decodeContext, []byte("CXL1"), imagedecode.Options{}); !errors.Is(err, context.Canceled) {
 		t.Fatalf("DecodeEncoded(cancel after decode) error = %v", err)
 	}
-}
-
-type failingReader struct{}
-
-func (failingReader) Read([]byte) (int, error) { return 0, io.ErrUnexpectedEOF }
-
-type cancelingReader struct {
-	reader io.Reader
-	cancel context.CancelFunc
-}
-
-func (reader cancelingReader) Read(output []byte) (int, error) {
-	count, err := reader.reader.Read(output)
-	reader.cancel()
-
-	return count, err
 }
 
 var cancelImageDecode context.CancelFunc
