@@ -1,12 +1,11 @@
 package imagedecode_test
 
 import (
-	"bytes"
 	"context"
 	"image"
 	"testing"
 
-	"github.com/faustbrian/go-barcode/imagedecode"
+	"github.com/faustbrian/go-barcode/v2/imagedecode"
 )
 
 func FuzzDecodeBoundedImages(f *testing.F) {
@@ -27,7 +26,7 @@ func FuzzDecodeBoundedImages(f *testing.F) {
 				MaxMemoryBytes: 4 * width * height, MaxCandidates: 64,
 			},
 		})
-		_, _ = imagedecode.DecodeEncoded(context.Background(), bytes.NewReader(pixels), imagedecode.Options{
+		_, _ = imagedecode.DecodeEncoded(context.Background(), pixels, imagedecode.Options{
 			Limits: imagedecode.Limits{MaxEncodedBytes: 4096},
 		})
 	})

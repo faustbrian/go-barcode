@@ -9,10 +9,10 @@ import (
 	"github.com/ericlevine/zxinggo/binarizer"
 	zxingpdf417 "github.com/ericlevine/zxinggo/pdf417"
 	"github.com/ericlevine/zxinggo/pdf417/decoder"
-	"github.com/faustbrian/go-barcode/barcode"
-	"github.com/faustbrian/go-barcode/imagedecode"
-	"github.com/faustbrian/go-barcode/pdf417"
-	"github.com/faustbrian/go-barcode/render"
+	"github.com/faustbrian/go-barcode/v2/barcode"
+	"github.com/faustbrian/go-barcode/v2/imagedecode"
+	"github.com/faustbrian/go-barcode/v2/pdf417"
+	"github.com/faustbrian/go-barcode/v2/render"
 )
 
 func TestEncodeSupportsErrorCorrection(t *testing.T) {

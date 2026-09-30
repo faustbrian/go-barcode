@@ -10,12 +10,11 @@ import (
 	_ "image/gif"  //nolint:revive // Register GIF for the generic image decoder.
 	_ "image/jpeg" //nolint:revive // Register JPEG for the generic image decoder.
 	_ "image/png"  //nolint:revive // Register PNG for the generic image decoder.
-	"io"
 	"math"
 	"strings"
 	"time"
 
-	"github.com/faustbrian/go-barcode/barcode"
+	"github.com/faustbrian/go-barcode/v2/barcode"
 	"github.com/makiuchi-d/gozxing"
 	"github.com/makiuchi-d/gozxing/oned"
 )
@@ -56,14 +55,14 @@ type Limits struct {
 	MaxDuration     time.Duration
 }
 
-// DecodeEncoded bounds and decodes a PNG, JPEG, or GIF stream before scanning
-// it for a barcode. The compressed byte and decoded image limits are enforced
-// before the full image allocation.
-func DecodeEncoded(ctx context.Context, input io.Reader, options Options) (barcode.DecodeResult, error) {
+// DecodeEncoded bounds and decodes PNG, JPEG, or GIF bytes before scanning for
+// a barcode. The caller retains ownership of encoded and must not mutate it
+// during this call. The byte and decoded image limits precede full allocation.
+func DecodeEncoded(ctx context.Context, encoded []byte, options Options) (barcode.DecodeResult, error) {
 	if err := ctx.Err(); err != nil {
 		return barcode.DecodeResult{}, err
 	}
-	if input == nil {
+	if encoded == nil {
 		return barcode.DecodeResult{}, ErrInvalidImage
 	}
 	limits, err := normalizeLimits(options.Limits)
@@ -74,13 +73,6 @@ func DecodeEncoded(ctx context.Context, input io.Reader, options Options) (barco
 		var cancel context.CancelFunc
 		ctx, cancel = context.WithTimeout(ctx, limits.MaxDuration)
 		defer cancel()
-	}
-	encoded, err := io.ReadAll(io.LimitReader(input, int64(limits.MaxEncodedBytes)+1))
-	if err != nil {
-		if ctxErr := ctx.Err(); ctxErr != nil {
-			return barcode.DecodeResult{}, ctxErr
-		}
-		return barcode.DecodeResult{}, ErrInvalidImage
 	}
 	if len(encoded) > limits.MaxEncodedBytes {
 		return barcode.DecodeResult{}, ErrLimitExceeded
@@ -96,6 +88,9 @@ func DecodeEncoded(ctx context.Context, input io.Reader, options Options) (barco
 		return barcode.DecodeResult{}, ErrInvalidImage
 	}
 	if err := validateImageSize(configuration.Width, configuration.Height, limits); err != nil {
+		return barcode.DecodeResult{}, err
+	}
+	if err := ctx.Err(); err != nil {
 		return barcode.DecodeResult{}, err
 	}
 	decoded, _, err := image.Decode(bytes.NewReader(encoded))

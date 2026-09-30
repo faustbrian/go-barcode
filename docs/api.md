@@ -25,13 +25,14 @@ Encoders return logical symbols with standards-safe quiet zones. `render`
 converts them to raster or SVG at exact integer scale. `imagedecode.Decode`
 accepts an `image.Image`, requested formats, behavior flags, and explicit
 resource limits, including an optional elapsed-time budget. `DecodeEncoded`
-also bounds compressed PNG, JPEG, or GIF bytes before full decoding. Content is
+accepts a caller-owned byte slice and bounds compressed PNG, JPEG, or GIF bytes
+before full decoding. It does not read from an arbitrary `io.Reader`. Content is
 returned as untrusted bytes and text; the library never executes or follows
 it.
 
 Errors expose package-level sentinels; use `errors.Is`, not string matching.
 Some errors wrap diagnostic causes, but `DecodeEncoded` returns bare
-`imagedecode.ErrInvalidImage` for reader and image-decoder failures so
+`imagedecode.ErrInvalidImage` for malformed bytes and image-decoder failures so
 untrusted error text cannot disclose payloads. Cancellation remains
 distinguishable as `context.Canceled` or `context.DeadlineExceeded`.
 

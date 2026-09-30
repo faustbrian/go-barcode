@@ -4,7 +4,7 @@
 [![CodeQL](https://img.shields.io/badge/CodeQL-required-blue)](https://github.com/faustbrian/go-barcode/actions/workflows/ci.yml)
 [![Mutation](https://img.shields.io/badge/mutation-100%25_required-blue)](CONTRIBUTING.md#verification)
 [![Documentation](https://img.shields.io/badge/docs-checked_in_CI-blue)](docs/)
-[![Go Reference](https://pkg.go.dev/badge/github.com/faustbrian/go-barcode.svg)](https://pkg.go.dev/github.com/faustbrian/go-barcode)
+[![Go Reference](https://pkg.go.dev/badge/github.com/faustbrian/go-barcode/v2.svg)](https://pkg.go.dev/github.com/faustbrian/go-barcode/v2)
 [![Release](https://img.shields.io/github/v/release/faustbrian/go-barcode?sort=semver)](https://github.com/faustbrian/go-barcode/releases)
 [![Go](https://img.shields.io/badge/go-1.27.0-00ADD8?logo=go)](https://go.dev/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -14,13 +14,13 @@ rendering, and decoding common one-dimensional and two-dimensional barcodes.
 Its core values are immutable logical modules; PNG, SVG, and `image.Image`
 output are derived views rather than the source of truth.
 
-Import paths use `github.com/faustbrian/go-barcode`. The image decoder is an
+Import paths use `github.com/faustbrian/go-barcode/v2`. The image decoder is an
 additive package; encoders and logical rendering do not require callers to use
 image detection.
 
 ## Status and platform
 
-The module is stable at v1 and requires Go 1.27.0. Its public packages are
+The v2 module requires Go 1.27.0. Its public packages are
 portable Go and require no operating-system service, device driver, camera,
 printer, scanner, or external runtime backend. Physical-device control,
 print-quality certification, and multi-symbol sequence assembly remain outside
@@ -29,7 +29,7 @@ the module's scope.
 ## Install
 
 ```sh
-go get github.com/faustbrian/go-barcode
+go get github.com/faustbrian/go-barcode/v2
 ```
 
 ## Quick start
@@ -40,7 +40,7 @@ package main
 import (
     "fmt"
 
-    "github.com/faustbrian/go-barcode/qr"
+    "github.com/faustbrian/go-barcode/v2/qr"
 )
 
 func main() {
@@ -94,13 +94,14 @@ caller byte and slice inputs, and accessors return defensive copies.
 Public functions are safe to call concurrently when callers do not mutate an
 input object or use the same `io.Writer` concurrently. `render.PNG` and
 `render.SVG` borrow the supplied writer for the duration of the call and never
-close it. `imagedecode.DecodeEncoded` reads but never closes its caller-owned
-reader. `Decode` borrows its caller-owned `image.Image` for the call.
+close it. `imagedecode.DecodeEncoded` borrows encoded bytes without retaining
+them; callers must not mutate the slice during the call. `Decode` borrows its
+caller-owned `image.Image` for the call.
 
 Only image-decoding operations accept `context.Context`. They do not retain the
 context and check cancellation between bounded stages and candidate attempts;
-timeouts cannot interrupt a blocking caller-owned reader or image method, or
-third-party decoder code while that code is actively running. Configure
+timeouts cannot interrupt a blocking caller-owned image method or third-party
+decoder code while that code is actively running. Configure
 `imagedecode.Limits` for public or otherwise hostile input. Use `errors.Is`
 with package sentinels rather than matching error text.
 
