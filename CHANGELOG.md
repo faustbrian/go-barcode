@@ -3,6 +3,13 @@
 All notable changes are documented here. The project follows semantic
 versioning.
 
+## v2.0.1 - 2026-10-01
+
+### Fixed
+
+- Preallocate Code 128 bar storage by its actual run count, avoiding repeated
+  buffer growth and quiet-zone memory amplification without changing symbols.
+
 ## Unreleased
 
 ### Fixed
