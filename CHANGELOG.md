@@ -3,6 +3,13 @@
 All notable changes are documented here. The project follows semantic
 versioning.
 
+## v2.0.2 - 2026-10-02
+
+### Changed
+
+- Update the Unicode text dependency to `golang.org/x/text` v0.42.0.
+- Refresh the pinned shared CI workflow.
+
 ## v2.0.1 - 2026-10-01
 
 ### Fixed
@@ -21,7 +28,6 @@ versioning.
 
 ### Changed
 
-- Update the Unicode text dependency to `golang.org/x/text` v0.42.0.
 - Move the root module to `github.com/faustbrian/go-barcode/v2` for the
   breaking image-decoder contract. `DecodeEncoded` now accepts caller-owned
   encoded bytes, rejects oversized input before parsing, and cannot block in
