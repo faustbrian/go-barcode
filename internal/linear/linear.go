@@ -4,7 +4,7 @@ package linear
 import (
 	"fmt"
 
-	"github.com/faustbrian/go-barcode/barcode"
+	"github.com/faustbrian/go-barcode/v2/barcode"
 	"github.com/makiuchi-d/gozxing"
 )
 

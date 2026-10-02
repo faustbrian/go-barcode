@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/go-barcode/barcode"
-	"github.com/faustbrian/go-barcode/ean"
+	"github.com/faustbrian/go-barcode/v2/barcode"
+	"github.com/faustbrian/go-barcode/v2/ean"
 )
 
 func TestEncode13MatchesIndependentLogicalVector(t *testing.T) {

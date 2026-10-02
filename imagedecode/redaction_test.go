@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/go-barcode/imagedecode"
+	"github.com/faustbrian/go-barcode/v2/imagedecode"
 )
 
 func TestDecodeEncodedDoesNotExposeInputErrors(t *testing.T) {
@@ -28,11 +28,10 @@ func TestDecodeEncodedDoesNotExposeInputErrors(t *testing.T) {
 
 	for _, test := range []struct {
 		name  string
-		input io.Reader
+		input []byte
 	}{
-		{name: "reader", input: sensitiveReader{err: sensitive}},
-		{name: "image configuration", input: strings.NewReader("RDC1")},
-		{name: "image pixels", input: strings.NewReader("RDP1")},
+		{name: "image configuration", input: []byte("RDC1")},
+		{name: "image pixels", input: []byte("RDP1")},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			_, err := imagedecode.DecodeEncoded(context.Background(), test.input, imagedecode.Options{})
@@ -45,7 +44,3 @@ func TestDecodeEncodedDoesNotExposeInputErrors(t *testing.T) {
 		})
 	}
 }
-
-type sensitiveReader struct{ err error }
-
-func (reader sensitiveReader) Read([]byte) (int, error) { return 0, reader.err }

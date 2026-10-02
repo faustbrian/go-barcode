@@ -3,6 +3,13 @@
 All notable changes are documented here. The project follows semantic
 versioning.
 
+## v2.0.1 - 2026-10-01
+
+### Fixed
+
+- Preallocate Code 128 bar storage by its actual run count, avoiding repeated
+  buffer growth and quiet-zone memory amplification without changing symbols.
+
 ## Unreleased
 
 ### Fixed
@@ -14,6 +21,10 @@ versioning.
 
 ### Changed
 
+- Move the root module to `github.com/faustbrian/go-barcode/v2` for the
+  breaking image-decoder contract. `DecodeEncoded` now accepts caller-owned
+  encoded bytes, rejects oversized input before parsing, and cannot block in
+  an arbitrary reader; stream acquisition and its deadline belong to callers.
 - Adopt the checksum-verified `go-library-tools` v1.7.2 CLI and immutable
   proportional CI workflow. The unconditional exact-100% statement-coverage
   gate is no longer selected. Ordinary pull requests retain tests, lint,
@@ -53,6 +64,13 @@ versioning.
   unsupported optional-checksum policy unchanged.
 - Pin AIM public-review monitoring to the publisher's canonical JSON record so
   generated HTML nonces do not obscure substantive authority changes.
+
+### Migration
+
+- Change imports to `github.com/faustbrian/go-barcode/v2`. Acquire encoded
+  images with an application-owned size cap and cancellation policy, then pass
+  the resulting `[]byte` to `imagedecode.DecodeEncoded`. Version 1 remains at
+  its existing import path.
 
 ### Documentation
 

@@ -12,7 +12,7 @@ import (
 	"math"
 	"strconv"
 
-	"github.com/faustbrian/go-barcode/barcode"
+	"github.com/faustbrian/go-barcode/v2/barcode"
 )
 
 const (

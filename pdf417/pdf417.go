@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/faustbrian/go-barcode/barcode"
-	"github.com/faustbrian/go-barcode/internal/pdf417encoder"
+	"github.com/faustbrian/go-barcode/v2/barcode"
+	"github.com/faustbrian/go-barcode/v2/internal/pdf417encoder"
 )
 
 const (

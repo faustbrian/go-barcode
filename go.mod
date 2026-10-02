@@ -1,4 +1,4 @@
-module github.com/faustbrian/go-barcode
+module github.com/faustbrian/go-barcode/v2
 
 go 1.27.0
 

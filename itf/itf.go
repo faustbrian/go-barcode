@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/faustbrian/go-barcode/barcode"
-	"github.com/faustbrian/go-barcode/gs1"
-	"github.com/faustbrian/go-barcode/internal/linear"
+	"github.com/faustbrian/go-barcode/v2/barcode"
+	"github.com/faustbrian/go-barcode/v2/gs1"
+	"github.com/faustbrian/go-barcode/v2/internal/linear"
 	"github.com/makiuchi-d/gozxing"
 	"github.com/makiuchi-d/gozxing/oned"
 )

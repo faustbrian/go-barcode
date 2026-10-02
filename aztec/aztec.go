@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/faustbrian/go-barcode/barcode"
-	"github.com/faustbrian/go-barcode/gs1"
-	aztecencoder "github.com/faustbrian/go-barcode/internal/aztecencoder"
+	"github.com/faustbrian/go-barcode/v2/barcode"
+	"github.com/faustbrian/go-barcode/v2/gs1"
+	aztecencoder "github.com/faustbrian/go-barcode/v2/internal/aztecencoder"
 )
 
 const (

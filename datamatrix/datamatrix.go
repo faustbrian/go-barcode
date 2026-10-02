@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/faustbrian/go-barcode/barcode"
-	"github.com/faustbrian/go-barcode/gs1"
+	"github.com/faustbrian/go-barcode/v2/barcode"
+	"github.com/faustbrian/go-barcode/v2/gs1"
 	"github.com/makiuchi-d/gozxing"
 	zxingdatamatrix "github.com/makiuchi-d/gozxing/datamatrix"
 	"github.com/makiuchi-d/gozxing/datamatrix/encoder"

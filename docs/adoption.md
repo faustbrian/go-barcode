@@ -15,3 +15,11 @@
 Migration should preserve canonical payload bytes, check-digit ownership, GS1
 separator behavior, quiet zones, and requested correction settings. Treat any
 silent normalization difference as a compatibility defect.
+
+For v2, change imports to `github.com/faustbrian/go-barcode/v2`. Pass an
+already acquired `[]byte` to `imagedecode.DecodeEncoded` instead of an
+`io.Reader`. Applications own stream acquisition, its deadline and cancellation,
+and its byte cap; the decoder enforces `MaxEncodedBytes` before image parsing.
+Do not start a goroutine solely to wrap a blocking reader, because cancellation
+cannot guarantee that goroutine exits. Version 1 remains available at its
+unchanged import path for callers that cannot yet migrate.

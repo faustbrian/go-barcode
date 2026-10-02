@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/faustbrian/go-barcode/barcode"
-	"github.com/faustbrian/go-barcode/gs1"
+	"github.com/faustbrian/go-barcode/v2/barcode"
+	"github.com/faustbrian/go-barcode/v2/gs1"
 	"github.com/makiuchi-d/gozxing"
 	"github.com/makiuchi-d/gozxing/oned"
 )
@@ -146,7 +146,17 @@ func codeSetName(codeSet CodeSet) string {
 }
 
 func matrixRuns(matrix *gozxing.BitMatrix) []barcode.Bar {
-	runs := make([]barcode.Bar, 0)
+	// Count transitions so quiet-zone whitespace cannot inflate run storage.
+	count := 1
+	previous := matrix.Get(0, 0)
+	for x := range matrix.GetWidth() {
+		dark := matrix.Get(x, 0)
+		if dark != previous {
+			count++
+			previous = dark
+		}
+	}
+	runs := make([]barcode.Bar, 0, count)
 	dark := matrix.Get(0, 0)
 	width := 1
 	for x := range matrix.GetWidth() {
