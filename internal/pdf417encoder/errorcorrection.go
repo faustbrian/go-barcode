@@ -164,7 +164,8 @@ func GenerateErrorCorrection(dataCodewords string, level int) (string, error) {
 		if e[j] != 0 {
 			e[j] = 929 - e[j]
 		}
-		sb.WriteRune(rune(e[j])) //nolint:gosec // Every coefficient is modulo 929.
+		// #nosec G115 -- nonnegative input runes and modulo-929 recurrence keep emitted correction values within 0 through 928
+		sb.WriteRune(rune(e[j]))
 	}
 	return sb.String(), nil
 }

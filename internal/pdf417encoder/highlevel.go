@@ -225,8 +225,9 @@ func encodeText(
 					tmp.WriteRune(28) // ml
 					continue
 				} else {
-					tmp.WriteRune(29)                    // ps
-					tmp.WriteRune(rune(punctuation[ch])) //nolint:gosec // Lookup values are 0 through 29.
+					tmp.WriteRune(29) // ps
+					// #nosec G115 -- the fixed punctuation inverse table contains only the sentinel -1 and codes 0 through 28
+					tmp.WriteRune(rune(punctuation[ch]))
 				}
 			}
 
@@ -246,14 +247,16 @@ func encodeText(
 					tmp.WriteRune(28) // ml
 					continue
 				} else {
-					tmp.WriteRune(29)                    // ps
-					tmp.WriteRune(rune(punctuation[ch])) //nolint:gosec // Lookup values are 0 through 29.
+					tmp.WriteRune(29) // ps
+					// #nosec G115 -- the fixed punctuation inverse table contains only the sentinel -1 and codes 0 through 28
+					tmp.WriteRune(rune(punctuation[ch]))
 				}
 			}
 
 		case submodeMixed:
 			if isMixed(ch) {
-				tmp.WriteRune(rune(mixed[ch])) //nolint:gosec // Lookup values are 0 through 29.
+				// #nosec G115 -- isMixed excludes the sentinel -1; the fixed inverse table supplies codes 0 through 24 and 26 for space
+				tmp.WriteRune(rune(mixed[ch]))
 			} else {
 				if isAlphaUpper(ch) {
 					submode = submodeAlpha
@@ -269,14 +272,16 @@ func encodeText(
 						tmp.WriteRune(25) // pl
 						continue
 					}
-					tmp.WriteRune(29)                    // ps
-					tmp.WriteRune(rune(punctuation[ch])) //nolint:gosec // Lookup values are 0 through 29.
+					tmp.WriteRune(29) // ps
+					// #nosec G115 -- the fixed punctuation inverse table contains only the sentinel -1 and codes 0 through 28
+					tmp.WriteRune(rune(punctuation[ch]))
 				}
 			}
 
 		default: // submodePunctuation
 			if isPunctuation(ch) {
-				tmp.WriteRune(rune(punctuation[ch])) //nolint:gosec // Lookup values are 0 through 29.
+				// #nosec G115 -- the fixed punctuation inverse table contains only the sentinel -1 and codes 0 through 28
+				tmp.WriteRune(rune(punctuation[ch]))
 			} else {
 				submode = submodeAlpha
 				tmp.WriteRune(29) // al
@@ -361,7 +366,8 @@ func encodeNumeric(msg string, startpos, count int, sb *strings.Builder) {
 		mod := new(big.Int)
 		for range len(part) {
 			bigint.DivMod(bigint, num900, mod)
-			tmpRunes = append(tmpRunes, rune(mod.Int64())) //nolint:gosec // The remainder is below 900.
+			// #nosec G115 -- DivMod with the positive divisor 900 produces a remainder from 0 through 899
+			tmpRunes = append(tmpRunes, rune(mod.Int64()))
 			if bigint.Cmp(num0) == 0 {
 				break
 			}

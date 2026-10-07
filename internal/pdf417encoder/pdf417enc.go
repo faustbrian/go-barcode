@@ -607,7 +607,8 @@ func (p *PDF417Encoder) GenerateBarcodeLogicWithControls(
 	n := sourceCodeWords + pad + 1
 	var sb strings.Builder
 	sb.Grow(n)
-	sb.WriteRune(rune(n)) //nolint:gosec // A PDF417 symbol has at most 929 codewords.
+	// #nosec G115 -- public Encode bounds rows to 90 and columns to 30; default and forced layouts bound n by 2700 slots
+	sb.WriteRune(rune(n))
 	sb.WriteString(highLevel)
 	for range pad {
 		sb.WriteRune(900) // PAD characters
@@ -681,7 +682,8 @@ func appendMacroText(result *strings.Builder, field int, value string) error {
 		return err
 	}
 	result.WriteRune(923)
-	result.WriteRune(rune(field)) //nolint:gosec // Callers use the seven standard field IDs.
+	// #nosec G115 -- encodeMacro calls this private helper only with literal field IDs 0, 3 and 4
+	result.WriteRune(rune(field))
 	result.WriteString(encoded)
 
 	return nil
@@ -696,7 +698,8 @@ func appendMacroNumber[T ~int | ~int64](result *strings.Builder, field int, valu
 	}
 	digits := fmt.Sprintf("%d", *value)
 	result.WriteRune(923)
-	result.WriteRune(rune(field)) //nolint:gosec // Callers use the seven standard field IDs.
+	// #nosec G115 -- encodeMacro calls this private helper only with literal field IDs 1, 2, 5 and 6
+	result.WriteRune(rune(field))
 	encodeNumeric(digits, 0, len(digits), result)
 
 	return nil

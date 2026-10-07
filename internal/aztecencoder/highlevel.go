@@ -222,9 +222,11 @@ func highLevelEncode(data []byte, gs1 bool, eci int) (*bitutil.BitArray, error) 
 					// iteration will latch back out if needed.
 					seq := getLatchSequence(curMode, modePunct)
 					for _, sw := range seq {
+						// #nosec G115 -- getLatchSequence returns literal nonnegative control codes 14 through 31
 						result.AppendBits(uint32(sw.code), modeBits[sw.intermediateMode])
 					}
 					curMode = modePunct
+					// #nosec G115 -- successful punctPairs lookups return only codes 2 through 5
 					result.AppendBits(uint32(pCode), modeBits[modePunct])
 				}
 				next = i + 2
@@ -236,6 +238,7 @@ func highLevelEncode(data []byte, gs1 bool, eci int) (*bitutil.BitArray, error) 
 
 		// If encodable in the current mode, emit directly.
 		if charMap[b][curMode] != -1 {
+			// #nosec G115 -- initialized character codes are 1 through 30 and this branch excludes the negative sentinel
 			result.AppendBits(uint32(charMap[b][curMode]), modeBits[curMode])
 			continue
 		}
@@ -261,14 +264,17 @@ func highLevelEncode(data []byte, gs1 bool, eci int) (*bitutil.BitArray, error) 
 		// Decide whether to use a shift or a latch.
 		if canShift(curMode, newMode) && shouldShift(data, i, curMode) {
 			emitShiftCode(result, curMode, newMode)
+			// #nosec G115 -- findBestMode selects only initialized character codes 1 through 30, excluding the negative sentinel
 			result.AppendBits(uint32(charMap[b][newMode]), modeBits[newMode])
 			// curMode remains unchanged after a shift.
 		} else {
 			seq := getLatchSequence(curMode, newMode)
 			for _, sw := range seq {
+				// #nosec G115 -- getLatchSequence returns literal nonnegative control codes 14 through 31
 				result.AppendBits(uint32(sw.code), modeBits[sw.intermediateMode])
 			}
 			curMode = newMode
+			// #nosec G115 -- findBestMode selects only initialized character codes 1 through 30, excluding the negative sentinel
 			result.AppendBits(uint32(charMap[b][curMode]), modeBits[curMode])
 		}
 	}
