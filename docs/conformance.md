@@ -13,8 +13,9 @@ independent implementation revisions. The
 [evidence](../specification/evidence.tsv) matrices map every supported format
 requirement to executable evidence.
 
-`make conformance` validates those inventories, the stable decision set,
-deterministic render fixtures, control and boundary behavior, and reciprocal
+`make -f verification/package.mk conformance` validates those inventories,
+the stable decision set, deterministic render fixtures, control and boundary
+behavior, and reciprocal
 independent reader and writer interoperability. Restricted ISO and AIM texts
 are not redistributed, so the gate cannot honestly claim to rerun proprietary
 official test suites that are not available under a compatible license.

@@ -29,8 +29,11 @@ Normal tests reconstruct every logical symbol and render it, then compare the
 bytes with checked-in artifacts. These fixtures prove deterministic software
 output and provide inputs for independent software decoders.
 
-`make benchmark` records isolated logical encode, render, no-symbol detection,
-decoded-image scanning, encoded-image decoding, malformed-input rejection,
+`make -f verification/package.mk benchmark` records isolated logical encode,
+render, no-symbol detection, decoded-image scanning, encoded-image decoding,
+malformed-input rejection,
 bytes per operation, allocations per operation, and peak resident memory for
-a representative encoded QR decode. CI retains the log with each run so
-regressions can be compared against an exact commit and Go version.
+a representative encoded QR decode. This selected performance-risk route and
+`make check-full` retain the configured benchmark campaign; ordinary local and
+PR checks do not run it. Compare results with an exact source, Go version,
+workload and duration.

@@ -31,7 +31,8 @@ Material interpretations and package-owned policy are recorded in
 
 `render-fixtures.tsv` inventories deterministic logical, PNG, and SVG goldens
 for every implemented format. The checked-in files in `render-fixtures/` are
-canonical software rendering fixtures. `make docs` verifies their hashes.
+canonical software rendering fixtures. `make -f verification/package.mk docs`
+verifies their hashes.
 
 For Code 93, ANSI's 2006 catalogue and withdrawal notice identify
 `ANSI/AIM BC5-1995` as a withdrawn historical publication. AIM's current

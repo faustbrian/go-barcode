@@ -2,8 +2,8 @@
 
 ## Before Editing
 
-1. Read [`AGENTS.md`](AGENTS.md) and the affected module's goals and docs.
-2. Run `make inventory` and the narrow baseline gate for the module.
+1. Read [`AGENTS.md`](AGENTS.md) and the affected package's documentation.
+2. Run ordinary Go tests for the affected package before editing.
 3. Identify owned dependencies and reverse dependants in `modules.json`.
 4. Preserve unrelated work and generated/corpus provenance.
 
@@ -25,7 +25,7 @@ the affected stable decision entries, and complete the Specification Decisions
 section of the pull request template. An unresolved interpretation or stale
 source pin is release-blocking; peer behavior cannot silently select policy.
 
-Required mutation gates must finish with zero surviving viable mutants.
+Selected mutation gates must finish with zero surviving viable mutants.
 
 Do not add package-local workflows, permanent replacements, machine-specific
 paths, bypass flags, broad mutation exclusions, or aggregate quality metrics
@@ -33,25 +33,57 @@ that hide a failing package.
 
 ## Verification
 
-Install the exact `golib` release declared by `.golib.yaml`; the Make targets
-below are intentionally thin wrappers around that CLI. CI installs and verifies
-the same release automatically.
-
-Run during development:
+Use Go 1.27.2 for development and ordinary CI; the public minimum remains
+Go 1.27.0. An ordinary standalone checkout is sufficient for tests and a
+focused active fuzz smoke, without sibling repositories or goal ledgers:
 
 ```bash
-make inventory
-make check
+go test ./...
+go test ./imagedecode -run '^$' -fuzz '^FuzzDecodeBoundedImages$' -fuzztime=2s
 ```
 
-Before submitting a repository-wide change:
+Select the native fuzz target and package affected by your change. Ordinary
+tests run deterministic seeds and saved corpora. For shared checks, install
+the public `golib` v2.1.1 release declared in `.golib.yaml` and verify its
+checksums:
 
 ```bash
+make check
 make ci
 ```
 
-The full scheduled and release gate is `make ci`. Report every unavailable or
-failing command; do not describe partial results as release-ready.
+Both Make routes use bounded local checks, including one race run of the
+existing concurrent encode/render/decode assertion. Base-free Make checks
+run deterministic seeds/corpora; changed-source CI selects active fuzz smoke.
+`make ci` checks the specification register offline. The sole root module
+declares no services or test tags; pinned independent software readers and
+writers do not require devices, hardware certification or sibling checkouts.
+
+Optional mutation analysis can select one affected package:
+
+```bash
+golib mutation --module . --package ./imagedecode
+```
+
+For format, decoder or rendering changes, select the existing conformance
+and reciprocal independent-reader/writer checks:
+
+```bash
+make -f verification/package.mk conformance
+make -f verification/package.mk interoperability
+```
+
+Use `make check-full` for explicit online specification validation and full
+assurance with all unchanged native fuzz budgets, dependency policy, API,
+canonical render-fixture checks, conformance, interoperability and benchmarks.
+Preserve pinned standard editions and the distinction between software profiles
+and physical device certification. Select directly affected public consumers
+and relevant release qualification, including `golib release check` and
+`golib release dry-run --all`, when their contract changes. Full campaigns
+remain available for selected scheduled/release risks; ordinary scheduled CI
+stays bounded and separately monitors specification sources online. Report
+unavailable or failing checks without claiming release readiness.
+CI/configuration-only changes do not require a library release.
 
 ## Adding A Module
 

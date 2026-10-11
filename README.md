@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/faustbrian/go-barcode/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/faustbrian/go-barcode/actions/workflows/ci.yml)
 [![CodeQL](https://img.shields.io/badge/CodeQL-required-blue)](https://github.com/faustbrian/go-barcode/actions/workflows/ci.yml)
-[![Mutation](https://img.shields.io/badge/mutation-100%25_required-blue)](CONTRIBUTING.md#verification)
+[![Mutation](https://img.shields.io/badge/mutation-local_or_scheduled-blue)](CONTRIBUTING.md#verification)
 [![Documentation](https://img.shields.io/badge/docs-checked_in_CI-blue)](docs/)
 [![Go Reference](https://pkg.go.dev/badge/github.com/faustbrian/go-barcode/v2.svg)](https://pkg.go.dev/github.com/faustbrian/go-barcode/v2)
 [![Release](https://img.shields.io/github/v/release/faustbrian/go-barcode?sort=semver)](https://github.com/faustbrian/go-barcode/releases)
@@ -157,9 +157,13 @@ See the versioned [Golib ecosystem index](https://github.com/faustbrian/go-libra
 and [Domain utilities family guidance](https://github.com/faustbrian/go-library-tools/blob/v1.7.2/docs/ecosystem/design-language.md#package-families-and-selection)
 for the shared design language this module follows.
 
-Run `make ci` for the complete local repository contract, including
-configuration, inventory, cohesion, repository, workflow, and online
-specification validation. Use `make check` for implementation gates alone.
+Use ordinary Go tests and a focused two-second active fuzz command from
+[CONTRIBUTING.md](CONTRIBUTING.md#verification). `make check` and `make ci`
+use bounded local assurance with the public verifier and the named concurrent
+encode/render/decode assertion. Base-free Make checks run deterministic fuzz
+seeds/corpora; changed-source CI selects active smoke. `make ci` checks the
+specification register offline; `make check-full` retains full assurance and
+explicit online authoritative-source validation.
 Ordinary hosted pull requests run the bounded local contract (tests, lint,
 documentation, and API compatibility) plus repository checks and CodeQL.
 The selected race, fuzz, mutation, security, and conformance gates remain
