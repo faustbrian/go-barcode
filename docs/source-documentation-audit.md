@@ -220,3 +220,12 @@ failure for every admitted input. PDF417 FileID sign acceptance follows Atoi;
 applications needing digit-only identifiers must impose that constraint. No new
 standards edition, hardware readability, peak-heap, hard-time, universal checksum
 or payload-redaction guarantee is claimed.
+
+## Objective Enforcement
+
+The checksum-pinned public Tools v2.4.0 verifier now supplies
+`make source-docs-check` as a prerequisite of the existing local and CI Make
+routes. Ordinary shared CI selects strict source-documentation checking and
+requires its result. Native prerequisites, operation budgets, security and
+release controls are retained. Hosted exact-head evidence is recorded by the
+coordination ledger; configuration alone does not establish green delivery.

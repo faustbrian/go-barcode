@@ -44,7 +44,7 @@ go test ./imagedecode -run '^$' -fuzz '^FuzzDecodeBoundedImages$' -fuzztime=2s
 
 Select the native fuzz target and package affected by your change. Ordinary
 tests run deterministic seeds and saved corpora. For shared checks, install
-the public `golib` v2.1.1 release declared in `.golib.yaml` and verify its
+the public `golib` v2.4.0 release declared in `.golib.yaml` and verify its
 checksums:
 
 ```bash
@@ -117,3 +117,12 @@ Follow [repository structure policy](AGENTS.md#repository-structure). New module
 require an explicit purpose, ownership boundary, dependency review, package
 catalog entry, full quality gates, documentation, changelog, license, security
 policy, compatibility plan, and release dry-run.
+
+## Source Documentation
+
+Install the checksum-pinned public verifier declared in `.golib.yaml`.
+`make source-docs-check` validates objective Go comment, marker, link and
+generated-producer structure; `make check`, `make check-full` and `make ci`
+require it before their existing checks. Shared CI runs the same strict
+contract and includes its result in Required. This is structural enforcement,
+not a substitute for source-truth review or behavioral verification.
