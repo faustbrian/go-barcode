@@ -1,4 +1,11 @@
-// Package itf encodes ISO/IEC 16390 Interleaved 2 of 5 and GS1 ITF-14.
+// Package itf constructs logical barcodes for the pinned profile
+// ISO/IEC 16390:2007 edition 2; GS1 release 26.0.
+// Encode accepts even-length ASCII digits up to 80 without a generic checksum.
+// Encode14 calculates/validates GS1 modulo-10 and adds bearer bars (DEC-007).
+// Output owns copied payload/geometry; calls are synchronous and borrow input
+// only during encoding. It does not own rendering, scan devices, allocation
+// policy for caller-sized margins or content authenticity. Exact identities and
+// evidence are in specification/manifest.json and specification/evidence.tsv.
 package itf
 
 import (
@@ -25,8 +32,12 @@ var ErrInvalidInput = errors.New("itf: invalid input")
 
 // Options controls ITF quiet zone and bar height in modules.
 type Options struct {
+	// QuietZone is the per-side logical margin; zero selects 10 and smaller
+	// positive values are rejected. There is no absolute positive upper bound here;
+	// callers must bound dimensions before encoding untrusted requests.
 	QuietZone int
-	Height    int
+	// Height is the logical bar height; zero selects 50, negative or above 4096 is rejected.
+	Height int
 }
 
 // BearerStyle selects horizontal-only or framed ITF-14 bearer bars.
@@ -41,9 +52,16 @@ const (
 
 // ITF14Options controls ITF-14 quiet zones, bar height, and bearer bars.
 type ITF14Options struct {
-	QuietZone   int
-	BarHeight   int
+	// QuietZone is the per-side logical margin; zero selects 10 and smaller
+	// positive values are rejected. There is no absolute positive upper bound here;
+	// callers must bound dimensions before encoding untrusted requests.
+	QuietZone int
+	// BarHeight is the logical bar height; zero selects 50, negative or above 4096 is rejected.
+	BarHeight int
+	// BearerWidth is logical border thickness; zero selects 5, permitted positive
+	// values are at most 64. This is software geometry, not print grading.
 	BearerWidth int
+	// BearerStyle selects horizontal borders (zero) or a complete frame.
 	BearerStyle BearerStyle
 }
 

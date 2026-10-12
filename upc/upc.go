@@ -1,4 +1,11 @@
-// Package upc encodes ISO/IEC 15420 UPC-A and UPC-E logical symbols.
+// Package upc constructs logical barcodes for the pinned profile
+// ISO/IEC 15420:2009 edition 2.
+// EncodeA/EncodeE calculate or validate modulo-10; ExpandE maps UPC-E
+// number systems 0/1 to UPC-A. Default margins are 9/9 and 9/7. See DEC-002/007.
+// Output owns copied payload/geometry; calls are synchronous and borrow input
+// only during encoding. It does not own rendering, scan devices, allocation
+// policy for caller-sized margins or content authenticity. Exact identities and
+// evidence are in specification/manifest.json and specification/evidence.tsv.
 package upc
 
 import (
@@ -25,10 +32,17 @@ var ErrInvalidInput = errors.New("upc: invalid input")
 // Options controls dimensions in module units and an optional UPC/EAN
 // two- or five-digit supplement.
 type Options struct {
-	Supplement     string
-	QuietZoneLeft  int
+	// Supplement optionally carries exactly 2 or 5 ASCII digits; it is encoded
+	// beside the main symbol and is not appended to Symbol.Payload.
+	Supplement string
+	// QuietZoneLeft is a logical margin; zero selects the format-specific minimum.
+	// Negative/below-minimum values fail; no absolute positive upper bound is enforced.
+	QuietZoneLeft int
+	// QuietZoneRight follows the corresponding right-margin minimum/default.
+	// Callers must cap positive margins to bound temporary strings and allocations.
 	QuietZoneRight int
-	Height         int
+	// Height is the logical bar height; zero selects 50, negative or above 4096 is rejected.
+	Height int
 }
 
 // EncodeA accepts an eleven-digit body or a complete twelve-digit UPC-A.

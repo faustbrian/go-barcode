@@ -1,4 +1,8 @@
-// Package datamatrix encodes ISO/IEC 16022:2024 ECC 200 logical symbols.
+// Package datamatrix constructs logical ECC200 matrices using selected ZXing
+// encoding and a controlled Base256 path. Encode/EncodeGS1 return copied logical
+// values; no decoder, device or multi-symbol assembly lifecycle is owned.
+// The profile targets ISO/IEC 16022:2024 edition 3; full sequence assembly remains
+// unadvertised (BARCODE-DEC-009). See the local evidence/manifest inventories.
 package datamatrix
 
 import (
@@ -46,22 +50,36 @@ const (
 
 // StructuredAppend identifies one part of a two-to-sixteen-symbol sequence.
 type StructuredAppend struct {
-	Index  int
-	Total  int
+	// Index is zero-based and must be less than Total.
+	Index int
+	// Total is 2..16; sequence assembly is not implemented.
+	Total int
+	// FileID is 1..254 and identifies the caller-managed sequence.
 	FileID byte
 }
 
 // Options controls Data Matrix shape, dimensions, and quiet zone.
 type Options struct {
-	Shape            Shape
-	QuietZone        int
-	MinWidth         int
-	MinHeight        int
-	MaxWidth         int
-	MaxHeight        int
-	GS1              bool
-	ECI              int
-	Macro            Macro
+	// Shape selects automatic, square or rectangular symbol lookup.
+	Shape Shape
+	// QuietZone is zero for 1 module, otherwise 1..256.
+	QuietZone int
+	// MinWidth constrains the symbol before quiet zone; zero requires MinHeight zero.
+	MinWidth int
+	// MinHeight pairs with MinWidth and must be nonnegative.
+	MinHeight int
+	// MaxWidth constrains the symbol before quiet zone; zero requires MaxHeight zero.
+	MaxWidth int
+	// MaxHeight pairs with MaxWidth and cannot be below a nonzero minimum.
+	MaxHeight int
+	// GS1 validates raw element syntax and inserts FNC1; it conflicts with Macro.
+	GS1 bool
+	// ECI is zero for absence, otherwise 1..999999; it emits a control, not transcoding.
+	ECI int
+	// Macro selects 05/06 envelope control and conflicts with GS1/StructuredAppend.
+	Macro Macro
+	// StructuredAppend supplies copied part metadata and conflicts with Macro;
+	// the caller owns the other parts and later assembly.
 	StructuredAppend *StructuredAppend
 }
 
@@ -101,6 +119,11 @@ func (symbol Symbol) StructuredAppend() (StructuredAppend, bool) {
 
 // Encode returns an ECC 200 logical matrix with a one-module quiet zone by
 // default. Dimension constraints refer to the symbol before its quiet zone.
+// Payload is nonempty and capped at 3116 bytes; the controlled Base256 path has
+// an additional 1555-byte payload ceiling and symbol capacity can be smaller.
+// Input is borrowed during encoding, then copied; ECI does not transcode it.
+// Errors wrap ErrInvalidInput and may include peer/GS1 causes. Sequence assembly
+// is not advertised; see BARCODE-DEC-009 and datamatrix control-boundary tests.
 func Encode(payload []byte, options Options) (Symbol, error) {
 	if len(payload) == 0 || len(payload) > maxPayloadBytes || options.Shape > Rectangle ||
 		options.QuietZone < 0 || options.MinWidth < 0 || options.MinHeight < 0 ||
@@ -259,6 +282,9 @@ func structuredAppendSequence(index, total int) byte {
 	return byte(index*16 + 17 - total)
 }
 
+// Base256 randomization depends on the absolute one-based codeword position,
+// including control prefixes and length bytes. Resetting the position for payload
+// would change the wire symbol; datamatrix_internal_test.go protects this mapping.
 func appendBase256(codewords []byte, value byte) []byte {
 	position := len(codewords) + 1
 	pseudoRandom := (149*position)%255 + 1

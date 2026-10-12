@@ -256,6 +256,8 @@ func TestRenderAcceptsSinglePixelAndRejectsAsymmetricOverflow(t *testing.T) {
 	}
 }
 
+// FuzzRenderLogicalMatrices exercises bounded arbitrary module grids, not QR
+// validity, through integer-scale raster and streamed PNG/SVG rendering.
 func FuzzRenderLogicalMatrices(f *testing.F) {
 	f.Add(byte(2), byte(3), []byte{0x55})
 	f.Fuzz(func(t *testing.T, rawWidth, rawHeight byte, data []byte) {

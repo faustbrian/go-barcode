@@ -8,6 +8,8 @@ import (
 	"github.com/faustbrian/go-barcode/v2/imagedecode"
 )
 
+// FuzzDecodeBoundedImages probes small synthetic gray images and encoded bytes
+// through fixed admission. It is not a peak-memory or hard-time isolation proof.
 func FuzzDecodeBoundedImages(f *testing.F) {
 	f.Add(byte(16), byte(16), []byte{0, 255, 0, 255})
 	f.Add(byte(1), byte(1), []byte{0})

@@ -1,6 +1,6 @@
-// Package encoder implements Aztec barcode encoding.
-// This file derives from github.com/ericlevine/zxinggo v0.1.0 under Apache-2.0.
 package encoder
+
+// This file derives from github.com/ericlevine/zxinggo v0.1.0 under Apache-2.0.
 
 import (
 	"fmt"
@@ -351,6 +351,10 @@ func emitShiftCode(bits *bitutil.BitArray, curMode, _ int) {
 // Format: BS code (31, 5 bits) followed by a length field and raw bytes.
 //   - Length 1..31:  5-bit field containing the length.
 //   - Length 32..2078: 5-bit zero field followed by 11-bit (length - 31).
+//
+// This emitter switches length headers after 31 bytes; the control
+// prefix and subsequent mode choice depend on the exact consumed byte count.
+// High-level/round-trip tests protect these transitions, not performance claims.
 func emitBinaryShift(bits *bitutil.BitArray, data []byte, pos int, curMode int) int {
 	start := pos
 

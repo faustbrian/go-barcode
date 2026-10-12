@@ -25,18 +25,29 @@ var (
 
 // ParseLimits bound parser work before element slices are allocated.
 type ParseLimits struct {
+	// MaxInputBytes is the inclusive input cap; zero selects 4096.
+	// Negative limits fail; larger explicit limits can deliberately admit more work.
 	MaxInputBytes int
-	MaxElements   int
+	// MaxElements is the retained-element cap; zero selects 128.
+	// It is checked after validating the next element, before appending its entry.
+	MaxElements int
 }
 
 // Element is one validated GS1 Application Identifier and value.
 type Element struct {
-	AI    string
+	// AI is the Application Identifier selected from the dictionary; public
+	// Element values alone are not a validated ElementString construction path.
+	AI string
+	// Value is the validated field text when returned by a parser, not redacted.
 	Value string
+	// Title is explanatory dictionary metadata, not part of Raw barcode data.
 	Title string
 }
 
-// ElementString is an immutable ordered collection of GS1 elements.
+// ElementString is an immutable ordered collection returned by a parser.
+// The zero value is empty and serializes to empty text. String fields can retain
+// input backing storage; no secure-erasure or independent string-allocation
+// boundary is provided. Constructed values can be read concurrently.
 type ElementString struct {
 	elements []Element
 }
@@ -105,7 +116,9 @@ var (
 )
 
 // DefinitionCount reports the number of concrete AIs loaded from the pinned
-// dictionary after numeric ranges are expanded.
+// dictionary after numeric ranges are expanded. It initializes the shared
+// immutable dictionary once and returns 0 if loading fails; parsers expose the
+// actual retained load error. It is not a current online registry inventory.
 func DefinitionCount() int {
 	loaded, err := loadDefinitions()
 	if err != nil {
@@ -115,7 +128,11 @@ func DefinitionCount() int {
 	return len(loaded)
 }
 
-// ParseBracketed parses human-readable parenthesized AI syntax.
+// ParseBracketed parses nonempty parenthesized AI syntax within byte/element
+// limits and validates dictionary field components and cross-field associations.
+// It performs no normalization or registry I/O. Failure returns an empty result
+// and a categorical parser error; no partially parsed collection is returned.
+// Successful string fields may share the immutable input backing storage.
 func ParseBracketed(input string, limits ParseLimits) (ElementString, error) {
 	limits, err := normalizeParseLimits(input, limits)
 	if err != nil {
@@ -163,7 +180,11 @@ func ParseBracketed(input string, limits ParseLimits) (ElementString, error) {
 }
 
 // ParseRaw parses scanner element-string data using ASCII 29 as the FNC1
-// separator after non-predefined-length fields.
+// separator after non-predefined-length fields. It does not accept a scanner
+// symbology-identifier prefix as element data or infer missing variable-field
+// separators. Trailing/leading separators fail. Bounds precede dictionary work,
+// and any error returns an empty collection, not partial elements. Fields may
+// retain input storage; dictionary validation is not company-prefix authentication.
 func ParseRaw(input string, limits ParseLimits) (ElementString, error) {
 	limits, err := normalizeParseLimits(input, limits)
 	if err != nil {
@@ -243,6 +264,9 @@ func normalizeParseLimits(input string, limits ParseLimits) (ParseLimits, error)
 	return limits, nil
 }
 
+// loadDefinitions publishes the dictionary or the first error exactly once;
+// later callers cannot retry by changing the source. Trusted embedded grammar,
+// not hostile external dictionary text, is the production input.
 func loadDefinitions() (map[string]definition, error) {
 	definitionsOnce.Do(func() {
 		definitions, definitionsErr = parseDictionary(definitionsSource())
@@ -531,6 +555,8 @@ func fmtFixedWidth(value, width int) string {
 	return strings.Repeat("0", width-len(text)) + text
 }
 
+// Prefer the longest known AI so a four-digit definition cannot be consumed as
+// a shorter prefix; TestDefinitionMatchingPrefersLongestAI protects this order.
 func matchDefinition(loaded map[string]definition, input string) (definition, int, bool) {
 	for length := min(4, len(input)); length >= 2; length-- {
 		if definition, ok := loaded[input[:length]]; ok {
@@ -541,6 +567,9 @@ func matchDefinition(loaded map[string]definition, input string) (definition, in
 	return definition{}, 0, false
 }
 
+// Optional/variable components must leave each later required minimum intact.
+// Linters operate only after bounded component slicing; association validation
+// runs after the complete ordered inventory is available.
 func validateValue(definition definition, value string) error {
 	if len(value) < definition.min {
 		return ErrInvalidElement

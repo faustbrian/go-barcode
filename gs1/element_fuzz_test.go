@@ -6,6 +6,8 @@ import (
 	"github.com/faustbrian/go-barcode/v2/gs1"
 )
 
+// FuzzParseElementStrings probes raw/bracketed syntax under explicit byte/entry
+// admission. It does not replace pinned dictionary or external registry evidence.
 func FuzzParseElementStrings(f *testing.F) {
 	f.Add("(01)09501101530003(10)ABC")
 	f.Add("010950110153000310ABC")
@@ -20,6 +22,8 @@ func FuzzParseElementStrings(f *testing.F) {
 	})
 }
 
+// FuzzCheckDigits requires any accepted body's generated modulo-10 check to be
+// accepted as a complete key; malformed/oversized bodies may reject normally.
 func FuzzCheckDigits(f *testing.F) {
 	f.Add("0950110153000")
 	f.Add("123")

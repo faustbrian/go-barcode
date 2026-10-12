@@ -1,4 +1,11 @@
-// Package code128 encodes ISO/IEC 15417 Code 128 and GS1-128 symbols.
+// Package code128 constructs logical barcodes for the pinned profile
+// ISO/IEC 15417:2007 edition 2 + Amendment 1:2026; GS1 release 26.0.
+// Encode accepts 1..80 ASCII bytes and adds the mandatory modulo-103 checksum.
+// RawFNC1 is a legacy unvalidated-GS1 mode; see BARCODE-DEC-007/008.
+// Output owns copied payload/geometry; calls are synchronous and borrow input
+// only during encoding. It does not own rendering, scan devices, allocation
+// policy for caller-sized margins or content authenticity. Exact identities and
+// evidence are in specification/manifest.json and specification/evidence.tsv.
 package code128
 
 import (
@@ -19,11 +26,12 @@ const (
 )
 
 // ErrInvalidInput reports a payload or option that cannot produce a
-// standards-safe Code 128 symbol.
+// selected Code 128 software profile; it is not a physical standards certificate.
 var ErrInvalidInput = errors.New("code128: invalid input")
 
 // CodeSet selects an ISO/IEC 15417 character set. Auto switches sets to
-// minimize the logical symbol width.
+// follow the selected writer's switching policy; this is not a global optimality
+// or performance guarantee.
 type CodeSet uint8
 
 const (
@@ -39,14 +47,22 @@ const (
 
 // Options controls logical Code 128 encoding in module units.
 type Options struct {
+	// CodeSet selects automatic switching or a forced A/B/C repertoire;
+	// invalid bytes/pairs in a forced set can fail at the selected writer.
 	CodeSet CodeSet
-	GS1     bool
+	// GS1 requires a valid raw GS1 element string and prepends FNC1.
+	// It conflicts with RawFNC1; application identifiers are not authenticated.
+	GS1 bool
 	// RawFNC1 prepends a leading FNC1 without validating the payload as a GS1
 	// element string. It exists only for compatibility with legacy symbols;
 	// new GS1-128 integrations should use GS1 or EncodeGS1.
-	RawFNC1   bool
+	RawFNC1 bool
+	// QuietZone is the per-side logical margin; zero selects 10 and smaller
+	// positive values are rejected. There is no absolute positive upper bound here;
+	// callers must bound dimensions before encoding untrusted requests.
 	QuietZone int
-	Height    int
+	// Height is the logical bar height; zero selects 50, negative or above 4096 is rejected.
+	Height int
 }
 
 // Encode validates payload and options and returns an immutable logical

@@ -1,4 +1,11 @@
-// Package ean encodes ISO/IEC 15420 EAN-8 and EAN-13 logical symbols.
+// Package ean constructs logical barcodes for the pinned profile
+// ISO/IEC 15420:2009 edition 2.
+// Encode8/Encode13 calculate missing modulo-10 or validate complete digits.
+// Default margins are 7/7 (EAN8) and 11/7 (EAN13). No 2025-edition claim (DEC-002/007).
+// Output owns copied payload/geometry; calls are synchronous and borrow input
+// only during encoding. It does not own rendering, scan devices, allocation
+// policy for caller-sized margins or content authenticity. Exact identities and
+// evidence are in specification/manifest.json and specification/evidence.tsv.
 package ean
 
 import (
@@ -20,10 +27,17 @@ var ErrInvalidInput = errors.New("ean: invalid input")
 // Options controls symbol dimensions in module units and an optional EAN-2
 // or EAN-5 supplement.
 type Options struct {
-	Supplement     string
-	QuietZoneLeft  int
+	// Supplement optionally carries exactly 2 or 5 ASCII digits; it is encoded
+	// beside the main symbol and is not appended to Symbol.Payload.
+	Supplement string
+	// QuietZoneLeft is a logical margin; zero selects the format-specific minimum.
+	// Negative/below-minimum values fail; no absolute positive upper bound is enforced.
+	QuietZoneLeft int
+	// QuietZoneRight follows the corresponding right-margin minimum/default.
+	// Callers must cap positive margins to bound temporary strings and allocations.
 	QuietZoneRight int
-	Height         int
+	// Height is the logical bar height; zero selects 50, negative or above 4096 is rejected.
+	Height int
 }
 
 var (

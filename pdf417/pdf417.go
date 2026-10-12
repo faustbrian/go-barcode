@@ -1,4 +1,8 @@
-// Package pdf417 encodes ISO/IEC 15438:2015 PDF417 logical symbols.
+// Package pdf417 constructs copied logical PDF417 matrices via Encode, with
+// explicit compaction, correction, layout, ECI and caller-managed macro metadata.
+// The target is ISO/IEC 15438:2015 edition 3; no full licensed-clause/device or
+// macro assembly claim is made (BARCODE-DEC-010). NOTICE.md records the locally
+// maintained zxinggo v0.1.0 encoder derivation. It owns no external I/O lifecycle.
 package pdf417
 
 import (
@@ -17,7 +21,8 @@ const (
 var (
 	// ErrInvalidInput and ErrUnsupported classify PDF417 option failures.
 	ErrInvalidInput = errors.New("pdf417: invalid input")
-	// ErrUnsupported reports a valid option not implemented by the encoder.
+	// ErrUnsupported is a reserved unsupported-option classifier. Current Encode
+	// validation/encoder failures use ErrInvalidInput; no path returns it directly.
 	ErrUnsupported = errors.New("pdf417: unsupported option")
 )
 
@@ -63,31 +68,61 @@ const (
 
 // Options controls PDF417 compaction, correction, layout, and quiet zone.
 type Options struct {
-	Compaction      Compaction
+	// Compaction selects Automatic (zero), Text, Byte or Numeric.
+	Compaction Compaction
+	// ErrorCorrection is zero for Level2; explicit levels 0..8 add 2..512 parity
+	// codewords. The enum Level0 has value 1, not the zero/default enum.
 	ErrorCorrection ErrorCorrection
-	Compact         bool
-	MinRows         int
-	MaxRows         int
-	MinColumns      int
-	MaxColumns      int
-	QuietZone       int
-	ECI             int
-	Macro           *Macro
+	// Compact requests truncated right-side PDF417 layout.
+	Compact bool
+	// MinRows is zero for 3; a nonzero bound must be positive and at most 90.
+	MinRows int
+	// MaxRows is zero for 90; explicit bounds must agree with MinRows.
+	MaxRows int
+	// MinColumns is zero for 1; a nonzero bound must be positive and at most 30.
+	MinColumns int
+	// MaxColumns is zero for 30; explicit bounds must agree with MinColumns.
+	MaxColumns int
+	// QuietZone is zero for 2 modules, otherwise positive and at most 256.
+	QuietZone int
+	// ECI is zero for no header, otherwise below 811800; emits metadata, not transcoding.
+	ECI int
+	// Macro is optional; scalar pointers are read during encoding and deeply
+	// cloned into Symbol metadata. Bound caller-supplied text/FileID before invoking
+	// this API: the 4096-byte payload cap does not bound macro fields.
+	Macro *Macro
 }
 
 // Macro describes a Macro PDF417 control block. FileID contains one or more
-// three-digit codewords in the range 000 through 899.
+// three-character decimal groups parsed as codewords 0..899. The current parser
+// delegates each group to strconv.Atoi, so callers should supply unsigned ASCII
+// digit groups rather than rely on stricter sign rejection. Other fields are
+// declarative metadata, not file-content or cross-segment consistency checks.
 type Macro struct {
+	// SegmentIndex is 0..99998; the caller owns sequence identity/order.
 	SegmentIndex int
-	FileID       string
-	LastSegment  bool
-	FileName     string
+	// FileID is nonempty three-character groups parsed as 0..899 codewords.
+	// It is caller-managed metadata, not a file path or authenticity claim.
+	FileID string
+	// LastSegment emits the macro terminator; it does not assemble other parts.
+	LastSegment bool
+	// FileName optionally encodes text-compaction metadata, never opens a file.
+	FileName string
+	// SegmentCount optionally supplies a nonnegative declared count;
+	// no cross-part consistency or index/count relation is validated.
 	SegmentCount *int
-	Timestamp    *int64
-	Sender       string
-	Addressee    string
-	FileSize     *int64
-	Checksum     *int
+	// Timestamp optionally supplies a nonnegative numeric value;
+	// no timezone/unit conversion is performed by this encoder.
+	Timestamp *int64
+	// Sender optionally encodes text-compaction metadata, not authenticated identity.
+	Sender string
+	// Addressee optionally encodes text-compaction metadata, not routing or delivery.
+	Addressee string
+	// FileSize optionally supplies a nonnegative number, not a payload-size validation.
+	FileSize *int64
+	// Checksum optionally supplies a nonnegative macro number, not a checksum
+	// calculated or verified against the assembled file.
+	Checksum *int
 }
 
 // Symbol combines an immutable logical symbol with PDF417 metadata.
@@ -125,7 +160,12 @@ func (symbol Symbol) Macro() (Macro, bool) {
 }
 
 // Encode returns a PDF417 matrix with explicit compaction, correction, and
-// row/column bounds. Each codeword row is rendered four modules high.
+// row/column bounds. Each codeword row is rendered four modules high. Nonempty
+// payload is capped at 4096 bytes but available codeword capacity can be smaller;
+// macro text/FileID has no separate preencoding admission cap. Payload/options
+// must not mutate during the synchronous call; output clones payload and macro
+// pointer values. Error causes may be wrapped with ErrInvalidInput. Macro assembly
+// and physical scan qualification are outside this unadvertised profile (DEC-010).
 func Encode(payload []byte, options Options) (Symbol, error) {
 	if len(payload) == 0 {
 		return Symbol{}, ErrInvalidInput

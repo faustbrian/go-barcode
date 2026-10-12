@@ -16,6 +16,8 @@ import (
 	"github.com/faustbrian/go-barcode/v2/upc"
 )
 
+// FuzzPayloadEncoders probes small hostile payloads across public encoders;
+// panic-free rejection/encoding is exercised, not cross-format byte equivalence.
 func FuzzPayloadEncoders(f *testing.F) {
 	f.Add([]byte("ABC123"))
 	f.Add([]byte("0123456789"))

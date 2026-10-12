@@ -1,4 +1,9 @@
-// Package qr encodes ISO/IEC 18004:2024 QR Code logical symbols.
+// Package qr constructs immutable logical QR matrices with explicit mode,
+// correction, mask, ECI, FNC1 and structured-append controls. Encode is the single
+// symbol entry point; EncodeStructured delegates bounded splitting to unixdj/qr
+// v0.8.2. Calls borrow inputs synchronously and own no decoder/device lifecycle.
+// The profile targets ISO/IEC 18004:2024 edition 4, not complete licensed clauses or
+// hardware certification; see BARCODE-DEC-006 and specification/evidence.tsv.
 package qr
 
 import (
@@ -72,25 +77,49 @@ const (
 )
 
 // StructuredAppend identifies one symbol in a sequence of 2 through 16 QR
-// symbols. Encoding is rejected until this header is supported end to end.
+// symbols. Encode writes an explicit header; EncodeStructured computes splitting
+// and parity. Decoding/assembling a sequence is a separate consumer responsibility.
 type StructuredAppend struct {
-	Index  int
-	Total  int
+	// Index is the zero-based part index and must be less than Total.
+	// Local validation checks nonnegative before packing; keep it in the four-bit
+	// range. The peer validates packed bytes, not the original integer.
+	Index int
+	// Total is the declared part count, from 2 through 16.
+	Total int
+	// Parity is the caller-provided XOR sequence parity for an explicit header;
+	// Encode does not compute it for the other parts.
 	Parity byte
 }
 
 // Options controls QR mode, correction, layout, ECI, FNC1, and sequencing.
 type Options struct {
-	Mode                     Mode
-	ErrorCorrection          ErrorCorrection
-	Version                  int
-	Mask                     int
-	MaskSet                  bool
-	QuietZone                int
-	ECI                      int
-	FNC1                     FNC1Mode
+	// Mode selects automatic segmentation (zero) or a forced data repertoire.
+	// Numeric requires ASCII digits; Alphanumeric uses the QR uppercase alphabet;
+	// Kanji requires valid UTF-8 and compatible Shift-JIS handling.
+	Mode Mode
+	// ErrorCorrection selects the QR level; zero resolves to Medium.
+	// Nominal recovery percentages are not promises about arbitrary image damage.
+	ErrorCorrection ErrorCorrection
+	// Version is zero for automatic capacity selection, otherwise 1..40.
+	Version int
+	// Mask selects a fixed pattern when nonzero or MaskSet; otherwise the lowest
+	// penalty wins, with earlier mask winning ties. Valid fixed masks are 0..7.
+	Mask int
+	// MaskSet explicitly forces mask 0, distinguishing it from automatic selection.
+	MaskSet bool
+	// QuietZone is zero for 4 modules, otherwise 4..256; included in Logical.Matrix.
+	QuietZone int
+	// ECI is zero for no explicit header, otherwise a QR assignment below 1000000.
+	// Automatic input treats no-ECI data as ASCII; assignments 3/20/26 select Latin-1,
+	// Shift-JIS/UTF-8 handling. Other assignments are controls, not general transcoding.
+	ECI int
+	// FNC1 selects absent, first-position GS1 validation, or second-position control.
+	FNC1 FNC1Mode
+	// FNC1ApplicationIndicator supplies the byte for second-position FNC1.
 	FNC1ApplicationIndicator byte
-	StructuredAppend         *StructuredAppend
+	// StructuredAppend supplies an optional explicit header, copied into output
+	// metadata. It does not request automatic splitting or other-part validation.
+	StructuredAppend *StructuredAppend
 }
 
 // Symbol combines the immutable logical matrix with QR-specific metadata.
@@ -141,7 +170,12 @@ func (symbol Symbol) StructuredAppend() (StructuredAppend, bool) {
 	return *symbol.structuredAppend, true
 }
 
-// Encode returns an exact logical QR matrix including its quiet zone.
+// Encode returns an exact logical QR matrix including its quiet zone for a
+// nonempty payload of at most 4096 bytes. It borrows input only during the call
+// and returns copied logical values. Automatic mode optimizes selected peer
+// segments; explicit controls can select the extended path. Errors classify
+// invalid input or unsupported ECI and may wrap peer/GS1 causes. No hardware
+// readability, arbitrary-damage or full licensed-standard conformance is implied.
 func Encode(payload []byte, options Options) (Symbol, error) {
 	quietZone, maskSet, err := validateOptions(payload, options)
 	if err != nil {
@@ -166,7 +200,11 @@ func Encode(payload []byte, options Options) (Symbol, error) {
 }
 
 // EncodeStructured splits an oversized automatic-mode payload across two to
-// sixteen QR symbols. Payloads that fit in one symbol are returned unchanged.
+// sixteen QR symbols within the same 4096-byte input bound. Payloads that encode
+// in one symbol return a single Symbol without a sequence header. Otherwise Auto
+// mode is required, an explicit header is forbidden, and the peer computes split
+// parts and XOR parity. Logical.Payload contains each data part, not control bytes.
+// The function does not assemble decoded parts or exceed a forced version silently.
 func EncodeStructured(payload []byte, options Options) ([]Symbol, error) {
 	if options.StructuredAppend != nil {
 		return nil, ErrInvalidInput
@@ -442,11 +480,17 @@ func extendedSegments(payload []byte, options Options) []unixcoding.Segment {
 	return segments
 }
 
+// structuredAppendBytes packs caller-supplied sequence metadata into two bytes.
+// Its index must already fit four bits; local checks alone do not bound large
+// nonnegative indexes, so the source audit records that validation limitation.
 func structuredAppendBytes(header StructuredAppend) [2]byte {
 	// #nosec G115 -- index and total were bounded to four-bit fields.
 	return [2]byte{byte(header.Index<<4 | (header.Total - 1)), header.Parity}
 }
 
+// encodeSegments counts data capacity before parity, then evaluates all eight
+// masks unless fixed. Strictly lower penalty replaces the winner, making ties
+// deterministic; qr_internal_test.go protects capacity and ECI bit-width edges.
 func encodeSegments(segments []unixcoding.Segment, version int, level ErrorCorrection, requestedMask int, maskSet bool) (*unixcoding.Code, int, error) {
 	v, l := unixcoding.Version(version), codingLevel(level)
 	plan, err := unixcoding.NewPlan(v, l)

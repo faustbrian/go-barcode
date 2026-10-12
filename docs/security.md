@@ -43,15 +43,18 @@ wall-clock cancellation guarantee is claimed.
 Barcode payloads and decoded URLs are untrusted data. This library never
 executes, fetches, redirects to, or automatically follows decoded content.
 
-`imagedecode.Limits` bounds encoded bytes, width, height, total pixels,
-candidate attempts, payload bytes, rotations, memory, corrections, and time
-before or between expensive work. Cancellation and the derived time deadline
-are checked before conversion and between decoder attempts. Set stricter
-application-specific limits for public uploads.
+`imagedecode.Limits` admits encoded bytes, dimensions, pixels, and candidate
+combinations before expensive work. Memory is estimated at four bytes per
+pixel, not a cap on codec, reader, rotation, or total heap allocations. Payload
+and correction limits apply after decoding, not before dependency allocation.
+Cancellation and the derived time deadline are checked before conversion and
+between decoder attempts. Set stricter application-specific limits for public
+uploads.
 
-`MaxCorrections` limits the exact corrected-error count reported by QR, Data
-Matrix, Aztec, and PDF417 readers. Linear formats report zero because their
-readers validate checksums rather than applying error correction.
+`MaxCorrections` rejects a reader-reported correction count above a positive
+cap; zero adds no correction check. It does not bound correction work or assert
+an independent damage count. Linear formats report zero, not Reed-Solomon
+repair.
 
 `DecodeEncoded` reports invalid encoded and image data with `ErrInvalidImage`
 without returning lower-level error text or wrapping lower-level errors, which
@@ -61,11 +64,10 @@ echoing the payload character.
 
 Use `DecodeEncoded` for bounded PNG, JPEG, or GIF bytes after acquiring them
 under an application-owned stream deadline and size cap. It rejects oversized
-input before parsing, inspects encoded dimensions, applies pixel and memory
-budgets before full decompression, rejects truncation, and checks cancellation
-between stages.
-Callers using `Decode` directly remain responsible for how their `image.Image`
-was allocated.
+input before parsing, inspects encoded dimensions, applies pixel bounds and its
+memory estimate before full decompression, rejects truncation, and checks
+cancellation between stages. Callers using `Decode` directly remain responsible
+for how their `image.Image` was allocated.
 
 The additive QR, Data Matrix, and Aztec readers isolate their dependencies at
 the adapter boundary. A panic from malformed symbol data in those decoder
@@ -73,7 +75,12 @@ dependencies is converted to a failed candidate and cannot escape `Decode`;
 another bounded candidate may still be attempted. PDF417 does not make this
 panic-containment guarantee.
 
-Matrix and renderer constructors reject invalid dimensions, multiplication
-overflow, non-positive scales, and allocation budgets. Errors avoid including
-full payloads by default. Report suspected vulnerabilities through the private
+Matrix constructors reject invalid dimensions and multiplication overflow but
+have no absolute allocation cap. Rendering defaults zero scale to one, rejects
+negative scales and overflowing output products, and applies output pixel
+limits after copying logical storage. Caller Color methods and writers remain
+borrowed, unbounded callbacks; writer errors may leave partial output. Linear
+quiet-zone options can lack an upper cap. Core diagnostics and wrapped
+reader/validation causes are not universally redacted; do not log untrusted
+metadata indiscriminately. Report suspected vulnerabilities through the private
 process in [`SECURITY.md`](../SECURITY.md).

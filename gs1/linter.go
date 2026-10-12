@@ -467,6 +467,8 @@ func validIBAN(value string) bool {
 	if !allDigits(value[2:4]) {
 		return false
 	}
+	// Reduce each digit/letter contribution modulo 97 rather than parsing the
+	// expanded IBAN as a machine integer; its decimal representation can be long.
 	reordered := value[4:] + value[:4]
 	remainder := 0
 	for _, character := range reordered {

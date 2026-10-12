@@ -30,13 +30,15 @@
     {
       "id": "BARCODE-DEC-005",
       "digests": [
-        "5509d9b90142b2fca8cb8320822095112f57baedb3c11fceb1a35d41f28d5798"
+        "5509d9b90142b2fca8cb8320822095112f57baedb3c11fceb1a35d41f28d5798",
+        "86a25c3e46de9473bd03f818fdaece6627b8cec0078f5d5ca1fce90dd648bb32"
       ]
     },
     {
       "id": "BARCODE-DEC-006",
       "digests": [
-        "c572c740bf280c45bdd512820f8ce6917332b76c817f07bdd425316a08076e32"
+        "c572c740bf280c45bdd512820f8ce6917332b76c817f07bdd425316a08076e32",
+        "e162511efa087b8aeea917226f527d54ded35238d1f5e29bb6da62dd7c186cea"
       ]
     },
     {
@@ -75,7 +77,8 @@
     {
       "id": "BARCODE-DEC-012",
       "digests": [
-        "7981dd70757727139bdabab90bb8609d8e89ec3acf0504719d046799b77f9226"
+        "7981dd70757727139bdabab90bb8609d8e89ec3acf0504719d046799b77f9226",
+        "e0ed44a019e12430064ee9341e0663d72ddab9f45ecc7a905b561f038a74a514"
       ]
     },
     {
@@ -88,7 +91,8 @@
       "id": "BARCODE-DEC-014",
       "digests": [
         "2d5a3129516cab975b90111f12f8cfff19e22222f41af8e67dd348d4738f4fc8",
-        "fb3ef64be8a6f098cb66185c13e94cc24d94a4840e4046c2bae028bb3b4175a8"
+        "fb3ef64be8a6f098cb66185c13e94cc24d94a4840e4046c2bae028bb3b4175a8",
+        "c56ac6dbbdfc69eddc3daf958b76464b9cba716e086d0dd3ff38b9ad83e43732"
       ]
     },
     {

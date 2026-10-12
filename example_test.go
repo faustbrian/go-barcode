@@ -1,3 +1,6 @@
+// Package barcode_test exercises public composition, software peers, frozen
+// render fixtures and examples. It is a test-only root, not an importable runtime
+// facade. Corpus/peer qualification remains separate from source documentation.
 package barcode_test
 
 import (

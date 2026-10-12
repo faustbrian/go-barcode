@@ -1,5 +1,9 @@
 // Package encoder implements Aztec encoding with GS1 and ECI controls.
 // It derives from github.com/ericlevine/zxinggo v0.1.0 under Apache-2.0.
+// Public aztec wrappers own payload/option admission; this mutable-bit output
+// seam is not an independently bounded hostile-input API. Tables are initialized
+// once and read-only, while each encoding owns new bit/matrix work. The historical
+// ISO/IEC 24778:2008 profile is recorded in BARCODE-DEC-011 and NOTICE.md.
 package encoder
 
 import (
@@ -11,10 +15,15 @@ import (
 
 // AztecCode holds the result of encoding data into an Aztec barcode.
 type AztecCode struct {
-	Matrix    *bitutil.BitMatrix
-	Compact   bool
-	Size      int
-	Layers    int
+	// Matrix is the mutable owned bit matrix; public wrappers copy logical modules.
+	Matrix *bitutil.BitMatrix
+	// Compact records the chosen compact/full layout.
+	Compact bool
+	// Size is the matrix side before wrapper quiet zone.
+	Size int
+	// Layers is the chosen validated data-layer count.
+	Layers int
+	// CodeWords counts stuffed data words, excluding correction words.
 	CodeWords int
 }
 
@@ -49,6 +58,10 @@ func Encode(data []byte, minECCPercent int, userSpecifiedLayers int) (*AztecCode
 }
 
 // EncodeWithControls adds optional FLG(0) GS1 and FLG(n) ECI prefixes.
+// The wrapper must bound data/minECCPercent and supply a valid signed layer
+// request (negative compact, positive full, zero automatic). It does not validate
+// GS1 element syntax or transcode ECI data. New mutable output belongs to the
+// caller; derived size/stuffing/parity can make admitted payloads exceed capacity.
 func EncodeWithControls(
 	data []byte,
 	minECCPercent int,
@@ -235,6 +248,9 @@ func fullMatrixSize(baseMatrixSize int) int {
 
 // stuffBits processes the data bit stream, inserting stuff bits to prevent
 // all-zero or all-one codewords. Matches the Java ZXing Encoder.stuffBits.
+// Stuffing prevents all-zero/all-one data words; the changed word boundary
+// feeds capacity and Reed-Solomon sizing. Keep stuffing before layer fit checks.
+// Encoder tests compare bit/word output against the selected peer profile.
 func stuffBits(bits *bitutil.BitArray, wordSize int) *bitutil.BitArray {
 	out := bitutil.NewBitArray(0)
 	n := bits.Size()

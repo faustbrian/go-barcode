@@ -15,6 +15,9 @@ import (
 	"golang.org/x/text/encoding/htmlindex"
 )
 
+// twoDReader contains panics only within this adapter call, translates metadata
+// and restores selected DataMatrix control semantics. It does not make PDF417,
+// generic image callbacks or the entire decode loop panic-safe.
 type twoDReader struct {
 	reader zxinggo.Reader
 	format gozxing.BarcodeFormat
@@ -129,6 +132,9 @@ func decodeControlledDataMatrix(codewords []byte) (string, bool) {
 	return controlled.text, ok
 }
 
+// Recognize this module's control-prefix/Base256 profile; other encodings remain
+// with the peer. Position-dependent unrandomization includes every prior control
+// and length codeword. Unknown ECI preserves bytes and emits unsupported metadata.
 func decodeControlledDataMatrixDetails(codewords []byte) (dataMatrixControls, bool) {
 	controlled := dataMatrixControls{}
 	if len(codewords) == 0 {

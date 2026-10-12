@@ -1,4 +1,11 @@
-// Package codabar encodes AIM Codabar logical symbols.
+// Package codabar constructs logical barcodes for the pinned profile
+// ANSI/AIM BC3-1995 (historical withdrawn target).
+// Encode accepts 1..80 bytes from 0123456789-$:/.+ and adds A..D guards.
+// No optional application checksum is invented. See BARCODE-DEC-001/007.
+// Output owns copied payload/geometry; calls are synchronous and borrow input
+// only during encoding. It does not own rendering, scan devices, allocation
+// policy for caller-sized margins or content authenticity. Exact identities and
+// evidence are in specification/manifest.json and specification/evidence.tsv.
 package codabar
 
 import (
@@ -24,10 +31,16 @@ var ErrInvalidInput = errors.New("codabar: invalid input")
 
 // Options controls Codabar guards and logical dimensions.
 type Options struct {
-	Start     byte
-	Stop      byte
+	// Start selects A,B,C,D; zero selects A. It is not part of Symbol.Payload.
+	Start byte
+	// Stop selects A,B,C,D; zero selects A. It is not part of Symbol.Payload.
+	Stop byte
+	// QuietZone is the per-side logical margin; zero selects 10 and smaller
+	// positive values are rejected. There is no absolute positive upper bound here;
+	// callers must bound dimensions before encoding untrusted requests.
 	QuietZone int
-	Height    int
+	// Height is the logical bar height; zero selects 50, negative or above 4096 is rejected.
+	Height int
 }
 
 // Encode adds explicit start and stop characters around payload. Zero-valued

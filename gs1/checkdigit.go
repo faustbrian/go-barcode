@@ -1,4 +1,12 @@
-// Package gs1 validates GS1 identifiers and element strings.
+// Package gs1 parses GS1 release 26.0/January 2026 element syntax and bounded
+// modulo-10 numeric keys. ParseRaw/ParseBracketed use the embedded dictionary
+// release 2026-01-27, loaded once and then read-only; Elements returns copied
+// entries but strings can retain the original input's backing storage.
+//
+// Syntax/linter/check-digit validation is not identity authentication or a live
+// company-prefix registry lookup. No barcode control codewords, transport,
+// device or cancellation lifecycle are owned here. See BARCODE-DEC-008,
+// specification/README.md and NOTICE.md for the exact dictionary/reference pins.
 package gs1
 
 import "errors"

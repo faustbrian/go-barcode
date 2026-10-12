@@ -1,4 +1,9 @@
-// Package render converts immutable logical symbols to raster and SVG output.
+// Package render converts logical symbols to exact integer-module raster, PNG
+// or SVG output through Image/PNG/SVG. It adds no quiet zone or antialiasing;
+// margins belong to the supplied symbol. Inputs remain caller-owned and writers
+// are never closed. Returned pixels are mutable caller-owned image storage.
+// Geometry limits do not bound all copies/callbacks/output I/O or guarantee
+// physical readability; see BARCODE-DEC-005 and rendering/golden fixtures.
 package render
 
 import (
@@ -27,22 +32,35 @@ var (
 	ErrLimitExceeded = errors.New("render: limit exceeded")
 )
 
-// Limits bounds work before a raster, SVG, or intermediate buffer is
-// allocated. Zero values select conservative defaults.
+// Limits bounds final geometry before the new raster or SVG writes. Logical
+// accessors make defensive copies before this admission step; upstream symbol
+// storage, color callbacks, PNG compression and writer allocations are not capped.
 type Limits struct {
+	// MaxDimension caps either final output axis; zero selects 32768, negative fails.
 	MaxDimension int
-	MaxPixels    int
+	// MaxPixels caps final width*height; zero selects 64Mi pixels, negative fails.
+	// This is geometry admission, not a total temporary-memory or output-byte budget.
+	MaxPixels int
 }
 
 // Options controls integer scaling, colors, and allocation limits.
 type Options struct {
-	Scale      int
+	// Scale is an integer module multiplier; zero selects 1, negative fails.
+	Scale int
+	// Foreground is borrowed Color input; nil selects opaque black.
+	// Its RGBA callback must be prompt/safe; it is not isolated from panics.
 	Foreground color.Color
+	// Background is borrowed Color input; nil selects opaque white.
+	// Arbitrary color choices do not guarantee scanner contrast.
 	Background color.Color
-	Limits     Limits
+	// Limits constrains final pixel geometry after obtaining logical defensive copies.
+	Limits Limits
 }
 
-// Image renders each logical module as an exact integer square.
+// Image renders each logical module as an exact integer square into a new
+// mutable NRGBA image. Invalid/overflowing/excess geometry fails before raster
+// allocation, but logical defensive copies precede these checks. Borrowed Color
+// callbacks can block/panic and are not canceled; output contrast is caller policy.
 func Image(symbol barcode.Symbol, options Options) (image.Image, error) {
 	geometry, err := prepare(symbol, options)
 	if err != nil {
@@ -84,7 +102,10 @@ func Image(symbol barcode.Symbol, options Options) (image.Image, error) {
 	return output, nil
 }
 
-// PNG writes deterministic PNG pixels for a logical symbol.
+// PNG constructs the raster and writes its PNG encoding to a borrowed writer.
+// Nil writer fails; writer errors are wrapped and partial output may remain.
+// It does not close the writer, retry, cap encoded bytes or impose an I/O deadline.
+// Canonical fixtures describe selected bytes, not stability across all future codecs.
 func PNG(writer io.Writer, symbol barcode.Symbol, options Options) error {
 	if writer == nil {
 		return ErrInvalidSymbol
@@ -100,7 +121,10 @@ func PNG(writer io.Writer, symbol barcode.Symbol, options Options) error {
 	return nil
 }
 
-// SVG writes a vector document using only integer module coordinates.
+// SVG streams integer-coordinate rectangles from the logical symbol after
+// geometry admission. It returns wrapped writer failures; partial documents are
+// possible and no transactional publication, writer closure or deadline is added.
+// Colors become fixed numeric NRGBA attributes, never arbitrary XML content.
 func SVG(writer io.Writer, symbol barcode.Symbol, options Options) error {
 	if writer == nil {
 		return ErrInvalidSymbol
@@ -221,6 +245,8 @@ func prepare(symbol barcode.Symbol, options Options) (prepared, error) {
 	}, nil
 }
 
+// Positive operands are established by prepare; division avoids overflowing
+// multiplication before comparing the pixel budget. Do not call with zero right.
 func boundedProduct(left, right, limit int) (int, bool) {
 	if left > math.MaxInt/right {
 		return 0, false

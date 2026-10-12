@@ -1,4 +1,15 @@
-// Package barcode defines format-neutral barcode symbols and metadata.
+// Package barcode defines copied logical matrices, alternating bar runs, symbols
+// and decode-result metadata. Construct values with NewMatrix/NewBars/NewSymbol
+// or NewDecodeResult; accessors returning slices make defensive copies. Constructed
+// values can be read concurrently when callers respect input ownership during
+// construction. Zero values are empty, not validated encodings.
+//
+// These are geometry/data containers, not symbology validators, scanners or memory
+// admission controls. Format labels and reported checksum/confidence are metadata,
+// not authentication, registry allocation or physical-device certification. No
+// payload is executed or followed. Exact historical editions and implemented
+// profiles are listed by CapabilityFor and specification/manifest.json; see
+// BARCODE-DEC-001 through 004 and 014 through 016 for the evidence boundary.
 package barcode
 
 import (
@@ -44,22 +55,33 @@ const (
 
 // Specification pins the normative source used for a format implementation.
 type Specification struct {
-	Title   string
+	// Title names the pinned publication, not a completeness claim.
+	Title string
+	// Edition identifies the compatibility target, which may be withdrawn.
 	Edition string
-	URL     string
+	// URL is authoritative publication metadata; it is not a licensed-text copy.
+	URL string
 }
 
 // Capability reports implemented behavior. Advertised remains false until
 // encoding, decoding, validation, metadata, and interoperability evidence are
 // all complete for the format.
 type Capability struct {
-	Format        Format
+	// Format identifies the known symbology.
+	Format Format
+	// Specification is the exact reviewed target identity, not automatic latest-edition adoption.
 	Specification Specification
-	Encode        bool
-	Decode        bool
-	GS1           bool
-	Advertised    bool
-	Limitations   []string
+	// Encode reports an implemented software encoding path, not every optional feature.
+	Encode bool
+	// Decode reports an image decoding path; reader/application validation may differ.
+	Decode bool
+	// GS1 reports supported carrier/identifier integration, not allocation authentication.
+	GS1 bool
+	// Advertised is the maintained capability decision; DataMatrix/PDF417 remain
+	// false pending sequence-assembly completeness. It does not certify physical scans.
+	Advertised bool
+	// Limitations is a copied list of known profile restrictions.
+	Limitations []string
 }
 
 var capabilities = []Capability{
@@ -148,7 +170,9 @@ type Matrix struct {
 	modules []bool
 }
 
-// NewMatrix validates and copies a logical module matrix.
+// NewMatrix rejects nonpositive/overflowing dimensions and a mismatched module
+// count, then copies the data. It imposes no absolute allocation budget. Input
+// must not be mutated while copied; NewMatrix does not validate format patterns.
 func NewMatrix(width, height int, modules []bool) (Matrix, error) {
 	if width <= 0 || height <= 0 || width > int(^uint(0)>>1)/height {
 		return Matrix{}, ErrInvalidDimensions
@@ -175,7 +199,9 @@ func (matrix Matrix) Modules() []bool { return append([]bool(nil), matrix.module
 
 // Bar describes one contiguous dark or light run in module units.
 type Bar struct {
-	Dark  bool
+	// Dark selects a dark run; the first run may instead be quiet-zone light.
+	Dark bool
+	// Width is a positive logical module count, not pixels.
 	Width int
 }
 
@@ -186,7 +212,9 @@ type Bars struct {
 	runs   []Bar
 }
 
-// NewBars validates and copies a logical one-dimensional symbol.
+// NewBars validates positive height/run widths, alternation and total-width
+// overflow, then copies the runs. It does not cap run count/height/total memory
+// or prove a barcode alphabet, checksum or quiet-zone contract.
 func NewBars(height int, runs []Bar) (Bars, error) {
 	if height <= 0 || len(runs) == 0 {
 		return Bars{}, ErrInvalidBars
@@ -246,14 +274,23 @@ const (
 
 // DecodeResultOptions contains data returned by a logical or image decoder.
 type DecodeResultOptions struct {
-	Format        Format
-	Payload       []byte
-	RawBytes      []byte
-	Orientation   Orientation
-	Checksum      ChecksumStatus
-	Confidence    float64
+	// Format must be known but need not be advertised. Unknown labels appear in the error.
+	Format Format
+	// Payload is copied without a constructor length or content-validation budget.
+	Payload []byte
+	// RawBytes is copied independently and may differ from decoded Payload.
+	RawBytes []byte
+	// Orientation must be one of 0,90,180,270; it is a reported display correction.
+	Orientation Orientation
+	// Checksum must be a declared status; the constructor does not recalculate a checksum.
+	Checksum ChecksumStatus
+	// Confidence is range-checked only when HasConfidence; NaN is not explicitly rejected.
+	// Callers needing a finite score must enforce that requirement themselves.
+	Confidence float64
+	// HasConfidence marks whether Confidence is meaningful, not its calibration.
 	HasConfidence bool
-	Diagnostics   []string
+	// Diagnostics is slice-copied but neither length-limited nor redacted by this constructor.
+	Diagnostics []string
 }
 
 // DecodeResult contains immutable decoded content and machine-readable
@@ -269,7 +306,10 @@ type DecodeResult struct {
 	diagnostics   []string
 }
 
-// NewDecodeResult validates and defensively copies decoded data.
+// NewDecodeResult validates known format, orientation/status enums and reported
+// confidence range, then copies all byte/diagnostic slices. It performs no
+// payload/diagnostic admission, finite-NaN check, redaction or checksum validation.
+// Unknown format errors include the caller-supplied label; see BARCODE-DEC-014.
 func NewDecodeResult(options DecodeResultOptions) (DecodeResult, error) {
 	if _, ok := CapabilityFor(options.Format); !ok {
 		return DecodeResult{}, fmt.Errorf("%w: %q", ErrUnsupportedFormat, options.Format)
@@ -320,12 +360,17 @@ func (result DecodeResult) Diagnostics() []string {
 	return append([]string(nil), result.diagnostics...)
 }
 
-// SymbolOptions contains validated logical symbol input.
+// SymbolOptions supplies logical symbol input; NewSymbol validates container shape
+// and ownership, not the format-specific meaning of the supplied modules.
 type SymbolOptions struct {
-	Format  Format
+	// Format labels the symbol; the constructor does not verify symbology or geometry agreement.
+	Format Format
+	// Payload is copied, may be empty, and has no constructor admission budget.
 	Payload []byte
-	Matrix  Matrix
-	Bars    Bars
+	// Matrix supplies a validated matrix; exactly one of Matrix/Bars must be nonempty.
+	Matrix Matrix
+	// Bars supplies validated alternating runs; exactly one of Matrix/Bars must be nonempty.
+	Bars Bars
 }
 
 // Symbol is an immutable logical barcode independent of rendered pixels.
@@ -337,7 +382,10 @@ type Symbol struct {
 	hasBars bool
 }
 
-// NewSymbol validates and copies a logical symbol.
+// NewSymbol accepts a known format and exactly one nonempty logical representation,
+// copying payload and modules/runs. It does not validate symbology-specific pattern,
+// payload/geometry agreement or total allocation limits. Unknown-format errors
+// include the caller label. See BARCODE-DEC-004 and core copy/shape tests.
 func NewSymbol(options SymbolOptions) (Symbol, error) {
 	if _, ok := CapabilityFor(options.Format); !ok {
 		return Symbol{}, fmt.Errorf("%w: %q", ErrUnsupportedFormat, options.Format)

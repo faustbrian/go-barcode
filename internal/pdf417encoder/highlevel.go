@@ -94,7 +94,9 @@ func init() {
 
 // EncodeHighLevel performs high-level encoding of a PDF417 message using the
 // algorithm described in annex P of ISO/IEC 15438:2001(E).
-// This is a simplified port that does not support ECI or custom charsets.
+// This compaction stage does not transcode or add ECI; the outer builder adds
+// controls separately. Output runes are codewords, not UTF-8 payload bytes. The
+// 2001 algorithm attribution is historical, not a licensed 2015 clause review.
 func EncodeHighLevel(msg string, compaction Compaction) (string, error) {
 	if len(msg) == 0 {
 		return "", errors.New("empty message not allowed")

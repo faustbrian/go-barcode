@@ -1,4 +1,8 @@
-// Package linear adapts logical one-dimensional ZXing encoders.
+// Package linear adapts selected ZXing writers to alternating logical runs.
+// It is an internal trusted-wrapper seam: writers/hints are borrowed, no input
+// or dimension admission is supplied, and no symbology/device qualification is
+// implied. Hints are mutated to zero dependency margin so caller quiet zones
+// can be added exactly once. See TestEncodeMergesTrailingLightRunWithQuietZone.
 package linear
 
 import (
@@ -9,7 +13,11 @@ import (
 )
 
 // Encode returns exact logical runs with asymmetric quiet zones added after
-// the dependency has produced its unscaled core modules.
+// the dependency has produced its unscaled core modules. The provided hints map
+// is mutated (MARGIN=0), not copied. writer must return a nonempty matrix and
+// dimensions/margins must already be bounded; callbacks can block or panic.
+// It returns writer errors unchanged and wraps bar-shape errors. No cancellation
+// or protection against margin-sum overflow is added by this trusted seam.
 func Encode(
 	writer gozxing.Writer,
 	format gozxing.BarcodeFormat,

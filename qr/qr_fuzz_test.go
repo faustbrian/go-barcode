@@ -6,6 +6,8 @@ import (
 	"github.com/faustbrian/go-barcode/v2/qr"
 )
 
+// FuzzEncodeOptions explores bounded payload/mode/correction/mask combinations;
+// it does not cover every ECI or structured-append integer boundary.
 func FuzzEncodeOptions(f *testing.F) {
 	f.Add([]byte("HELLO 123"), byte(0), byte(2), byte(0), byte(4))
 	f.Add([]byte("123456"), byte(1), byte(1), byte(7), byte(8))

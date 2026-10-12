@@ -12,5 +12,6 @@ and reduce data capacity.
 
 Correction metadata does not imply a confidence probability. A decoder result
 reports checksum/correction diagnostics when the underlying format supplies
-them. Callers should treat a successful decode as validated content, not as
+them. A successful decode is untrusted content accepted by the selected reader
+profile, not authentication, independent application-checksum validation, or
 proof that differently transformed image input will remain decodable.

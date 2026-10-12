@@ -138,7 +138,10 @@ func GetRecommendedMinimumErrorCorrectionLevel(n int) (int, error) {
 }
 
 // GenerateErrorCorrection generates the error correction codewords according
-// to 4.10 in ISO/IEC 15438:2001(E).
+// to the historical port's ISO/IEC 15438:2001(E) section 4.10 recurrence.
+// Strings represent Unicode codeword values, not UTF-8 bytes: iterating bytes
+// would change parity for codewords above 127. The local correction and selected
+// peer vectors protect that distinction. Callers must supply valid bounded words.
 func GenerateErrorCorrection(dataCodewords string, level int) (string, error) {
 	k, err := GetErrorCorrectionCodewordCount(level)
 	if err != nil {

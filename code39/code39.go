@@ -1,4 +1,11 @@
-// Package code39 encodes ISO/IEC 16388 Code 39 logical symbols.
+// Package code39 constructs logical barcodes for the pinned profile
+// ISO/IEC 16388:2023 edition 3.
+// Encode expands full ASCII, optionally adding modulo-43; Checksum accepts
+// only the base alphabet. See BARCODE-DEC-007 and character-boundary tests.
+// Output owns copied payload/geometry; calls are synchronous and borrow input
+// only during encoding. It does not own rendering, scan devices, allocation
+// policy for caller-sized margins or content authenticity. Exact identities and
+// evidence are in specification/manifest.json and specification/evidence.tsv.
 package code39
 
 import (
@@ -24,13 +31,21 @@ var ErrInvalidInput = errors.New("code39: invalid input")
 
 // Options controls Code 39 checksum, quiet zone, and bar height.
 type Options struct {
-	Checksum  bool
+	// Checksum appends modulo-43 to full-ASCII-expanded data, not the raw payload.
+	// It consumes one of the 80 encoded-character slots.
+	Checksum bool
+	// QuietZone is the per-side logical margin; zero selects 10 and smaller
+	// positive values are rejected. There is no absolute positive upper bound here;
+	// callers must bound dimensions before encoding untrusted requests.
 	QuietZone int
-	Height    int
+	// Height is the logical bar height; zero selects 50, negative or above 4096 is rejected.
+	Height int
 }
 
 // Checksum returns the optional Code 39 modulo-43 check character. The input
-// must already use the base Code 39 character set.
+// must already use the base Code 39 character set and be nonempty. This helper
+// has no length budget and accumulates into int; bound input at the application
+// boundary. Encode limits the expanded content passed to it.
 func Checksum(payload []byte) (byte, error) {
 	if len(payload) == 0 {
 		return 0, ErrInvalidInput
@@ -48,7 +63,9 @@ func Checksum(payload []byte) (byte, error) {
 }
 
 // Encode returns a full-ASCII Code 39 symbol with optional modulo-43 check
-// character.
+// character. Payload must be nonempty ASCII; its expanded representation must
+// fit 80 characters including the optional checksum. Expansion occurs before
+// length rejection, so caller input length must be bounded before this API.
 func Encode(payload []byte, options Options) (barcode.Symbol, error) {
 	if len(payload) == 0 || options.QuietZone < 0 || options.Height < 0 {
 		return barcode.Symbol{}, ErrInvalidInput

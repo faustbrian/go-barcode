@@ -495,7 +495,9 @@ var codewordTable = [3][929]int{
 }
 
 // PDF417Encoder is the top-level struct for the logic part of the PDF417
-// implementation.
+// implementation. Configure/generate it under one owner; it is mutable and not
+// concurrency-safe. BarcodeMatrix lends the last successful generated builder,
+// which may remain available after a later validation failure.
 type PDF417Encoder struct {
 	barcodeMatrix *BarcodeMatrix
 	compact       bool
@@ -507,18 +509,34 @@ type PDF417Encoder struct {
 }
 
 // Macro describes a Macro PDF417 control block. FileID contains groups of
-// three decimal digits, one group for each file-identification codeword.
+// three characters, each parsed with strconv.Atoi as a codeword 0..899.
+// Optional numbers are nonnegative, not checked against an assembled file or
+// other parts. String/pointer storage is borrowed during synchronous generation.
 type Macro struct {
+	// SegmentIndex is 0..99998; the caller owns sequence identity/order.
 	SegmentIndex int
-	FileID       string
-	LastSegment  bool
-	FileName     string
+	// FileID is nonempty three-character groups parsed as 0..899 codewords.
+	// It is caller-managed metadata, not a file path or authenticity claim.
+	FileID string
+	// LastSegment emits the macro terminator; it does not assemble other parts.
+	LastSegment bool
+	// FileName optionally encodes text-compaction metadata, never opens a file.
+	FileName string
+	// SegmentCount optionally supplies a nonnegative declared count;
+	// no cross-part consistency or index/count relation is validated.
 	SegmentCount *int
-	Timestamp    *int64
-	Sender       string
-	Addressee    string
-	FileSize     *int64
-	Checksum     *int
+	// Timestamp optionally supplies a nonnegative numeric value;
+	// no timezone/unit conversion is performed by this encoder.
+	Timestamp *int64
+	// Sender optionally encodes text-compaction metadata, not authenticated identity.
+	Sender string
+	// Addressee optionally encodes text-compaction metadata, not routing or delivery.
+	Addressee string
+	// FileSize optionally supplies a nonnegative number, not a payload-size validation.
+	FileSize *int64
+	// Checksum optionally supplies a nonnegative macro number, not a checksum
+	// calculated or verified against the assembled file.
+	Checksum *int
 }
 
 // NewPDF417Encoder creates a new PDF417Encoder with default settings.
@@ -533,7 +551,9 @@ func NewPDF417Encoder() *PDF417Encoder {
 	}
 }
 
-// SetDimensions sets max/min row/col values.
+// SetDimensions assigns bounds without validation. Public wrappers admit rows
+// and columns before calling; invalid/zero columns can cause division or indexing
+// failures. This setter does not reserve storage or normalize caller values.
 func (p *PDF417Encoder) SetDimensions(maxCols, minCols, maxRows, minRows int) {
 	p.maxCols = maxCols
 	p.minCols = minCols
@@ -551,7 +571,8 @@ func (p *PDF417Encoder) SetCompact(compact bool) {
 	p.compact = compact
 }
 
-// BarcodeMatrix returns the barcode matrix.
+// BarcodeMatrix lends the mutable current matrix, nil before successful
+// generation. It is not a defensive copy and can be invalidated/replaced on reuse.
 func (p *PDF417Encoder) BarcodeMatrix() *BarcodeMatrix {
 	return p.barcodeMatrix
 }
@@ -563,7 +584,11 @@ func (p *PDF417Encoder) GenerateBarcodeLogic(msg string, errorCorrectionLevel in
 }
 
 // GenerateBarcodeLogicWithControls generates a symbol with an optional ECI
-// prefix and Macro PDF417 control block.
+// prefix and Macro PDF417 control block. Payload/dimension/macro admission is
+// shared with the public wrapper; correction levels and ECI are checked here.
+// Text/numeric fields are encoded, not authenticated or assembled as files.
+// Codeword capacity is checked after high-level/macro conversion, not before
+// every temporary allocation. No cancellation or synchronization is supplied.
 func (p *PDF417Encoder) GenerateBarcodeLogicWithControls(
 	msg string, errorCorrectionLevel, eci int, macro *Macro,
 ) error {

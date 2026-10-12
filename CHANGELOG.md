@@ -81,6 +81,11 @@ versioning.
 
 ### Documentation
 
+- Clarify encoder control/ownership limits, actual rendering allocation order,
+  image admission versus hard resource bounds, and decode metadata/privacy.
+- Reconcile BARCODE-DEC-005, BARCODE-DEC-006, BARCODE-DEC-012 and
+  BARCODE-DEC-014 with those source contracts while preserving standards pins
+  and historical decision digests.
 - Add the canonical installation command, executable quick start, package map,
   stable-v1 and platform status, ownership and concurrency contracts, benchmark
   guidance, troubleshooting, and actionable support and security routes.
