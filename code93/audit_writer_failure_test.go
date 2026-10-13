@@ -38,3 +38,26 @@ func TestCode93PreservesActualExtendedCapacityWriterFailure(t *testing.T) {
 		}
 	}
 }
+
+// TestCode93InvalidRawInputStopsBeforeWriter distinguishes local admission
+// errors from classified causes for valid raw input that expands too far.
+func TestCode93InvalidRawInputStopsBeforeWriter(t *testing.T) {
+	for _, test := range []struct {
+		name    string
+		payload []byte
+		options code93.Options
+	}{
+		{name: "empty"},
+		{name: "raw capacity", payload: bytes.Repeat([]byte("A"), 81)},
+		{name: "negative height", payload: []byte("A"), options: code93.Options{Height: -1}},
+		{name: "negative quiet zone", payload: []byte("A"), options: code93.Options{QuietZone: -1}},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			symbol, err := code93.Encode(test.payload, test.options)
+			var writerCause gozxing.WriterException
+			if !errors.Is(err, code93.ErrInvalidInput) || errors.As(err, &writerCause) || !reflect.DeepEqual(symbol, barcode.Symbol{}) {
+				t.Fatalf("raw admission reached writer or published output: %v", err)
+			}
+		})
+	}
+}
