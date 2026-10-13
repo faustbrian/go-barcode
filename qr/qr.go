@@ -81,8 +81,7 @@ const (
 // and parity. Decoding/assembling a sequence is a separate consumer responsibility.
 type StructuredAppend struct {
 	// Index is the zero-based part index and must be less than Total.
-	// Local validation checks nonnegative before packing; keep it in the four-bit
-	// range. The peer validates packed bytes, not the original integer.
+	// Encode validates the original integer before four-bit header packing.
 	Index int
 	// Total is the declared part count, from 2 through 16.
 	Total int
@@ -481,8 +480,7 @@ func extendedSegments(payload []byte, options Options) []unixcoding.Segment {
 }
 
 // structuredAppendBytes packs caller-supplied sequence metadata into two bytes.
-// Its index must already fit four bits; local checks alone do not bound large
-// nonnegative indexes, so the source audit records that validation limitation.
+// validateOptions bounds the original index below Total (2..16) before packing.
 func structuredAppendBytes(header StructuredAppend) [2]byte {
 	// #nosec G115 -- index and total were bounded to four-bit fields.
 	return [2]byte{byte(header.Index<<4 | (header.Total - 1)), header.Parity}
@@ -619,7 +617,7 @@ func validateOptions(payload []byte, options Options) (int, bool, error) {
 		if options.StructuredAppend.Total > 16 {
 			return 0, false, ErrInvalidInput
 		}
-		if options.StructuredAppend.Index < 0 {
+		if options.StructuredAppend.Index < 0 || options.StructuredAppend.Index >= options.StructuredAppend.Total {
 			return 0, false, ErrInvalidInput
 		}
 	}

@@ -1,9 +1,9 @@
 // Package code93 constructs logical barcodes for the pinned profile
 // ANSI/AIM BC5-1995 (historical withdrawn target).
 // Encode admits 1..80 ASCII bytes before the selected full-ASCII writer adds
-// C/K checks. The local wrapper discards that writer error, so raw length alone
-// does not prove successful expansion/capacity. The 2000 AIM publication is a
-// separate review input, not this target (DEC-001/007).
+// C/K checks. Expanded capacity failures return ErrInvalidInput with the
+// selected writer cause; raw length alone does not guarantee capacity.
+// The 2000 AIM publication is a separate review input, not this target (DEC-001/007).
 // Output owns copied payload/geometry; calls are synchronous and borrow input
 // only during encoding. It does not own rendering, scan devices, allocation
 // policy for caller-sized margins or content authenticity. Exact identities and
@@ -12,6 +12,7 @@ package code93
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/faustbrian/go-barcode/v2/barcode"
 	"github.com/faustbrian/go-barcode/v2/internal/linear"
@@ -40,9 +41,9 @@ type Options struct {
 }
 
 // Encode requests a full-ASCII Code 93 symbol with mandatory C/K checks from
-// the selected writer. It validates raw payload/options first, but currently
-// discards writer and core-constructor errors; nil error alone does not prove a
-// nonempty symbol if expansion exceeds peer capacity. Bound margins before use.
+// the selected writer. It validates raw payload/options first and returns no
+// symbol on expanded-capacity or construction failure, wrapping ErrInvalidInput
+// and the inspectable cause. Bound margins before use.
 func Encode(payload []byte, options Options) (barcode.Symbol, error) {
 	if len(payload) == 0 || len(payload) > maxPayloadBytes ||
 		options.QuietZone < 0 || options.Height < 0 {
@@ -65,7 +66,7 @@ func Encode(payload []byte, options Options) (barcode.Symbol, error) {
 		return barcode.Symbol{}, ErrInvalidInput
 	}
 
-	bars, _ := linear.Encode(
+	bars, err := linear.Encode(
 		oned.NewCode93Writer(),
 		gozxing.BarcodeFormat_CODE_93,
 		string(payload),
@@ -74,9 +75,15 @@ func Encode(payload []byte, options Options) (barcode.Symbol, error) {
 		quietZone,
 		nil,
 	)
-	symbol, _ := barcode.NewSymbol(barcode.SymbolOptions{
+	if err != nil {
+		return barcode.Symbol{}, fmt.Errorf("%w: %w", ErrInvalidInput, err)
+	}
+	symbol, err := barcode.NewSymbol(barcode.SymbolOptions{
 		Format: barcode.Code93, Payload: payload, Bars: bars,
 	})
 
+	if err != nil {
+		return barcode.Symbol{}, fmt.Errorf("%w: %w", ErrInvalidInput, err)
+	}
 	return symbol, nil
 }

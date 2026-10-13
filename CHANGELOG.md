@@ -3,6 +3,46 @@
 All notable changes are documented here. The project follows semantic
 versioning.
 
+## v2.0.3 - 2026-10-13
+
+This entry records a prepared patch; publication is separate. Adopt v2.0.3 only
+after its public tag and module artifacts are available.
+
+### Fixed
+
+- BARCODE-DEC-006 sha256:6030d7cd5568a3c9a85e35fcc043c3d830348b194a30f793ecbb33d64c834b2e:
+  restore original-integer structured-append admission.
+- BARCODE-DEC-007 sha256:c718fc74f1dc11a63a91435b23666f2fd5641dfe9898b44bfe9f5e0e27d0df50:
+  retain classified Code 93 expansion failures and their causes.
+- Reject out-of-range QR structured-append indexes before four-bit packing,
+  preserving valid sequence identities instead of accepting integer aliases.
+- Return classified Code 93 expanded-capacity errors with their writer causes
+  and no symbol instead of reporting success for an empty result.
+
+### Source accountability
+
+The prepared patch includes these 11 non-merge source commits after public
+`v2.0.2` (`73c23703cb7dd07d592ad1a1b723efb3a88c64e0`) through
+`1545fbcf13e5a0feb8e67fe2e232589c28102635`. The current integer-admission and
+writer-error repair is outside that frozen history range.
+
+- Patched documentation tooling and parser inputs:
+  [29f02c6d82](https://github.com/faustbrian/go-barcode/commit/29f02c6d82a1bf7c02730087a3d0726dc015e4e5),
+  [f976e25cfb](https://github.com/faustbrian/go-barcode/commit/f976e25cfba13d347a389e19f0f149ff7d6b5c4f).
+- Bounded verification, selected assurance, supply-chain tooling and tracked
+  source documentation:
+  [1a278f1e60](https://github.com/faustbrian/go-barcode/commit/1a278f1e6083ec033baae78ea0c860a0368f390a),
+  [d6e22c2175](https://github.com/faustbrian/go-barcode/commit/d6e22c217561f5ebb0c300742473f888e7a85d46),
+  [a5798b5606](https://github.com/faustbrian/go-barcode/commit/a5798b5606e278b36d18e185c67a3cb94f7f18fb),
+  [43ca303c80](https://github.com/faustbrian/go-barcode/commit/43ca303c80adc92c53e7241c4da7f7b32272caba).
+- Bounded encoder, public source contracts and standalone adoption guidance:
+  [aa273c68a7](https://github.com/faustbrian/go-barcode/commit/aa273c68a77540328b0d258d164f7b452cbc15cb),
+  [4f9d6473a7](https://github.com/faustbrian/go-barcode/commit/4f9d6473a7e1804cbdf008f070505c2a13c3bcae),
+  [1545fbcf13](https://github.com/faustbrian/go-barcode/commit/1545fbcf13e5a0feb8e67fe2e232589c28102635).
+- Documentation dependency monitoring and repository development policy:
+  [0433ad7d72](https://github.com/faustbrian/go-barcode/commit/0433ad7d72f8a299ccc700c598e5cff342b3d348),
+  [4dcc692131](https://github.com/faustbrian/go-barcode/commit/4dcc6921319c141fe3075031b94f1568e4fe96c0).
+
 ## v2.0.2 - 2026-10-02
 
 ### Changed

@@ -26,3 +26,16 @@ and its byte cap; the decoder enforces `MaxEncodedBytes` before image parsing.
 Do not start a goroutine solely to wrap a blocking reader, because cancellation
 cannot guarantee that goroutine exits. Version 1 remains available at its
 unchanged import path for callers that cannot yet migrate.
+
+## QR and Code 93 admission restoration
+
+Explicit QR structured-append headers must satisfy `0 <= Index < Total <= 16`
+with at least two parts. Invalid original integers now return `qr.ErrInvalidInput`
+and no symbol instead of aliasing through header packing. Valid headers and
+`EncodeStructured` splitting/parity remain unchanged.
+
+Code 93 raw ASCII length admission does not guarantee that full-ASCII expansion
+fits the selected writer. Check `code93.Encode` errors before rendering: expansion
+failures now return no symbol, wrap `code93.ErrInvalidInput`, and retain the
+writer cause for `errors.As`. Margins remain caller-bounded. This restores failure
+reporting; it does not select a new format edition or prove hardware readability.
