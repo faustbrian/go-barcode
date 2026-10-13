@@ -1,5 +1,8 @@
 # Comparison with established libraries
 
+[Documentation map](index.md) · [Repository README](../README.md)
+[Next: API and format options](api.md)
+
 `barcode` differs from image-first barcode packages by making immutable
 logical modules and typed format options the public contract. It also exposes
 machine-readable capability limitations and caller-provided decode budgets.

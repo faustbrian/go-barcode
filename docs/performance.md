@@ -1,5 +1,8 @@
 # Performance and benchmarks
 
+[Documentation map](index.md) · [Repository README](../README.md)
+[Next: API and format options](api.md)
+
 Barcode performance depends on payload length, symbology, correction level,
 logical dimensions, render scale, source-image dimensions, requested formats,
 and enabled decode transformations. Compare results only when those inputs and

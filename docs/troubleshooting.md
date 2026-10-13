@@ -1,5 +1,8 @@
 # Troubleshooting
 
+[Documentation map](index.md) · [Repository README](../README.md)
+[Next: API and format options](api.md)
+
 ## Encoding returns a validation error
 
 Check the format-specific payload alphabet, length, checksum policy, quiet-zone

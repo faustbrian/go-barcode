@@ -1,5 +1,8 @@
 # Source documentation audit
 
+[Documentation map](index.md) · [Repository README](../README.md)
+[Next: API and format options](api.md)
+
 ## Scope and acceptance
 
 Baseline `a5798b5606e278b36d18e185c67a3cb94f7f18fb`; one module,

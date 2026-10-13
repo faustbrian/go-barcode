@@ -1,5 +1,8 @@
 # Software interoperability
 
+[Documentation map](index.md) · [Repository README](../README.md)
+[Next: API and format options](api.md)
+
 Automated writer interoperability uses the independently maintained
 `github.com/speedata/barcode` v1.1.1 implementation for all formats except
 PDF417, which uses `github.com/ruudk/golang-pdf417`. EAN/UPC logical encoders

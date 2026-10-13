@@ -1,5 +1,8 @@
 # FAQ
 
+[Documentation map](index.md) · [Repository README](../README.md)
+[Next: API and format options](api.md)
+
 ## Why is a format implemented but not advertised?
 
 Implementation is only one gate. Independent fixtures, metadata, hostile-input

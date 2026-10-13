@@ -1,5 +1,8 @@
 # Error-correction tradeoffs
 
+[Documentation map](index.md) · [Repository README](../README.md)
+[Next: API and format options](api.md)
+
 QR exposes L, M, Q, and H. More correction increases redundant codewords and
 usually increases the version for the same payload. Use the lowest level that
 meets the damage and scanning environment; increasing correction does not

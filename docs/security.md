@@ -1,5 +1,8 @@
 # Security and resource limits
 
+[Documentation map](index.md) · [Repository README](../README.md)
+[Next: Adoption guide](adoption.md)
+
 ## Threat model (v2 candidate, 2026-09-30)
 
 The assets are service availability, barcode payload confidentiality, and the

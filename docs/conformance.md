@@ -1,5 +1,8 @@
 # Conformance
 
+[Documentation map](index.md) · [Repository README](../README.md)
+[Next: API and format options](api.md)
+
 The module claims conformance only to the exact software profiles and editions
 reported by `barcode.CapabilityFor`. It does not claim physical print quality,
 scanner certification, regulatory certification, or compatibility with

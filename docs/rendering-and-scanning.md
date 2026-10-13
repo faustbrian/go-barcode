@@ -1,5 +1,8 @@
 # Rendering and image decoding
 
+[Documentation map](index.md) · [Repository README](../README.md)
+[Next: API and format options](api.md)
+
 Render at an integer module scale. Do not resize the resulting bitmap with a
 general image resampler: interpolation blurs edges and non-integer scaling
 distorts module widths. SVG output uses integer coordinates and

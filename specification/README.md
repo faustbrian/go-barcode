@@ -1,5 +1,8 @@
 # Standards and fixture inventory
 
+[Documentation map](../docs/index.md) · [Repository README](../README.md)
+[Next: Documentation map](../docs/index.md)
+
 This repository identifies standards but does not redistribute restricted ISO
 or AIM publications. Implementers need licensed access to the listed editions
 for normative review. Public metadata links are recorded in the `barcode`

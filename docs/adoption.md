@@ -1,5 +1,8 @@
 # Adoption guide
 
+[Documentation map](index.md) · [Repository README](../README.md)
+[Next: Security and resource limits](security.md)
+
 1. Inventory formats, payload lengths, GS1 use, render dimensions, and decode
    inputs in the existing system.
 2. Query `barcode.CapabilityFor` and accept the documented limitations for each

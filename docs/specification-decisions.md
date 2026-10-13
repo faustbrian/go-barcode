@@ -1,5 +1,8 @@
 # Barcode specification decisions
 
+[Documentation map](index.md) · [Repository README](../README.md)
+[Next: API and format options](api.md)
+
 This register records observable interpretations and package policy for the
 barcode formats exposed by this module. Exact standards editions, replacement
 editions, restricted-source boundaries, fixture hashes, and independent

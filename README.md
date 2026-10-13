@@ -1,9 +1,7 @@
 # barcode
 
 [![CI](https://github.com/faustbrian/go-barcode/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/faustbrian/go-barcode/actions/workflows/ci.yml)
-[![CodeQL](https://img.shields.io/badge/CodeQL-required-blue)](https://github.com/faustbrian/go-barcode/actions/workflows/ci.yml)
-[![Mutation](https://img.shields.io/badge/mutation-local_or_scheduled-blue)](CONTRIBUTING.md#verification)
-[![Documentation](https://img.shields.io/badge/docs-checked_in_CI-blue)](docs/)
+[![Documentation](https://img.shields.io/badge/docs-adoption_and_API-blue)](docs/index.md)
 [![Go Reference](https://pkg.go.dev/badge/github.com/faustbrian/go-barcode/v2.svg)](https://pkg.go.dev/github.com/faustbrian/go-barcode/v2)
 [![Release](https://img.shields.io/github/v/release/faustbrian/go-barcode?sort=semver)](https://github.com/faustbrian/go-barcode/releases)
 [![Go](https://img.shields.io/badge/go-1.27.0-00ADD8?logo=go)](https://go.dev/)
@@ -17,6 +15,16 @@ output are derived views rather than the source of truth.
 Import paths use `github.com/faustbrian/go-barcode/v2`. The image decoder is an
 additive package; encoders and logical rendering do not require callers to use
 image detection.
+
+## Adoption entry points
+
+The root module is `github.com/faustbrian/go-barcode/v2` (stable).
+It requires Go 1.27.0. Pin the published `v2.0.2` root tag
+with `go get github.com/faustbrian/go-barcode/v2@v2.0.2`.
+Root subpackages share this module; they need no separate installation.
+
+Start with the [documentation map](docs/index.md) for package selection,
+examples, operational constraints, and contributor references.
 
 ## Status and platform
 

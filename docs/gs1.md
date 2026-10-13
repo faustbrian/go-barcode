@@ -1,5 +1,8 @@
 # GS1 recipes
 
+[Documentation map](index.md) · [Repository README](../README.md)
+[Next: API and format options](api.md)
+
 Parse bracketed human input into validated elements before encoding:
 
 ```go

@@ -1,5 +1,8 @@
 # API and format options
 
+[Documentation map](index.md) · [Repository README](../README.md)
+[Next: Security and resource limits](security.md)
+
 The `barcode` package owns typed format identifiers, immutable `Matrix` and
 `Bars` values, `Symbol`, `DecodeResult`, checksum state, diagnostics, and the
 capability registry. Constructors copy caller slices; getters return defensive
