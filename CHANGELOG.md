@@ -3,6 +3,12 @@
 All notable changes are documented here. The project follows semantic
 versioning.
 
+## 2.0.4 - 2026-10-22
+
+### Changed
+
+- Publish the current source and documentation with a fresh immutable tag.
+
 ## v2.0.3 - 2026-10-13
 
 This entry records a prepared patch; publication is separate. Adopt v2.0.3 only
